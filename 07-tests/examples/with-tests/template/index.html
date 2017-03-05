@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Find Cheap Flights</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        input, button {
+            border: 1px solid rgba(0, 0, 0, .3);
+            line-height: 2;
+            width: 100%;
+            font-size: 100%;
+            padding: 0 .5rem;
+            margin-top: 1rem;
+        }
+
+        ul {
+            padding: 0;
+            font-size: 150%;
+            font-family: sans-serif;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <h1>✈ Cheap Flights</h1>
+
+    <form>
+        <input type="search">
+        <button>Find!</button>
+    </form>
+
+    <ul class="flights"></ul>
+
+    <script>
+        const form  = document.querySelector('form');
+        const input = document.querySelector('input');
+        const ul    = document.querySelector('ul');
+
+        form.addEventListener('submit', async event => {
+            event.preventDefault();
+
+            const city = input.value;
+            const url = `/api/search/${city}`;
+
+            const response = await fetch(url);
+            const flights = await response.json();
+
+            ul.textContent = '';
+
+            for (const { from, to, price } of flights) {
+                const li = document.createElement('li');
+                const text = `${from} ✈︎ ${to} <i>${price} ₽</i>`;
+
+                li.innerHTML = text;
+                ul.appendChild(li);
+            }
+        }); 
+    </script>
+</body>
+</html>

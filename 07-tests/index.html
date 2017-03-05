@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Тестирование</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../css/reveal.css">
+    <link rel="stylesheet" href="../lib/css/zenburn.css">
+    <link rel="stylesheet" href="../css/theme/yandex.css" id="theme">
+    <link rel="stylesheet" href="./css/user.css">
+</head>
+<body class="yandex"><div class="reveal"><div class="slides">
+
+<section class="large center">
+    <h2>Тестирование</h2>
+    <p><small>Роман Парадеев</small></p>
+</section>
+
+<section class="center">
+    <p class="left">Тестирование</p>
+    <p class="left"><small>– зачем тестировать и кто это должен делать?</small></p>
+    <p class="left">Автотесты</p>
+    <p class="left"><small>– виды, инструменты, лучшие практики, методологии</small></p>
+    <p class="left">Демо</p>
+    <p class="left"><small>– пишем тесты для веб-приложения</small></p>
+</section>
+
+<section class="center">
+    <h4>Ручное тестирование</h4>
+</section>
+
+<section class="mobile-screen" data-background="white">
+    <style>
+        .mobile-screen img {
+            max-width: 60%;
+        }
+    </style>
+    <h4>Простое веб-приложение ...</h4>
+    <img src="images/app_1.png">
+</section>
+
+<section class="mobile-screen" data-background="white">
+    <h4>... в котором нашёлся баг</h4>
+    <!-- <img src="images/app_2.png"> -->
+    <img src="images/app_3.png">
+</section>
+
+<section>
+    <h4>Типичная отладка приложения</h4>
+
+    <ol>
+        <li class="left fragment">Ввести запрос</li>
+        <li class="left fragment">Нажать кнопку</li>
+        <li class="left fragment">Увидеть ошибку</li>
+        <li class="left fragment">Изменить код</li>
+        <li class="left fragment">Обновить страницу</li>
+        <li class="left fragment">GOTO 1</li>
+    </ol>
+</section>
+
+<section>
+    <h4>Ручное тестирование</h4>
+
+    <p class="left pros">Просто освоить</p>
+
+    <p class="left cons">Отнимает много времени</p>
+    <p class="left">
+        <small>– число сценариев со временем растёт</small>
+        <small>– невозможно проверить сложные сценарии</small>
+    </p>
+
+    <p class="left cons">Тест не повторить один-в-один</p>
+    <p class="left">
+        <small>– легко ошибиться при выполнении сценария</small>
+        <small>– сложно тестировать на нескольких платформах</small>
+    </p>
+</section>
+
+<section class="center">
+    <h4>Автоматизированное тестирование</h4>
+</section>
+
+<section>
+    <h4>Сценарий теста</h4>
+
+    <ol>
+        <li class="left">Ввести запрос</li>
+        <li class="left">Нажать кнопку</li>
+        <li class="left">Увидеть ошибку</li>
+        <li class="left dim">Изменить код</li>
+        <li class="left dim">Обновить страницу</li>
+        <li class="left dim">GOTO 1</li>
+    </ol>
+</section>
+
+<section>
+    <h4>Код теста</h4>
+
+    <pre><code>// Ввести запрос
+enterQuery('London')
+
+// Нажать кнопку
+pressButton()
+
+// Увидеть ошибку
+compareResults([
+    'Moscow ✈︎ London 25000 ₽',
+    'Paris ✈︎ London 20000 ₽',
+])</code></pre>
+</section>
+
+<section>
+    <h4>Тестовая библиотека</h4>
+
+    <pre><code>function enterQuery(text) {
+    document.querySelector('input').value = text
+}
+
+function pressButton() {
+    document.querySelector('button').click()
+}
+
+function compareResults(results) {
+    const list = document.querySelectorAll('li')
+
+    for (let i = 0; i < list.length; i += 1)
+        console.assert(list[i].textContent === results[i],
+            `Unexpected result: ${list[i].textContent}`)
+}</code></pre>
+</section>
+
+<section>
+    <h4>Несколько сценариев</h4>
+
+    <pre><code>function testSearchForLondon() {
+    enterQuery('London')
+    pressButton()
+    compareResults(['Moscow ✈︎ London 25000 ₽',
+                    'Paris ✈︎ London 20000 ₽'])
+}
+
+function testSearchForMoscow() {
+    enterQuery('Moscow')
+    pressButton()
+    compareResults(['Moscow ✈︎ London 25000 ₽',
+                    'Moscow ✈︎ Paris 20000 ₽'])
+}</code></pre>
+</section>
+
+<section>
+    <h4>Запуск тестов</h4>
+
+    <img src="images/assert.png">
+</section>
+
+<section>
+    <h4>Автоматизированное тестирование</h4>
+
+    <p class="left pros">Сценарии зафиксифрованы в коде</p>
+    <p class="left"><small>– сложные сценарии, граничные случаи</small></p>
+
+    <p class="left pros">Не страшно изменять код</p>
+    <p class="left"><small>– рефакторинг, обновление зависимостей</small></p>
+
+    <p class="left pros">Можно использовать как документацию</p>
+    <p class="left"><small>– всегда согласована с кодом</small></p>
+</section>
+
+<section class="center">
+    <h4>Что и как тестировать?</h4>
+</section>
+
+<section>
+    <h4>Область действия теста</h4>
+
+    <p class="left">Отдельные компоненты</p>
+    <p class="left"><small>– атомарные части приложения: модули, функции, классы</small></p>
+    
+    <p class="left">Связи между ними</p>
+    <p class="left"><small>– проверка функциональности, затрагивающей несколько компонентов</small></p>
+    
+    <p class="left">Приложение в целом</p>
+    <p class="left"><small>– смотрим на приложение глазами пользователя</small></p>
+</section>
+
+<section>
+    <h4>Признаки хорошего теста</h4>
+
+    <p class="left">Независимость от других тестов</p>
+    <p class="left"><small>– порядок выполнения не влияет на результат</small></p>
+
+    <p class="left">Понятная структура</p>
+    <p class="left"><small>– подготовка / действие / проверка</small></p>
+
+    <p class="left">Проверка исключительных сценариев</p>
+    <p class="left"><small>– все ли варианты использования кода предусмотрены?</small></p>
+</section>
+
+<section>
+    <h4>Структура теста</h4>
+
+    <p class="left">Название <small class="oneline">– достаточно подробно раскрывает суть теста</small></p>
+    <p class="left">Подготовка <small class="oneline">– создание и конфигурация объектов, заполнение БД</small></p>
+    <p class="left">Действие <small class="oneline">– выполнение тестируемого кода</small></p>
+    <p class="left">Проверка <small class="oneline">– сравнение полученных результатов с ожиданием</small></p>
+</section>
+
+<section>
+    <h4>Пример: структура</h4>
+
+    <pre><code>test('search by arrival city', () => {
+    // Подготовка
+    const flights = new Flights([
+        { from: 'Moscow', to: 'London', price: 25000 },
+        { from: 'Moscow', to: 'New York', price: 50000 },
+    ]);
+
+    // Выполнение
+    const filtered = flights.findByCity('London');
+
+    // Проверка
+    expect(filtered).toEqual([
+        { from: 'Moscow', to: 'London', price: 25000 },
+    ]);
+});</code></pre>
+</section>
+
+<section>
+    <h4>Пример: исключительные сценарии</h4>
+
+    <pre><code data-trim data-noescape>
+flights.findByCity('London');
+
+flights.findByCity('');         // пустая строка
+
+<span class="fragment" data-fragment-index=1>flights.findByCity('london');   // нижний регистр</span>
+
+<span class="fragment" data-fragment-index=1>flights.findByCity(1);          // другой тип данных</span>
+
+<span class="fragment" data-fragment-index=1>flights.findByCity(null);       // ничего</span>
+
+<span class="fragment" data-fragment-index=1>flights.findByCity(' London '); // лишние пробелы</span>
+    </code></pre>
+</section>
+
+<section class="center">
+    <h4>Test Driven Development (TDD)</h4>
+</section>
+
+<section>
+    <h4>Цикл разработки</h4>
+
+    <ol>
+        <li class="fragment">Тест на желаемое поведение</li>
+        <li class="fragment">Новые тесты не проходят</li>
+        <li class="fragment">Код, который чинит тест</li>
+        <li class="fragment">Все тесты проходят</li>
+        <li class="fragment">Рефакторинг</li>
+        <li class="fragment">GOTO 1</li>
+    </ol>
+</section>
+
+<section class="center quote">
+    <style>
+        .quote h4 {
+            text-align: left;
+        }
+        .quote .author {
+            text-align: right;
+            font-size: .8em;
+            color: #777;
+        }
+    </style>
+    <h4>Разработка через тестирование поощряет простой дизайн и внушает уверенность</h4>
+    <p class="author">Кент Бек</p>
+</section>
+
+<section class="center">
+    <h4>Демо</h4>
+</section>
+
+<section>
+    <h4>Ссылки</h4>
+    
+    <p class="left">
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/console/assert">console.assert</a>,
+        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function">async/await</a>,
+        <a href="https://developer.mozilla.org/en/docs/Web/API/Fetch_API">Fetch API</a>
+    </p>
+    <p class="left"><a href="https://github.com/sorrycc/awesome-javascript#testing-frameworks">Awesome JS: Testing Frameworks</a></p>
+    <p class="left"><a href="https://urfu-2015.github.io/webdev-slides/5-tests">Прошлогодняя лекция</a></p>
+    <p class="left">Slack: @grumpy</p>
+</section>
+
+</div></div>
+
+<script src="../lib/js/head.min.js"></script>
+<script src="../js/reveal.js"></script>
+<script>
+    Reveal.initialize({
+        controls: false,
+        center: false,
+        history: true,
+        hideAddressBar: true,
+        progress: true,
+        slideNumber: true,
+        transition: 'none',
+        dependencies: [
+            {
+                src: '../plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            },
+            {
+                src: '../plugin/menu/menu.js'
+            }
+        ],
+        menu: {
+            side: 'left',
+            numbers: false,
+            titleSelector: 'h1, h2, h3, h4, h5, h6',
+            hideMissingTitles: true,
+            markers: true,
+            custom: false,
+            themes: false,
+            transitions: false,
+            openButton: true,
+            openSlideNumber: false,
+            keyboard: true
+        },
+    });
+</script>
+</body>
+</html>
