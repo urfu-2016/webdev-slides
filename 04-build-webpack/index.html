@@ -1,0 +1,1127 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Build, Deploy, Automate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="../css/reveal.css">
+    <link rel="stylesheet" href="../css/theme/yandex.css" id="theme">
+    <link rel="stylesheet" href="../lib/css/zenburn.css">
+    <link rel="stylesheet" href="./css/user.css">
+</head>
+<body class="yandex"><div class="reveal"><div class="slides">
+
+<section>
+    <h3>Структура проекта</h3>
+    <img src="./img/happy-webpack-bundling.png" alt="">
+  <div>Балдин Кирилл</div>
+</section>
+
+<section>
+    <section>
+<pre class="size-S">example-app
+<span class="fragment">├── .gitignore</span>
+<span class="fragment">├── .editorconfig</span>
+<span class="fragment">├── .eslintrc.json</span>
+<span class="fragment">├── package.json</span>
+<span class="fragment">└── README.md</span>
+</pre>
+    </section>
+    <section>
+        <h4>.gitignore</h4>
+        <pre class="size-S"><code class="hljs">
+.idea
+/*.env
+node_modules
+public/
+npm-debug.log
+
+</code></pre>
+    </section>
+    <section>
+        <h4>.editorconfig</h4>
+        <pre class="size-XXS"><code class="hljs size-XXS">
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.json]
+indent_style = space
+indent_size = 2
+
+[*.yml]
+indent_style = space
+indent_size = 2
+        </code></pre>
+    </section>
+    <section>
+        <h4>.eslintrc.json</h4>
+        <pre class="size-XXS"><code class="hljs javascript size-XXS" data-trim>
+{
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+  "env": {
+    "browser": true,
+    "mocha": true,
+    "node": true
+  },
+  "extends": "xo",
+  "rules": {
+    "indent": [2, 4, {"SwitchCase": 1}],
+    "max-len": [2, 100],
+    "max-params": [2, 3]
+  }
+}
+        </code></pre>
+    </section>
+    <section data-transition="none">
+        <h4>package.json</h4>
+        <pre><code class="hljs javascript size-XS" data-trim>
+{
+  "name": "example-app",
+  "version": "1.0.0",
+  "main": "dist",
+  "license": "MIT",
+  "scripts": { ... },
+  "dependencies": { ... },
+  "devDependencies": { ... },
+  "engines": {
+    "node": "4.4.0"
+  }
+}
+        </code></pre>
+    </section>
+</section>
+
+<section>
+    <h4>Разделение сервера и клиента</h4>
+    <pre>
+<span class="grey">example-app</span>
+<span class="grey">├── .gitignore</span>
+<span class="grey">├── .editorconfig</span>
+<span class="grey">├── package.json</span>
+<span class="grey">├── README.md</span>
+├── client  <span class="grey fragment">//Клиенска часть</span>
+├── server  <span class="grey fragment">//Серверная часть (express api db)</span>
+└── public  <span class="grey fragment">//Папка которые отдаются браузеру</span>
+</pre>
+</section>
+
+<section>
+    <h4>Серверная часть</h4>
+    <pre>
+<span class="grey">example-app</span>
+<span class="grey">├── .gitignore</span>
+<span class="grey">├── .editorconfig</span>
+<span class="grey">├── package.json</span>
+<span class="grey">├── README.md</span>
+├── client
+└─┬ server
+  ├── app.js <span class="grey fragment">// Приложения</span>
+  └── routes.js <span class="grey fragment">// Роутинги приложения</span>
+</pre>
+</section>
+<section>
+    <h4>MVC + express</h4>
+    <pre>
+<span class="grey">example-app</span>
+<span class="grey">├── .gitignore</span>
+<span class="grey">├── .editorconfig</span>
+<span class="grey">├── package.json</span>
+<span class="grey">├── README.md</span>
+└─┬  server
+  ├── middleware
+  ├── utils
+  ├── models
+  ├── views
+  ├── controllers
+  ├── app.js
+  └── routes.js
+</pre>
+</section>
+<section>
+    <h4>Компонентный подход</h4>
+  <img src="./img/компанентый-подход.png" alt="">
+</section>
+
+<section>
+<pre>
+<span class="grey">example-app</span>
+└─┬ client
+  └─┬ components
+    ├─┬ form
+    │ ├── form.css
+    │ └── form.jsx
+    ├─┬ item
+    │ ├── item.css
+    │ └── item.jsx
+    └─┬ list
+      ├── list.css
+      └── list.jsx</pre>
+</section>
+
+<section>
+    <h4>Компонентный подход</h4>
+    <p class="pros left">Меньше вероятность конфликтов</p>
+    <p class="pros left">Легкое переиспользование кода</p>
+</section>
+
+<section>
+    <h4><span class="grey">Компонентный подход</span>. Ресурсы</h4>
+    <pre>
+<span class="grey">example-app</span>
+└─┬ client
+  └─┬ components
+    ├─┬ form
+    │ ├── <mark>form.css</mark>
+    │ └── form.jsx
+    ├─┬ item
+    │ ├── <mark>item.css</mark>
+    │ └── item.jsx
+    └─┬ list
+      ├── <mark>list.css</mark>
+      └── list.jsx
+    </pre>
+</section>
+
+<section>
+    <h4>Публичная папка</h4>
+
+    <pre class="size-S">
+public
+├── form.css
+├── item.css
+├── list.css
+├── form.js
+├── item.js
+└── list.js</pre>
+</section>
+
+<section>
+    <h4>Можно сделать с помощью</h4>
+
+  <img class="fragment" src="./img/grunt.png" height="150" style="vertical-align: middle;">
+  <img class="fragment" src="./img/gulp-logo.png" height="150" style="vertical-align: middle;">
+  <img class="fragment" src="./img/Npm-logo.png" height="150" style="vertical-align: middle;">
+  
+</section>
+<section>
+    <h4><span class="grey">Компонентный подход</span>. Подключение</h4>
+
+    <pre class="size-M"><code class="hljs html" data-trim>
+&lt;head&gt;
+&lt;link href="/form.css" rel="stylesheet"&gt;
+&lt;link href="/item.css" rel="stylesheet"&gt;
+&lt;link href="/list.css" rel="stylesheet"&gt;
+
+&lt;script src="/form.js"&gt;&lt;/script&gt;
+&lt;script src="/item.js"&gt;&lt;/script&gt;
+&lt;script src="/list.js"&gt;&lt;/script&gt;
+&lt;/head&gt;</code></pre>
+</section>
+
+<section>
+    <p class="pros left">Работает</p>
+    <p class="cons left fragment">Медленно загружается</p>
+    <p class="cons left fragment">Много запросов за ресурсами</p>
+    <p class="cons left fragment">Много копирований при сборке</p>
+    <p class="cons left fragment">Ограничение на количество подключаемых ресурсов (в IE)</p>
+</section>
+<section>
+      <h4>Зависимости ресурсов</h4>
+      <img src="./img/treee.png" height="500" alt="">
+</section>
+<section>
+      <h4 >AMD (Asynchronous Module Definition)</h4>
+      <pre class="fragment"><code class="hljs javascript size-XS" data-trim>
+define(['my-module', 'my-module2'],
+  function (MyModule, MyModule2) {
+      return { ... };
+});
+      </code></pre>
+  <img src="./img/require-js_logo.png" width="220" class="fragment" alt="">
+  <img src="./img/паутина.png" height="190px" style="left: -214px;position: relative; vertical-align: top; box-shadow: none;" class="fragment" alt="">
+</section>
+<section>
+      <h4>CommonJS-обёртка</h4>
+      <pre class="fragment"><code class="hljs javascript size-XS" data-trim>
+define(function (require, module, exports) {
+  var MyModule = require('my-module');
+  var MyModule2 = require('my-module2');
+  module.exports = { ... };
+});
+      </code></pre>
+</section>
+<section>
+      <h4>CommonJS нативно реализован в Node.js/Rhino.</h4>
+      <pre class="fragment"><code class="hljs javascript size-XS" data-trim>
+var MyModule = require('my-module');
+var MyModule2 = require('my-module2');
+module.exports = { ... };
+      </code></pre>
+</section>
+<section>
+<section>
+      <h4>ECMAScript 2015</h4>
+      <pre class="fragment"><code class="hljs javascript size-XS" data-trim>
+import MyModule from 'my-module';
+import MyModule2 from 'my-module2';
+export { ... };
+      </code></pre>
+</section>
+
+<section>
+      <h4>Экспорт по умолчанию</h4>
+      <pre class="fragment"><code class="hljs javascript size-XS" data-trim>
+export default class MyModule {
+    constructor(id, name) {
+        this.id = id;
+        this.name = name;
+    }
+};
+      </code></pre>
+      <pre class="fragment"><code class="hljs javascript size-XS" data-trim>
+import MyModule from 'my-module';
+      </code></pre>
+</section>
+<section>
+      <h4>Деструктуризация </h4>
+      <pre class="fragment"><code class="hljs javascript size-XS" data-trim>
+import MyModule {metod1, metod2} from 'my-module';
+      </code></pre>
+</section>
+<section>
+      <h4>Ключевое слово <span class="red">as</span> для переименование</h4>
+      <pre class="fragment"><code class="hljs javascript size-XS" data-trim>
+import * as MyModule from 'my-module';
+import {metod1 as alias1} from 'my-module2';
+      </code></pre>
+</section>
+</section>
+<section>
+    <h3>Проблема организации</h3>
+    <img src="img/webpack-not.png" alt="">
+</section>
+<section>
+  <img class="fragment" src="./img/require-js_logo.png" height="150" style="vertical-align: middle;">
+  <img class="fragment" src="./img/browserify.jpg" height="150" style="vertical-align: middle;">
+  <img class="fragment" src="./img/rollup-js-logo.svg" height="150" style="vertical-align: middle;">
+  
+</section>
+<section>
+    <h3>Решение <a href="https://webpack.github.io/">webpack</a></h3>
+    <img src="img/webpack.png" alt="">
+</section>
+<section>
+    <h3><a href="https://webpack.github.io/">webpack</a></h3>
+
+    <pre class="fragment"><code class="hljs size-M" data-trim>
+npm install --save-dev webpack
+</code></pre>
+</section>
+<section>
+  <section>
+    <h4>Начнем с простого примера</h4>
+  </section>
+  <section>
+    <pre class="size-S">test-webpack
+├── my-module.js
+├── test.js
+└── webpack.config.js</pre>
+  </section>
+  <section>
+    <pre class="size-S">my-module.js</pre>
+     <pre class="fragment"><code class="hljs size-XS javascript" data-trim>
+export function method1() {
+    console.log('method1 my module');
+}
+export function method2() {
+    console.log('method2 my module');
+}
+export default function () {
+    console.log('init my module');
+}
+</code></pre>
+  </section>
+  <section>
+    <pre class="size-S">test.js</pre>
+     <pre class="fragment"><code class="hljs size-XXS javascript" data-trim>
+import MyModule ,{method1,method2} from './my-module'
+
+MyModule();
+method1();
+method2();
+</code></pre>
+  </section>
+  <section>
+    <pre class="size-S">webpack.config.js</pre>
+     <pre class="fragment"><code class="hljs size-XS javascript" data-trim>
+module.exports = {
+    entry: './test.js',
+    output: {
+        filename: 'test.bundle.js',
+    }
+}
+</code></pre>
+  </section>
+  
+  
+  <section>
+   <h4>Запускаем сборку</h4>
+<pre class="fragment"><code class="hljs size-S" data-trim>
+webpack
+</code></pre>
+    <img src="./img/cli-webpack.png" class="fragment" alt="">
+  </section>
+  <section>
+      <pre class="size-S">test-webpack
+  ├── my-module.js
+  ├── test.js
+  ├── todo.bundle.js
+  └── webpack.config.js</pre>
+  </section>
+  
+ 
+  
+  <section>
+    <pre class="size-S">todo.bundle.js</pre>
+     <pre class="fragment"><code class="hljs size-XXS javascript" data-trim>
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["b"] = method1;
+/* harmony export (immutable) */ __webpack_exports__["c"] = method2;
+
+function method1() {
+    console.log('method1 my module');
+}
+function method2() {
+    console.log('method2 my module');
+}
+/* harmony default export */ __webpack_exports__["a"] = function () {
+    console.log('init my module');
+};
+/***/ }),
+</code></pre>
+  </section>
+  <section>
+    <pre class="size-S">my-module.js</pre>
+     <pre ><code class="hljs size-XS javascript" data-trim>
+export function method1() {
+    console.log('method1 my module');
+}
+export function method2() {
+    console.log('method2 my module');
+}
+export default function () {
+    console.log('init my module');
+}
+</code></pre>
+  </section>
+  
+  <section>
+    <pre class="size-S">todo.bundle.js</pre>
+     <pre ><code class="hljs size-XXS javascript" data-trim>
+
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */
+var __WEBPACK_IMPORTED_MODULE_0_my_module__ = __webpack_require__(0);
+
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_my_module__["a" /* default */])();
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_my_module__["b" /* method1 */])();
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_my_module__["c" /* method2 */])();
+
+/***/ })
+/******/ ]);
+</code></pre>
+  </section>
+  
+  <section>
+    <pre class="size-S">test.js</pre>
+     <pre ><code class="hljs size-XXS javascript" data-trim>
+import MyModule ,{method1,method2} from './my-module'
+
+MyModule();
+method1();
+method2();
+</code></pre>
+  </section>
+</section>
+<section>
+    <section>
+        <h2>Сборка скриптов</h2>
+    </section>
+
+    <section>
+<pre class="size-S">example-app
+└── webpack.config.js</pre>
+        <pre class="fragment"><code class="hljs size-XS javascript" data-trim>
+module.exports = {
+  context: __dirname + "/client",
+  entry: "todo.js",
+  output: {
+    path: __dirname + "/public",
+    filename: "todoPage.bundle.js"
+  }
+}
+</code></pre>
+    </section>
+
+    <section>
+<pre class="size-S">example-app
+└─┬ client
+  └── todo.jsx</pre>
+
+        <pre class="fragment"><code class="hljs javascript size-XXS" data-trim>
+import ReactDOM from 'react-dom';
+import TodoPage from './pages/todoPage';
+import React from 'react';
+export default function (data) {
+    const mountNode = document.getElementById("app");
+    ReactDOM.render( <TodoPage {...data}></TodoPage>, mountNode);
+}
+</code></pre>
+    </section>
+    <section>
+<h3>Babel</h3>
+<pre class="size-S">npm i --save-dev babel-loader babel-core</pre>
+
+<pre class="size-S fragment">example-app
+└── webpack.config.js</pre>
+        <pre class="fragment"><code class="hljs javascript size-XXS" data-trim>
+module.exports = {
+  rules: [
+    {
+      test: /(\.jsx|\.js)$/, // Для филтрации по расширению
+      include: __dirname + "/client", // Для филтрации по папке
+      exclude: /node_modules/, // Не учитывать
+      loader: "babel-loader"
+    }
+  ]
+}
+</code></pre>
+</section>
+<section>
+<pre class="size-S">example-app
+└── .babelrc</pre>
+        <pre><code class="hljs javascript size-XS" data-trim>
+{
+  "presets": ["es2015", "stage-0", "react"]
+}
+</code></pre>
+    </section>
+  
+
+    <section>
+        <h3>Запуск</h3>
+        <pre class="size-S">example-app
+└── package.json</pre>
+
+
+        <pre class="fragment"><code class="hljs javascript size-S" data-trim>
+"scripts": {
+  "build": "webpack"
+}
+</code></pre>
+
+        <pre class="fragment"><code class="hljs size-S" data-trim>
+npm run build
+</code></pre>
+    </section>
+
+    <section>
+<pre class="size-S">example-app
+└─┬ public
+  ├── form.css
+  ├── item.css
+  ├── list.css
+  └── <mark>todo.bundle.js</mark></pre>
+    </section>
+
+    <section>
+        <h4>Подключение</h4>
+
+        <pre class="size-M"><code class="hljs html" data-trim data-noescape>
+&lt;head&gt;
+&lt;link href="/form.css" rel="stylesheet"&gt;
+&lt;link href="/item.css" rel="stylesheet"&gt;
+&lt;link href="/list.css" rel="stylesheet"&gt;
+
+&lt;script src="/<mark>todo.bundle.js</mark>"&gt;&lt;/script&gt;
+&lt;/head&gt;</code></pre>
+    </section>
+</section>
+
+<section>
+    <section>
+        <h3>Сборка стилей</h3>
+    </section>
+
+    <section>
+<pre class="size-S">example-app
+└─┬ client
+  └─┬ components
+    └─┬ form
+      ├── <span class="grey">form.css</span>
+      └── form.jsx</pre>
+        <h4></h4>
+
+        <pre class="fragment"><code class="hljs javascript size-M" data-trim data-noescape>
+import './form.css';
+</code></pre>
+    </section>
+
+    <section>
+<pre><code class="hljs size-M" data-trim data-noescape>
+npm run build
+</code></pre>
+
+        <pre class="fragment red"><span class="size-M" data-trim>
+You may need an appropriate
+loader to handle this file type.
+</span></pre>
+    </section>
+
+    <section>
+        <h4>Лоадеры</h4>
+<pre>
+    <code class="size-S">npm i style-loader --save-dev</code>
+    <code class="size-S">npm i css-loader --save-dev</code>
+</pre>
+    </section>
+
+    <section>
+<pre class="size-S">example-app
+└── webpack.config.js</pre>
+
+        <pre class="fragment"><code class="hljs size-XS javascript" data-trim>
+module.exports = {
+  rules: [
+      ...
+      {
+        test: /\.css$/,
+        use: ['style-loader','css-loader']
+    }
+  ]
+}
+</code></pre>
+    </section>
+
+    <section>
+<pre class="size-M"><code class="hljs html" data-trim data-noescape>
+&lt;head&gt;
+&lt;style type="text/css"&gt;
+body {
+    font-family: Arial, sans-serif;
+}
+&lt;/style&gt;
+
+&lt;style type="text/css"&gt;
+header {
+    border-bottom: 1px solid #ccc;
+}
+&lt;/style&gt;
+&lt;/head&gt;</code></pre>
+    </section>
+
+    <section>
+<pre class="size-S">example-app
+└── webpack.config.js</pre>
+
+        <pre class="fragment"><code class="hljs size-XS javascript" data-trim>
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+
+module.exports = {
+  ...
+  plugins: [
+    new ExtractTextPlugin("bundle.css")
+  ]
+}
+</code></pre>
+    </section>
+
+
+    <section>
+<pre class="size-S">example-app
+└── webpack.config.js</pre>
+
+        <pre class="fragment"><code class="hljs size-XS javascript" data-trim>
+module.exports = {
+  rules: [
+    {
+      test: /\.css$/,
+      use: ExtractTextPlugin
+        .extract('style-loader', 'css-loader')
+    }
+  ]
+}
+</code></pre>
+    </section>
+
+    <section>
+<pre class="size-S">example-app
+└─┬ public
+  ├── bundle.css
+  └── todo.bundle.js</pre>
+    </section>
+
+    <section>
+        <h4>Подключение</h4>
+
+        <pre><code class="hljs html size-XS" data-trim data-noescape>
+&lt;head&gt;
+&lt;link href="/bundle.css" rel="stylesheet"&gt;
+
+&lt;script src="/todo.bundle.js"&gt;&lt;/script&gt;
+&lt;/head&gt;</code></pre>
+    </section>
+</section>
+
+<section>
+    <section>
+        <h3>Сборка картинок</h3>
+    </section>
+
+    <section>
+<pre class="size-S">example-app
+└─┬ components
+  └─┬ list
+    ├── list.css
+    ├── <mark>background.png</mark>
+    └── list.jsx</pre>
+    </section>
+
+    <section>
+<pre class="size-S">example-app
+└─┬ components
+  └─┬ list
+    └── list.css</pre>
+
+        <pre><code class="hljs css size-XS fragment">
+.list {
+  background: url(background.png)
+}
+</code></pre>
+    </section>
+
+    <section>
+        <h4>Лоадеры</h4>
+
+        <pre>
+    <code class="size-S">npm install file-loader --save-dev</code>
+</pre>
+    </section>
+
+    <section>
+<pre class="size-S">example-app
+└── webpack.config.js</pre>
+
+        <pre class="fragment"><code class="hljs size-XS javascript" data-trim>
+module.exports = {
+  rules: [
+    {
+        test: /(\.png|\.jpg)$/,
+        use: "file-loader"
+    }
+  ]
+}
+</code></pre>
+    </section>
+
+    <section>
+<pre class="size-S">example-app
+└─┬ public
+  ├── bundle.css
+  ├── todo.bundle.js
+  └── <mark>9d86ab26bc61bc94bf09d352edff07a1.png</mark></pre>
+    </section>
+  <section>
+   <pre><code class="hljs css size-XS ">
+  .list {
+    background: url("./9d86ab2...7a1.png")
+  }
+  </code></pre>
+  </section>
+</section>
+<section>
+    <section>
+        Постпроцессинг CSS
+    </section>
+
+    <section>
+        <p class="pros left">расстановка браузерных префиксов</p>
+        <p class="pros left fragment">оптимизация и минификация</p>
+        <p class="pros left fragment">отладка</p>
+        <p class="pros left fragment">цветовые фунции</p>
+        <p class="left fragment">...</p>
+    </section>
+   <section>
+       <h4><a href="http://postcss.org/">PostCSS</a></h4>
+     <img src="./img/postcss-logo.jpg" style="height:40vh" alt="">
+     <p>Набор js плагинов для трансформации стилй</p>
+  </section>
+  
+    <section>
+        <h3><a href="https://github.com/postcss/postcss">postcss</a></h3>
+        <pre><code class="size-S">npm i --save-dev postcss-loader</code></pre>
+       <pre class="size-S fragment">example-app
+└── postcss.config.js</pre>
+       <pre class="fragment"><code class="hljs size-XXS javascript" data-trim>
+module.exports = {
+  plugins: [
+    require('postcss-cssnext')({ /* ...options */ }),      // plugins[1]
+    require('autoprefixer')({ /* ...options */ })          // plugins[2]
+    require('cssnano')({ /* ...options */ })               // plugins[3]
+  ]
+}
+       </code></pre>
+    </section>
+    <section>
+        <h4>cssnext</h4>
+        <pre><code class="size-S">npm i --save-dev postcss-cssnext</code></pre>
+    </section>
+<section>
+  
+        <h4 class="red">До</h4>
+        <pre><code class="hljs css size-XXS fragment" data-trim>
+:root {
+  --fontSize: 1rem;
+}
+.list {
+  & .item {
+    font-size: var(--fontSize);
+    line-height: calc(var(--fontSize) * 1.5);
+  }
+}
+</code></pre>
+<h4 class="fragment green">После</h4>
+  <pre><code class="hljs css size-XXS fragment" data-trim>
+.list .item {
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 24px;
+  line-height: 1.5rem;
+}
+
+</code></pre>
+</section>
+    <section>
+        <h4>расстановка браузерных префиксов</h4>
+        <h3>autoprefixer</h3>
+        <pre><code class="size-M">npm i --save-dev autoprefixer</code></pre>
+    </section>
+ 
+
+    <section>
+        <h4 class="red">До</h4>
+        <pre><code class="hljs css size-XS" data-trim>
+.list {
+  display: flex;
+}
+</code></pre>
+
+        <h4 class="fragment green">После</h4>
+        <pre><code class="hljs css size-XS fragment" data-trim>
+.list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+</code></pre>
+    </section>
+</section>
+
+<section>
+    <section>
+        <h3>Минификация CSS</h3>
+    </section>
+
+    <section data-transition="none">
+<pre class="size-S">example-app
+└─┬ components
+  └─┬ list
+    └── list.css</pre>
+
+        <pre><code class="hljs css size-XS fragment" data-trim>
+.list {
+  div { margin: 0 0 0 0; }
+  div {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+</code></pre>
+    </section>
+
+    <section data-transition="none">
+<pre class="size-S">example-app
+└─┬ components
+  └─┬ list
+    └── list.css</pre>
+
+        <pre><code class="hljs css size-XS" data-trim data-noescape>
+.list {
+  div { margin: 0 0 0 0<mark>;</mark> }
+  div {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex<mark>;</mark>
+  }
+}
+</code></pre>
+    </section>
+
+    <section data-transition="none">
+<pre class="size-S">example-app
+└─┬ components
+  └─┬ list
+    └── list.css</pre>
+
+        <pre><code class="hljs css size-XS" data-trim data-noescape>
+.list {
+  <mark>div {</mark> margin: 0 0 0 0; }
+  <mark>div {</mark>
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+</code></pre>
+    </section>
+
+    <section data-transition="none">
+<pre class="size-S">example-app
+└─┬ components
+  └─┬ list
+    └── list.css</pre>
+
+        <pre><code class="hljs css size-XS" data-trim data-noescape>
+.list {
+  div { margin: <mark>0 0 0 0</mark>; }
+  div {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+</code></pre>
+    </section>
+
+
+    <section data-transition="none">
+<pre class="size-S">example-app
+└─┬ components
+  └─┬ list
+    └── list.css</pre>
+
+        <pre><code class="hljs css size-XS" data-trim data-noescape>
+.list {
+  div { margin: 0 0 0 0; }
+  div {<mark>&nbsp;
+    </mark>display: -webkit-box;<mark>&nbsp;
+    </mark>display: -webkit-flex;<mark>&nbsp;
+    </mark>display: -ms-flexbox;<mark>&nbsp;
+    </mark>display: flex;
+  }
+}
+</code></pre>
+    </section>
+
+    <section>
+        <h3>cssnano</h3>
+        <pre><code class="size-M">npm i --save-dev cssnano</code></pre>
+    </section>
+
+    <section>
+        <h4 class="red">До</h4>
+        <pre><code class="hljs css size-XS" data-trim>
+.list {
+  div { margin: 0 0 0 0; }
+  div {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+</code></pre>
+
+        <h4 class="green fragment">После</h4>
+        <pre><code class="hljs css size-XXS fragment" data-trim>
+.list div{margin:0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}
+</code></pre>
+    </section>
+</section>
+
+<section>
+    <section>
+        <h3>Минификация JS</h3>
+    </section>
+
+    <section>
+<pre class="size-S">example-app
+└── webpack.config.js</pre>
+
+        <pre class="fragment"><code class="hljs size-XS javascript" data-trim>
+var webpack = require('webpack');
+
+module.exports = {
+  ...
+  plugins: [
+    ...
+    new webpack.optimize.UglifyJsPlugin()
+  ]
+}
+</code></pre>
+    </section>
+
+    <section>
+        <h4 class="green">После</h4>
+        <pre><code class="hljs jvascript size-XS" data-trim>
+!function(o){function n(e){if(t[e])return t[e]. ....
+</code></pre>
+    </section>
+
+    <section>
+        <img src="./img/error-source-map.png" alt="Без sourcemap" width="146%"/>
+    </section>
+
+    <section>
+        <h3>sourcemap</h3>
+    </section>
+
+    <section>
+<pre class="size-S">example-app
+└── webpack.config.js</pre>
+
+        <pre class="fragment"><code class="hljs size-XS javascript" data-trim>
+module.exports = {
+  ...
+  
+  devtool: 'source-map'
+}
+</code></pre>
+
+        <pre class="size-S fragment">example-app
+└─┬ public
+  ├── todo.bundle.js
+  └── <mark>todo.bundle.js.map</mark></pre>
+    </section>
+
+    <section>
+<pre class="size-S">example-app
+└─┬ public
+  └── todo.bundle.js</pre>
+        <pre class="fragment"><code class="hljs size-XXS javascript" data-trim>
+...
+//# sourceMappingURL=todo.bundle.js.map
+</code></pre>
+      <pre class="size-S fragment">
+  └── todo.bundle.js.map</pre>
+      
+       <pre class="fragment"><code class="hljs size-XXS javascript" data-trim>
+{"version":3,"sources":["List","map","item"],"mappings":";;AAAA;AACA;;AAEA;AACA;;AAEA;AACA;AACA;;AAEA;
+</code></pre>
+    </section>
+
+    <section>
+        <h4 class="red">До</h4>
+        <img src="./img/error-source-map.png" alt="Без sourcemap" width="146%"/>
+
+        <h4 class="fragment green">После</h4>
+        <img src="./img/error-source-map-googd.png" alt="с sourcemap" width="146%" class="fragment"/>
+    </section>
+</section>
+
+<section>
+    <section>
+        Бандлы
+    </section>
+
+    <section>
+<pre class="size-S">example-app
+└── webpack.config.js</pre>
+
+        <pre class="fragment"><code class="hljs size-XXS javascript" data-trim>
+module.exports = {
+...
+
+  entry: {
+    mainPage: './mainPage.js',
+    innerPage: './innerPage.js'
+  },</code></pre>
+        <pre class="fragment"><code class="hljs size-XXS javascript">    output: {
+    filename: "[name].bundle.js"
+  }
+  plugins: [
+    new ExtractTextPlugin("[name].css")
+  ]
+}
+</code></pre>
+    </section>
+</section>
+
+
+<section style="font-size: 1.2em">
+    <a href="https://github.com/meded90/example-app">
+        Пример сервиса «TODO»
+    </a>
+  
+</section>
+<section style="font-size: 1.2em">
+    <h5>Спасибо за вниманеи</h5>
+    <h5>Вопросы</h5>
+  
+</section>
+
+</div></div>
+
+<script src="../lib/js/head.min.js"></script>
+<script src="../js/reveal.js"></script>
+<script>
+    Reveal.initialize({
+        controls: false,
+        progress: true,
+        slideNumber: true,
+        history: true,
+        center: true,
+        hideAddressBar: true,
+        transition: 'slide',
+        dependencies: [
+            {
+                src: '../plugin/highlight/highlight.js',
+                condition: function () {
+                    return Boolean(document.querySelector('pre code'));
+                },
+                callback: function () {
+                    hljs.configure({
+                        languages: ['javascript']
+                    })
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
