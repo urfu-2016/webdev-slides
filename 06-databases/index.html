@@ -1,0 +1,2188 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Базы данных</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../css/reveal.css">
+    <link rel="stylesheet" href="../lib/css/zenburn.css">
+
+    <link rel="stylesheet" href="../css/theme/yandex.css" id="theme">
+    <link rel="stylesheet" href="./css/user.css">
+</head>
+<body class="yandex nodejs"><div class="reveal"><div class="slides">
+
+<section class="large">
+    <h2>Базы данных</h2>
+    <h4>MySQL. Sequelize. CAP теорема. MongoDB. Mongoose</h4>
+    <p><small><span style="color: red">А</span>нна Баженова</small></p>
+</section>
+
+<section>
+  <section>
+    <h2>MySQL</h2>
+  </section>
+
+  <section>
+    <h3>Структура базы данных</h3>
+  </section>
+
+  <section>
+    <h3>databases</h3>
+
+     <pre class=""><code data-trim>
+ ┌{ university }
+ ├
+ │
+ │
+ │
+ │
+ ├
+ │
+ │
+     </code></pre>
+  </section>
+
+  <section>
+    <h3>databases</h3>
+
+    <pre class="sql"><code data-trim>
+CREATE DATABASE `university`;
+    </code></pre>
+
+    <pre class="sql fragment"><code data-trim>
+USE `university`;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>tables</h3>
+
+     <pre><code  data-trim>
+ ┌{ university }
+ ├─┬{ students }
+ │ ├
+ │ ├
+ │ ├
+ │ ├
+ ├─┬{ groups }
+ │ ├
+ │ ├
+     </code></pre>
+  </section>
+
+  <section>
+    <h3>tables</h3>
+
+    <pre class="sql"><code data-trim>
+CREATE TABLE `students` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  `course` INT(11) NOT NULL,
+  `birthday` DATE DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>tables</h3>
+
+    <pre class="sql"><code data-trim>
+CREATE TABLE `groups` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>fields</h3>
+
+     <pre><code  data-trim>
+ ┌{ university }
+ ├─┬{ students }
+ │ ├──{ id:Integer }
+ │ ├──{ name:String }
+ │ ├──{ course:Integer }
+ │ ├──{ birthday:Date }
+ ├─┬{ groups }
+ │ ├──{ id:Integer }
+ │ ├──{ name:String }
+     </code></pre>
+  </section>
+</section>
+
+<section>
+  <section>
+    <h2>Типы данных</h2>
+  </section>
+
+  <section>
+    <h3>Строковые</h3>
+
+    <table>
+      <tr>
+        <td>CHAR(4)</td>
+        <td>≤ 2<sup><small>8</small></sup>-1</td>
+        <td>"abc "</td>
+      </tr>
+      <tr>
+        <td>VARCHAR(4)</td>
+        <td>≤ 2<sup><small>16</small></sup>-1</td>
+        <td>"abc"</td>
+      </tr>
+      <tr>
+        <td>NCHAR(4)</td>
+        <td>≤ 2<sup><small>8</small></sup>-1</td>
+        <td>"жэ≤ "</td>
+      </tr>
+      <tr>
+        <td>NVARCHAR(4)</td>
+        <td>≤ (2<sup><small>16</small></sup>-1) / 3</td>
+        <td>"жэ≤"</td>
+      </tr>
+    </table>
+  </section>
+
+  <section>
+    <h3>Строковые</h3>
+
+    <table>
+      <tr>
+        <td>TINYTEXT</td>
+        <td>≤ 2<sup><small>8</small></sup>-1</td>
+      </tr>
+      <tr>
+        <td>TEXT</td>
+        <td>≤ 2<sup><small>16</small></sup>-1</td>
+      </tr>
+      <tr>
+        <td>MEDIUMTEXT</td>
+        <td>≤ 2<sup><small>24</small></sup>-1</td>
+      </tr>
+      <tr>
+        <td>LONGTEXT</td>
+        <td>≤ 2<sup><small>32</small></sup>-1</td>
+      </tr>
+    </table>
+  </section>
+
+  <section>
+    <h3>Числовые</h3>
+
+    <table>
+      <tr>
+        <td>TINYINT</td>
+        <td>[-2<sup><small>7</small></sup>, 2<sup><small>7</small></sup> - 1]</td>
+      </tr>
+      <tr>
+        <td>SMALLINT</td>
+        <td>[-2<sup><small>15</small></sup>, 2<sup><small>15</small></sup> - 1]</td>
+      </tr>
+      <tr>
+        <td>MEDIUMINT</td>
+        <td>[-2<sup><small>23</small></sup>, 2<sup><small>23</small></sup> - 1]</td>
+      </tr>
+      <tr>
+        <td>INTEGER</td>
+        <td>[-2<sup><small>31</small></sup>, 2<sup><small>31</small></sup> - 1]</td>
+      </tr>
+      <tr>
+        <td>BIGINT</td>
+        <td>[-2<sup><small>63</small></sup>, 2<sup><small>63</small></sup> - 1]</td>
+      </tr>
+    </table>
+  </section>
+
+  <section>
+    <h3>Числовые. UNSIGNED</h3>
+
+    <table>
+      <tr>
+        <td>TINYINT</td>
+        <td>[0, 2<sup><small>8</small></sup> - 1]</td>
+      </tr>
+      <tr>
+        <td>SMALLINT</td>
+        <td>[0, 2<sup><small>16</small></sup> - 1]</td>
+      </tr>
+      <tr>
+        <td>MEDIUMINT</td>
+        <td>[0, 2<sup><small>24</small></sup> - 1]</td>
+      </tr>
+      <tr>
+        <td>INTEGER</td>
+        <td>[0, 2<sup><small>32</small></sup> - 1]</td>
+      </tr>
+      <tr>
+        <td>BIGINT</td>
+        <td>[0, 2<sup><small>64</small></sup> - 1]</td>
+      </tr>
+    </table>
+  </section>
+
+  <section>
+    <h3>Числовые</h3>
+
+    <table>
+      <tr>
+        <td>FLOAT</td>
+        <td>[-3.40*10<sup><small>38</small></sup>, 1.17*10<sup><small>-38</small></sup>], 0, [1.17*10<sup><small>-38</small></sup>, 3.40*10<sup><small>38</small></sup>]</td>
+      </tr>
+      <tr>
+        <td>DOUBLE</td>
+        <td>[-1.79*10<sup><small>308</small></sup>, -2.22*10<sup><small>-308</small></sup>],0,[2.22*10<sup><small>-308</small></sup>, 1.79*10<sup><small>308</small></sup>]</td>
+      </tr>
+      <tr>
+        <td>DECIMAL(p[,s])</td>
+        <td>см. DOUBLE</td>
+      </tr>
+    </table>
+  </section>
+
+  <section>
+    <h3>Бинарные</h3>
+
+    <table>
+      <tr>
+        <td>BINARY(n)</td>
+        <td>≤ 2<sup><small>8</small></sup>–1</td>
+      </tr>
+      <tr>
+        <td>VARBINARY(n)</td>
+        <td>≤ 2<sup><small>16</small></sup>–1</td>
+      </tr>
+    </table>
+  </section>
+
+  <section>
+    <h3>Бинарные</h3>
+
+    <table>
+      <tr>
+        <td>TINYBLOB</td>
+        <td>≤ 2<sup><small>8</small></sup>-1</td>
+      </tr>
+      <tr>
+        <td>BLOB</td>
+        <td>≤ 2<sup><small>16</small></sup>-1</td>
+      </tr>
+      <tr>
+        <td>MEDIUMBLOB</td>
+        <td>≤ 2<sup><small>24</small></sup>-1</td>
+      </tr>
+      <tr>
+        <td>LONGBLOB</td>
+        <td>≤ 2<sup><small>32</small></sup>-1</td>
+      </tr>
+    </table>
+  </section>
+
+  <section>
+    <h3>Даты</h3>
+
+    <table>
+      <tr>
+        <td>DATE</td>
+        <td>ГГГГ-ММ-ДД</td>
+        <td>1000-01-01 - 9999-12-31</td>
+      </tr>
+      <tr>
+        <td>TIME</td>
+        <td>чч:мм:сс</td>
+        <td>-838:59:59 - 838:59:59</td>
+      </tr>
+      <tr>
+        <td>DATETIME</td>
+        <td>ГГГГ-ММ-ДД чч:мм:сс</td>
+        <td>1000-01-01 - 9999-12-31</td>
+      </tr>
+      <tr>
+        <td>TIMESTAMP</td>
+        <td>ГГГГ-ММ-ДД чч:мм:сс</td>
+        <td>1970-01-01 - 2038-01-19</td>
+      </tr>
+      <tr>
+        <td>YEAR</td>
+        <td>ГГГГ; ГГ</td>
+        <td>1901-2155, 0000; 1970-2069</td>
+      </tr>
+    </table>
+  </section>
+
+  <section>
+    <h3>Другие</h3>
+  </section>
+
+  <section>
+    <h3>GEOMETRY</h3>
+
+    <pre class="sql"><code data-trim>
+CREATE TABLE `students` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  `address` GEOMETRY DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>GEOMETRY</h3>
+
+    <pre class="sql"><code data-trim>
+INSERT INTO `students`
+(`id`, `name`, `address`)
+VALUES (1, 'Anna', POINT(-120.626, 50.831));
+    </code></pre>
+
+    <pre class="sql fragment"><code data-trim>
+INSERT INTO `students`
+(`id`, `name`, `address`)
+VALUES (2, 'Polina', POINT(-34.245, 23.934));
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>GEOMETRY</h3>
+
+    <pre class="sql"><code data-trim>
+SELECT `id`, `name` FROM `students`
+ORDER BY ST_Distance_Sphere(
+    `address`,
+    POINT(-23.45, 12.35)
+) ASC
+LIMIT 1;
+    </code></pre>
+
+    <pre class="fragment"><code data-trim>
++----+--------+
+| id | name   |
++----+--------+
+|  2 | Polina |
++----+--------+
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <section>
+    <h3>CRUD</h3>
+
+    <blockquote cite="https://ru.wikipedia.org/wiki/CRUD">
+      от англ. create, read, update, delete — «создать, прочесть, обновить, удалить»
+    </blockquote>
+  </section>
+
+  <section>
+    <h3>Create</h3>
+
+    <pre class="slq"><code data-trim>
+INSERT INTO `students`
+(`id`, `name`, `course`, `birthday`)
+VALUES
+(1, 'Anna', '4', '1995-02-25');
+    </code></pre>
+  </section>
+
+  <section>
+    <h3><span class='gray'>Create.</span> Auto increment</h3>
+
+    <pre class="slq"><code data-trim>
+INSERT INTO `students`
+(`id`, `name`, `course`, `birthday`)
+VALUES
+(0, 'Anna', '4', '1995-02-25');
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Read</h3>
+
+    <pre class="slq"><code data-trim>
+SELECT `id`, `name`, `course`,
+       `birthday` AS `secret_date`
+FROM `students`;
+    </code></pre>
+
+    <pre class="fragment"><code data-trim>
++----+------+--------+-------------+
+| id | name | course | secret_date |
++----+------+--------+-------------+
+|  1 | Anna |      4 | 1995-02-25  |
++----+------+--------+-------------+
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Read</h3>
+
+    <pre class="slq"><code data-trim>
+SELECT * FROM `students`;
+    </code></pre>
+
+    <pre class="fragment"><code data-trim>
++----+------+--------+------------+
+| id | name | course | birthday   |
++----+------+--------+------------+
+|  1 | Anna |      4 | 1995-02-25 |
++----+------+--------+------------+
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Update</h3>
+
+    <pre class="sql"><code data-trim>
+UPDATE `students`
+SET `course` = 5
+WHERE `id` = 1;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Delete</h3>
+
+    <pre class="sql"><code data-trim>
+DELETE FROM `students`
+WHERE `id` = 1;
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <section>
+    <h3>JOIN</h3>
+  </section>
+
+  <section>
+    <img src="images/tables.png" alt="tables">
+  </section>
+
+  <section>
+    <h3>Внешние ключи</h3>
+  </section>
+
+  <section>
+    <h4>FOREIGN KEY</h4>
+
+    <pre class="sql"><code data-trim>
+CREATE TABLE `students` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` NVARCHAR(255) NOT NULL,
+  `group_id` INT(11) NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_st_gr` FOREIGN KEY (`group_id`)
+      REFERENCES `groups` (`id`)
+);
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>FOREIGN KEY</h4>
+
+    <pre class="sql"><code data-trim>
+ALTER TABLE `students`
+ADD CONSTRAINT `fk_st_gr` FOREIGN KEY (`group_id`)
+    REFERENCES `groups` (`id`);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Виды JOIN</h3>
+
+    <ul>
+      <li>INNER</li>
+      <li>FULL OUTER</li>
+      <li>LEFT OUTER</li>
+      <li>RIGHT OUTER</li>
+    </ul>
+  </section>
+
+  <section data-background='images/join.png' data-background-size='contain'>
+  </section>
+
+  <section>
+    <h4>Данные</h4>
+
+    <pre><code data-trim>
+      students              |      groups
+                            |
+id name         group_id    |     id  name
+-- ----         --------    |     --  ----
+1  Фёдор         1          |     1    ФТ
+2  Константин    2          |     2    КН
+3  Александр     NULL       |     3    ПИ
+4  Михаил        4          |     4    МТ
+5  Максим        4          |
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>INNER JOIN</h4>
+
+    <pre class="sql"><code data-trim data-noescape>
+SELECT `students`.`id` AS `s_id`,
+       `students`.`name` AS `s_name`,
+       `groups`.`name` AS `g_name`
+FROM `students`
+<mark>INNER JOIN</mark> `groups`
+ON `students`.`group_id` = `groups`.`id`
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>INNER JOIN</h4>
+
+    <pre class="join-result"><code data-trim>
+s_id  s_name     g_name
+----  --------   ------
+1     Фёдор       ФТ
+2     Константин  КН
+4     Михаил      МТ
+5     Максим      МТ
+    </code></pre>
+    <img class="join-img" src="./images/inner-join.png" alt="inner join">
+  </section>
+
+  <section>
+    <h4>OUTER JOIN</h4>
+
+    <ul>
+      <li>LEFT OUTER JOIN</li>
+      <li>RIGHT OUTER JOIN</li>
+    </ul>
+  </section>
+
+  <section>
+    <h4>LEFT JOIN</h4>
+
+    <pre class="sql"><code data-trim data-noescape>
+SELECT `students`.`id` AS `s_id`,
+       `students`.`name` AS `s_name`,
+       `groups`.`name` AS `g_name`
+FROM `students`
+<mark>LEFT JOIN</mark> `groups`
+ON `students`.`group_id` = `groups`.`id`
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>LEFT JOIN</h4>
+
+    <pre class="join-result"><code data-trim>
+s_id   s_name    g_name
+----  --------   ------
+1     Фёдор       ФТ
+2     Константин  КН
+3     Александр   NULL
+4     Михаил      МТ
+5     Максим      МТ
+    </code></pre>
+    <img class="join-img" src="./images/left-join.png" alt="left join">
+  </section>
+
+  <section>
+    <h4>RIGHT JOIN</h4>
+
+    <pre class="sql"><code data-trim data-noescape>
+SELECT `students`.`id`,
+       `students`.`name`,
+       `groups`.`name` AS `g_name`
+FROM `students`
+<mark>RIGHT JOIN</mark> `groups`
+ON `students`.`group_id` = `groups`.`id`
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>RIGHT JOIN</h4>
+
+    <pre class="join-result"><code data-trim>
+id    name       g_name
+--    --------   ------
+1     Фёдор       ФТ
+2     Константин  КН
+NULL  NULL        ПИ
+4     Михаил      МТ
+5     Максим      МТ
+    </code></pre>
+    <img class="join-img" src="./images/right-join.png" alt="right join">
+  </section>
+</section>
+
+<section>
+  <section>
+    <h3>Индексы</h3>
+  </section>
+
+  <section>
+    <h4>Первичный ключ</h4>
+
+    <pre class="sql"><code data-noescape data-trim>
+CREATE TABLE `students` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` NVARCHAR(255) NOT NULL,
+  `group_id` INT(11) NOT NULL,
+  <mark>PRIMARY KEY (id)</mark>
+);
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Поиск данных</h4>
+
+    <pre class="sql"><code data-trim>
+SELECT * FROM `students` WHERE `name` = 'Anna';
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>EXPLAIN</h4>
+
+    <pre><small>
+mysql> EXPLAIN SELECT * FROM `students` WHERE `name` = 'Anna';
++----+-------------+----------+------+---------------+------+---------+------+------+------------+
+| id | select_type | table    | type | possible_keys | key  | key_len | ref  | <mark>rows</mark> | Extra      |
++----+-------------+----------+------+---------------+------+---------+------+------+------------+
+|  1 | SIMPLE      | students | ALL  | NULL          | NULL | NULL    | NULL | <mark>336</mark>  | Using where|
++----+-------------+----------+------+---------------+------+---------+------+------+------------+
+    </small></pre>
+  </section>
+
+  <section>
+    <h4>CREATE INDEX</h4>
+
+    <pre class="sql"><code data-trim>
+CREATE INDEX `name_idx` ON `students`(`name`);
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>CREATE INDEX</h4>
+
+    <pre><small>
+mysql> EXPLAIN SELECT * FROM `students` WHERE `name` = 'Anna';
++----+-------------+----------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table    | type | possible_keys | key  | key_len | ref  | <mark>rows</mark> | filtered | Extra       |
++----+-------------+----------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | students | ALL  | name          | NULL | NULL    | NULL |   <mark>28</mark> |    8.33  | Using where |
++----+-------------+----------+------+---------------+------+---------+------+------+----------+-------------+
+    </small></pre>
+  </section>
+
+  <section>
+    <h4>Уникальный индекс</h4>
+
+    <pre class="sql"><code data-trim>
+SELECT * FROM `students`
+WHERE `email` = 'example@gmail.com';
+    </code></pre>
+
+    <pre class="sql fragment"><code data-trim data-noescape>
+CREATE <mark>UNIQUE</mark> INDEX `email` ON `students`(`email`);
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Уникальный индекс</h4>
+
+    <pre><small>
+EXPLAIN SELECT * FROM `students` WHERE `email` = 'example@gmail.com';
++----+-------------+----------+-------+---------------+-------+---------+-------+------+----------+-------+
+| id | select_type | table    | type  | possible_keys | key   | key_len | ref   | <mark>rows</mark> | filtered | Extra |
++----+-------------+----------+-------+---------------+-------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | students | const | email         | email | 32      | const |    <mark>1</mark> |   100.00 | NULL  |
++----+-------------+----------+-------+---------------+-------+---------+-------+------+----------+-------+
+    </small></pre>
+  </section>
+
+  <section>
+    <h4>Составной индекс</h4>
+
+    <pre class="sql"><code data-trim>
+SELECT * FROM `students`
+WHERE `group_id` = 1 AND `gender` = 'female';
+    </code></pre>
+
+    <pre class="sql fragment"><code data-trim>
+CREATE INDEX `group_id_gender`
+ON `students`(`group_id`, `gender`);
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Составной индекс</h4>
+
+    <pre class="sql"><code data-trim>
+SELECT * FROM `students`
+WHERE `group_id` <= 3 AND `gender` = 'female';
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Плюсы индексов</h3>
+
+    <ul>
+      <li>высокая скорость поиска</li>
+      <li>консистентность данных засчет уникальных индексов</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Минусы индексов</h3>
+
+    <ul>
+      <li>расходуют память</li>
+      <li>замедление операции вставки и обновления</li>
+    </ul>
+  </section>
+</section>
+
+<section>
+  <h3>Транзакции</h3>
+
+  <pre class="sql fragment"><code data-trim>
+START TRANSACTION;
+  </code></pre>
+  <pre class="sql fragment"><code data-trim>
+UPDATE `students` SET `scholarship` = `scholarship` + 1000
+WHERE `id` = 3;
+  </code></pre>
+  <pre class="sql fragment"><code data-trim>
+UPDATE `students` SET `scholarship` = `scholarship` - 1000
+WHERE `id` = 4;
+  </code></pre>
+  <pre class="sql fragment"><code data-trim>
+COMMIT;
+  </code></pre>
+</section>
+
+<section>
+  <section>
+    <h3>ORM</h3>
+  </section>
+
+  <section>
+    <!-- <h3>Sequelize</h3> -->
+    <img src="images/sequelize.png" alt="sequelize logo">
+  </section>
+
+  <section>
+    <h4>Установка</h4>
+
+    <pre><code data-trim>
+npm install sequelize
+    </code></pre>
+
+    <pre class="js fragment"><code data-trim>
+var Sequelize = require('sequelize');
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Подключение к DB</h4>
+
+    <pre class="javascript"><code data-trim>
+var sequelize = new Sequelize('db','user','pass', {
+  host: 'localhost',
+  dialect: 'mysql' // 'mariadb','sqlite',
+                   // 'postgres','mssql'
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Подключение к DB</h4>
+
+    <pre class="js"><code data-trim>
+var uri = 'mysql://user:pass@localhost:3306/dbname';
+    </code></pre>
+
+    <pre class="fragment"><code data-trim>
+var sequelize = new Sequelize(uri, {
+  dialectOptions: { charset: 'utf8' }
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Типы данных</h3>
+  </section>
+
+  <section>
+    <h4>Строковые</h4>
+
+    <table>
+      <tr>
+        <td>CHAR</td>
+        <td>CHAR</td>
+      </tr>
+      <tr>
+        <td>VARCHAR(255)</td>
+        <td>STRING</td>
+      </tr>
+      <tr>
+        <td>TEXT</td>
+        <td>TEXT</td>
+      </tr>
+      <tr>
+        <td>TINYTEXT</td>
+        <td>TEXT('tiny')</td>
+      </tr>
+      <tr>
+        <td>MEDIUMTEXT</td>
+        <td>TEXT('medium')</td>
+      </tr>
+      <tr>
+        <td>LONGTEXT</td>
+        <td>TEXT('long')</td>
+      </tr>
+    </table>
+  </section>
+
+  <section>
+    <h4>Числовые</h4>
+
+    <table>
+      <tr>
+        <td>TINYINT(1)</td>
+        <td>BOOLEAN</td>
+      </tr>
+      <tr>
+        <td>INTEGER</td>
+        <td>INTEGER</td>
+      </tr>
+      <tr>
+        <td>BIGINT</td>
+        <td>BIGINT</td>
+      </tr>
+      <tr>
+        <td>FLOAT</td>
+        <td>FLOAT</td>
+      </tr>
+      <tr>
+        <td>DOUBLE</td>
+        <td>DOUBLE</td>
+      </tr>
+      <tr>
+        <td>DECIMAL</td>
+        <td>DECIMAL</td>
+      </tr>
+    </table>
+  </section>
+
+  <section>
+    <h4>Числовые. UNSIGNED</h4>
+
+    <pre><code data-trim>
+INTEGER.UNSIGNED
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Бинарные</h4>
+
+    <table>
+      <tr>
+        <td>VARBINARY</td>
+        <td>STRING.BINARY</td>
+      </tr>
+      <tr>
+        <td>BLOB</td>
+        <td>BLOB</td>
+      </tr>
+      <tr>
+        <td>TINYBLOB</td>
+        <td>BLOB('tiny')</td>
+      </tr>
+      <tr>
+        <td>MEDIUMBLOB</td>
+        <td>BLOB('medium')</td>
+      </tr>
+      <tr>
+        <td>LONGBLOB</td>
+        <td>BLOB('long')</td>
+      </tr>
+    </table>
+  </section>
+
+  <section>
+    <h4>Даты</h4>
+
+    <table>
+      <tr>
+        <td>DATE</td>
+        <td>DATEONLY</td>
+      </tr>
+      <tr>
+        <td>TIME</td>
+        <td>TIME</td>
+      </tr>
+      <tr>
+        <td>DATETIME</td>
+        <td>DATE</td>
+      </tr>
+    </table>
+  </section>
+
+  <section>
+    <h4>Пространственные</h4>
+
+    <table>
+      <tr>
+        <td>GEOMETRY</td>
+        <td>GEOMETRY</td>
+      </tr>
+    </table>
+  </section>
+
+  <section>
+    <h4>Другие</h4>
+
+    <a href="http://sequelize.readthedocs.io/en/v3/api/datatypes/">data types</a>
+  </section>
+
+  <section>
+    <h3>Модели</h3>
+  </section>
+
+  <section>
+    <h4>Модели. Объявление</h4>
+
+    <pre><code data-trim>
+sequelize.define('name', {attributes}, {options});
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Модели. Атрибуты</h4>
+
+    <pre class="js"><code data-trim>
+var Student = sequelize.define('student', {
+  id: {
+    type: Sequelize.INTEGER.UNSIGNED,
+    allowNull: false,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  name: {...},
+  course: {...}
+}, {...});
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Именование</h3>
+
+    <pre class="js"><code data-trim>
+var Student = sequelize.define('student', {
+  id: {...},
+  name: {...},
+  groupId: {
+    type: Sequelize.INTEGER,
+    field: 'group_id'
+  }
+}, {...});
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Модели. Getters &amp; setters</h4>
+
+    <pre class="js"><code data-trim>
+var Student = sequelize.define('student', {
+  name: {
+    get: function () {
+      return this.getDataValue('name').toLowerCase();
+    },
+    set: function (value) {
+      this.setDataValue('name', value.toUpperCase());
+    }
+  }
+}, {...});
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Модели. Валидаторы</h4>
+
+    <pre class="js"><code data-trim>
+var Student = sequelize.define('student', {
+  id: {...},
+  email: {
+    type: Sequelize.STRING,
+    validate: {
+      isEmail: true
+    }
+  }
+}, {...});
+    </code></pre>
+
+    <a href="http://sequelize.readthedocs.io/en/v3/docs/models-definition/#validations">Подробнее</a>
+  </section>
+
+  <section>
+    <h4>Модели. Конфигурация</h4>
+
+    <pre class="js"><code data-trim>
+var Student = sequelize.define('student', {...}, {
+  timestamps: true,
+  underscored: true,
+  freezeTableName: true,
+  tableName: 'students'
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Создание таблицы</h4>
+
+    <pre class="js"><code data-trim>
+Student.sync({ force: true });
+    </code></pre>
+
+    <pre class="js fragment"><code data-trim>
+Student.sync()
+  .then(function () {
+    // :)
+  })
+  .catch(function (err) {
+    // :(
+  });
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Удаление таблицы</h4>
+
+    <pre class="js"><code data-trim>
+Student.drop()
+  .then(function () {})
+  .catch(function (err) {});
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>CRUD</h3>
+  </section>
+
+  <section>
+    <h4>Create</h4>
+
+    <pre class="js"><code data-trim>
+Student.create({
+  name: 'Anna',
+  course: 4,
+  birthday: '1995-02-25'
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Read</h4>
+
+    <pre class="js"><code data-trim>
+Student.findOne({
+  where: {
+    name: 'Anna',
+    course: 4
+  }
+}).then(function (studentModel) {
+  return studentModel.get('email');
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Read. Projection</h4>
+
+    <pre class="js"><code data-trim>
+Student.findOne({
+  where: { name: 'Anna' },
+  attributes: ['id', 'name', 'course']
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Read. Операторы</h4>
+
+    <pre class="js"><code data-trim>
+Student.findOne({
+  where: {
+    name: {
+      $like: 'A%'
+    },
+    birthday: {
+      $gt: '1995-01-01'
+    }
+  }
+});
+    </code></pre>
+    <a href="http://sequelize.readthedocs.io/en/v3/docs/models-usage/#findall-search-for-multiple-elements-in-the-database">Подробнее</a>
+  </section>
+
+  <section>
+    <h4>Read</h4>
+
+    <pre class="js"><code data-trim>
+Student.findOne({
+  where: { id: 23 }
+});
+    </code></pre>
+
+    <pre class="js fragment"><code data-trim>
+Student.findById(23);
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Read</h4>
+
+    <pre class="js"><code data-trim>
+Student.findAll({
+  where: {
+    name: 'Anna',
+    course: 4
+  }
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Update</h4>
+
+    <pre class="js"><code data-trim>
+Student.update(
+  { course: 5 },
+  {
+    where: { id: 23 }
+  }
+);
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Delete</h4>
+
+    <pre class="js"><code data-trim>
+Student.destroy({
+    where: { id: 23 }
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Комбинации. findOrCreate</h4>
+
+    <pre class="js"><code data-trim>
+Student.findOrCreate({
+  where: { name: 'Anna' },
+  defaults: {
+    name: 'Anna',
+    course: 4,
+    birthday: '1995-02-25'
+  }
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Комбинации. upsert</h4>
+
+    <pre class="sql"><code data-trim>
+ALTER TABLE `students`
+ADD UNIQUE KEY `idx_students_name_birthday` (`name`, `birthday`);
+    </code></pre>
+
+    <pre class="js fragment"><code data-trim>
+Student.upsert({
+  name: 'Anna',
+  course: 5,
+  birthday: '1995-02-25'
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>JOIN</h3>
+  </section>
+
+  <section>
+    <h4>Внешние связи. belongsTo</h4>
+
+    <pre class="js"><code data-trim>
+Student.belongsTo(Group);
+    </code></pre>
+
+    <img src="./images/group_id.png" alt="belongs to group id">
+  </section>
+
+  <section>
+    <h4>Внешние связи. belongsTo</h4>
+
+    <pre class="js"><code data-trim>
+Student.belongsTo(Group, { as: 'student_group' });
+    </code></pre>
+
+    <img src="./images/student_group_id.png" alt="belongs to student group id">
+  </section>
+
+  <section>
+    <h4>Внешние связи. hasOne</h4>
+
+    <pre class="js"><code data-trim>
+Curator.hasOne(Group);
+    </code></pre>
+
+    <img src="./images/curator_id.png" alt="has one curator id">
+  </section>
+
+  <section>
+    <h4>Внешние связи. hasMany</h4>
+
+    <pre class="js"><code data-trim>
+Group.hasMany(Student);
+    </code></pre>
+
+    <img src="./images/has_many.png" alt="has many group id">
+  </section>
+
+  <section>
+    <h4>Внешние связи. foreignKey</h4>
+
+    <pre class="js"><code data-trim>
+Student.belongsTo(Group, {
+  foreignKey: 'fk_student_group'
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Внешние связи</h4>
+
+    <a href="http://sequelize.readthedocs.io/en/v3/docs/associations/">Подробнее</a>
+  </section>
+
+  <section>
+    <h3>Include</h3>
+
+    <pre class="js"><code data-trim>
+Student.findOne({
+  where: { name: 'Anna' },
+  include: [
+     {
+       model: Group,
+       attributes: ['name']
+     }
+  ]
+});
+    </code></pre>
+  </section>
+
+  <section data-background='images/deeper.jpg' data-background-size='contain'>
+  </section>
+
+  <section>
+    <h3>Include</h3>
+
+    <pre class="js"><code data-trim>
+Student.findOne({
+  where: { name: 'Anna' },
+  include: [
+    {
+      model: Group,
+      include: [
+        { model: Curator }
+      ]
+    }
+  ]
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Include. required</h3>
+
+    <pre class="js"><code data-trim>
+Student.findOne({
+  where: { name: 'Anna' },
+  include: [
+     {
+       model: Group,
+       required: false
+     }
+  ]
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Индексы</h3>
+  </section>
+
+  <section>
+    <h4>Уникальный индекс</h4>
+
+    <pre class="js"><code data-trim>
+sequelize.define('student', {...}, {
+  indexes: [
+    {
+      unique: true,
+      fields: ['email']
+    }
+  ]
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Составной индекс</h4>
+
+    <pre class="js"><code data-trim>
+sequelize.define('student', {...}, {
+  indexes: [
+    {
+      name: 'name_course',
+      fields: ['name', 'course'],
+    }
+  ]
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Транзакции</h4>
+
+    <pre style="font-size: 40%;" class="js"><code data-trim>
+sequelize.transaction(function (t) {
+  return Promise.all([
+    Student.findById(3)
+      .then(function (student1) {
+          Student.update(
+            { scholarship: student1.get('scholarship') + 1000 }
+            { where: { id: 3 }, transaction: t }
+          )
+      }),
+    Student.findById(4)
+      .then(function (student2) {
+          Student.update(
+            { scholarship: student2.get('scholarship') - 1000 }
+            { where: { id: 4 }, transaction: t }
+          )
+      })
+  ]);
+});
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <section>
+    <h2>CAP теорема</h2>
+  </section>
+
+  <section>
+    <blockquote cite="https://ru.wikipedia.org/wiki/Теорема_CAP">
+      Теорема CAP - эвристическое утверждение о том, что в любой реализации распределённых вычислений возможно обеспечить не более двух из трёх следующих свойств: согласованность данных, доступность, устойчивость к разделению.
+    </blockquote>
+  </section>
+
+  <section>
+    <h3>Cогласованность данных</h3>
+
+    <blockquote cite="https://ru.wikipedia.org/wiki/Теорема_CAP">
+      (англ. consistency) — во всех вычислительных узлах в один момент времени данные не противоречат друг другу
+    </blockquote>
+  </section>
+
+  <section>
+    <h3>Доступность</h3>
+
+    <blockquote cite="https://ru.wikipedia.org/wiki/Теорема_CAP">
+       (англ. availability) — любой запрос к распределённой системе завершается корректным откликом, однако без гарантии, что ответы всех узлов системы совпадают
+    </blockquote>
+  </section>
+
+  <section>
+    <h3>Устойчивость к разделению</h3>
+
+    <blockquote cite="https://ru.wikipedia.org/wiki/Теорема_CAP">
+      (англ. partition tolerance) — расщепление распределённой системы на несколько изолированных секций не приводит к некорректности отклика от каждой из секций
+    </blockquote>
+  </section>
+
+  <section data-background='images/cap.png' data-background-size='contain'>
+  </section>
+</section>
+
+<section>
+  <section>
+    <h3>NoSQL</h3>
+  </section>
+
+  <section>
+    <h3>MongoDB</h3>
+  </section>
+
+  <section>
+    <h4>Установка</h4>
+
+    <a href="https://www.mongodb.org/downloads">https://www.mongodb.org/downloads</a>
+  </section>
+
+  <section>
+    <h3>Типы данных</h3>
+
+    <table style="margin-bottom: 50px;">
+      <tr>
+        <td>String</td>
+        <td>Integer</td>
+        <td>Double</td>
+        <td>Boolean</td>
+      </tr>
+      <tr>
+        <td>Object</td>
+        <td>Timestamp</td>
+        <td>Code</td>
+        <td>Date</td>
+      </tr>
+      <tr>
+        <td>Object ID</td>
+        <td>Binary data</td>
+        <td>Regular expression</td>
+        <td>Arrays</td>
+      </tr>
+    </table>
+
+    <a href="https://www.tutorialspoint.com/mongodb/mongodb_datatype.htm">Подробнее</a>
+  </section>
+
+  <section>
+    <h3>CRUD</h3>
+  </section>
+
+  <section>
+    <h4>Create. database</h4>
+
+    <pre><code data-trim>
+use university
+    </code></pre>
+
+    <pre class="fragment"><code data-trim>
+db === university
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Create. collection</h4>
+
+    <pre class="js"><code data-trim>
+db.students.insert({
+    name: 'Aнна',
+    group: 'ФИИТ-401'
+})
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Create</h4>
+
+    <pre class="js"><code data-trim>
+db.students.insert([
+  {
+      name: 'Aнна',
+      group: 'ФИИТ-401'
+  },
+  {
+      name: 'Екатерина',
+      group: 'КН-402'
+  }
+])
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Read</h4>
+
+    <pre class="js"><code data-trim>
+db.students.find()
+    </code></pre>
+
+    <pre class="fragment"><code data-trim data-noescape>
+{
+    _id : ObjectId('56cc30e2e52c943bf62fff72'),
+    name : 'Анна',
+    group : 'ФИИТ-401'
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <p>ObjectId('56cc30e2e52c943bf62fff72')</p>
+
+    <table>
+      <tr>
+        <td>4 байта</td>
+        <td>timestamp</td>
+      </tr>
+      <tr>
+        <td>3 байта</td>
+        <td>mid</td>
+      </tr>
+      <tr>
+        <td>2 байта</td>
+        <td>pid</td>
+      </tr>
+      <tr>
+        <td>3 байта</td>
+        <td>inc</td>
+      </tr>
+    </table>
+  </section>
+
+  <section>
+    <h4>Read</h4>
+
+    <pre class="js"><code data-trim>
+db.students.find({ name: 'Анна' })
+    </code></pre>
+
+    <pre class="js fragment"><code data-trim>
+db.students.find({ name: 'Анна' }).toArray()
+    </code></pre>
+
+    <pre class="fragment"><code data-trim data-noescape>
+[{
+    _id : ObjectId('56cc30e2e52c943bf62fff72'),
+    name : 'Анна',
+    group : 'ФИИТ-401'
+},
+{
+    _id : ObjectId('56cc30e2e52c943bf62fff73'),
+    name : 'Анна',
+    group : 'КН-402'
+}]
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Read</h4>
+
+    <pre class="js"><code data-trim>
+db.students.findOne({ name: 'Анна' })
+    </code></pre>
+
+    <pre class="js fragment"><code data-trim>
+{
+    _id : ObjectId('56cc30e2e52c943bf62fff72'),
+    name : 'Анна',
+    group : 'ФИИТ-401'
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Read. Projection</h4>
+
+    <pre class="js"><code data-trim>
+db.students.find({ name: 'Анна' }, { _id: 0, group: 1 }).toArray()
+    </code></pre>
+
+    <pre class="js fragment"><code data-trim>
+[
+  { group : 'ФИИТ-401' },
+  { group : 'КН-401' }
+]
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Read. Операторы</h4>
+
+    <pre class="js"><code data-trim>
+db.students.find({
+  course: { $gt : 2 }
+})
+    </code></pre>
+
+    <a href="https://docs.mongodb.com/manual/reference/operator/query/">Список</a>
+  </section>
+
+  <section>
+    <h4>Read. Регулярные выражения</h4>
+
+    <pre class="js"><code data-trim>
+db.students.find({
+    group: /ФИИТ/
+})
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Read. Поиск по вложенным документам</h4>
+
+    <pre><code data-trim>
+{
+    name: 'Анна',
+    grades: {
+        javascript: [1,1,1,1,1,1,1,1,1,1],
+        verstka: [1,1,1,1,1,1,0.5,1,1,1,0]
+    }
+}
+    </code></pre>
+
+    <pre class="js"><code data-trim>
+db.students.find({
+    'grades.javascript.9': 1
+})
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Update</h4>
+
+    <pre class="js"><code data-trim>
+db.students.update({
+    group: /4\d{2}/
+}, {
+    $set: { course: 4 }
+}, {
+    multi: true
+})
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Update. Increment</h4>
+
+    <pre class="js"><code data-trim>
+db.students.update({
+}, {
+    $inc: { course: 1 }
+}, {
+    multi: true
+})
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Delete</h4>
+
+    <pre class="js"><code data-trim>
+db.students.remove({ course: 1 })
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Delete. justOne</h4>
+
+    <pre class="js"><code data-trim>
+db.students.remove({ course: 1 }, 1)
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Delete. collection</h4>
+
+    <pre class="js"><code data-trim>
+db.students.drop()
+    </code></pre>
+  </section>
+
+  <section>
+    <a href="https://docs.mongodb.com/manual/reference/sql-comparison/">SQL to MongoDB Mapping Chart</a>
+  </section>
+
+  <section data-transition="none">
+    <h3>JOIN</h3>
+  </section>
+
+  <section data-transition="none">
+      <h3 style="text-decoration: line-through">JOIN</h3>
+  </section>
+
+  <section>
+    <h3>Индексы</h3>
+  </section>
+
+  <section>
+    <h4>ensureIndex</h4>
+
+    <pre class="js"><code data-trim>
+db.students.ensureIndex({ 'name' : 1 })
+    </code></pre>
+
+    <pre class="js fragment"><code data-trim>
+db.students.ensureIndex(
+  { name : 1 },
+  { unique: true }
+)
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>ensureIndex. Несколько полей</h4>
+
+    <pre class="js"><code data-trim>
+db.students.ensureIndex({
+  name : 1,
+  course: -1
+})
+    </code></pre>
+  </section>
+
+  <section data-transition="none">
+    <h3>Транзакции</h3>
+  </section>
+
+  <section data-transition="none">
+      <h3 style="text-decoration: line-through">Транзакции</h3>
+  </section>
+</section>
+
+<section>
+  <section>
+    <h3>ODM</h3>
+  </section>
+
+  <section>
+    <!-- <h3>Mongoose</h3> -->
+    <img src="./images/mongoose.png" alt="mongoose logo">
+  </section>
+
+  <section>
+    <h4>Установка</h4>
+
+    <pre><code data-trim>
+npm install mongoose
+    </code></pre>
+
+    <pre class="js fragment"><code data-trim>
+var mongoose = require('mongoose');
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Подключение к DB</h4>
+
+    <pre class="js"><code data-trim>
+var uri = 'mongodb://user:pass@localhost:port/database';
+    </code></pre>
+
+    <pre class="js fragment"><code data-trim>
+mongoose.connect(uri, function (err) {
+    // обработка ошибки
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Модели</h3>
+  </section>
+
+  <section>
+    <h4>Модели. Объявление</h4>
+
+    <pre class="js"><code data-trim>
+var Schema = mongoose.Schema;
+    </code></pre>
+
+    <pre class="js fragment"><code data-trim>
+var studentSchema = new Schema({
+  name: String,
+  course: {
+    type: Number,
+    default: 1
+  },
+  group: String
+});
+    </code></pre>
+
+    <pre class="js fragment"><code data-trim>
+var Student = mongoose.model('Student', studentSchema);
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Типы данных</h4>
+
+    <table style="margin-bottom: 40px;">
+      <tr>
+        <td>String</td>
+        <td>Number</td>
+        <td>Date</td>
+        <td>Buffer</td>
+      </tr>
+      <tr>
+        <td>Boolean</td>
+        <td>Mixed</td>
+        <td>ObjectId</td>
+        <td>Array</td>
+      </tr>
+    </table>
+
+    <a style="font-size: 40px;" href="http://mongoosejs.com/docs/schematypes.html">Schema Types</a>
+  </section>
+
+  <section>
+    <h4>Модели. Getters & setters</h4>
+
+    <pre class="js"><code data-trim>
+var studentSchema = new Schema({
+  name: {
+    get: function(value) {
+        return value.toLowerCase();
+    },
+    set: function(value) {
+        return value.toUpperCase();
+    }
+  }
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Модели. Валидаторы</h4>
+
+    <pre style="font-size: 60%;" class="js"><code data-trim>
+var studentSchema = new Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  course: {
+    type: Number,
+    min: 1,
+    max: 6
+  }
+});
+    </code></pre>
+
+    <a style="font-size: 80%;" href="http://mongoosejs.com/docs/validation.html">Подробнее</a>
+  </section>
+
+  <section>
+    <h3>CRUD</h3>
+  </section>
+
+  <section>
+    <h4>Create</h4>
+
+    <pre class="js"><code data-trim>
+var student = new Student({
+    name: 'Анна',
+    course: 4,
+    group: 'ФИИТ-401'
+});
+    </code></pre>
+
+    <pre class="js fragment"><code data-trim>
+student.save(function (err, savedStudent) {
+    if (err) {
+      // обработка ошибки
+    }
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Read. findOne</h4>
+
+    <pre class="js"><code data-trim>
+var query = Student.findOne({ group: 'ФИИТ-401' });
+    </code></pre>
+
+    <pre class="js fragment"><code data-trim>
+query.where('name').equals('Анна');
+    </code></pre>
+
+    <pre class="js fragment"><code data-trim>
+query.exec(function (err, student) {
+  console.log(student);
+});
+    </code></pre>
+
+    <pre class="js fragment"><code data-trim>
+{
+  _id: '58c044b044e17cf64a20a9aa',
+  name: 'Анна',
+  course: 4,
+  group: 'ФИИТ-401'
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Read. findOne</h4>
+
+    <pre class="js"><code data-trim>
+Student.findOne({ group: 'ФИИТ-401', name: 'Анна' },
+  function (err, student) {
+    console.log(student);
+  }
+);
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Read. findById</h4>
+
+    <pre class="js"><code data-trim>
+Student.findOne({ _id: id }, callback);
+    </code></pre>
+
+    <pre class="js fragment"><code data-trim>
+Student.findById(id, callback);
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Read. Projection</h4>
+
+    <pre class="js"><code data-trim>
+Student
+  .findOne({ name: 'Анна' })
+  .select({ name: 1, group: 1 })
+  .exec(callback);
+    </code></pre>
+
+    <pre class="js fragment"><code data-trim>
+Student
+  .findOne({ name: 'Анна' })
+  .select('name group')
+  .exec(callback);
+    </code></pre>
+
+    <pre class="js fragment"><code data-trim>
+{
+  _id: '58c04c5a05b513f855fe1319',
+  name: 'Анна',
+  group: 'ФИИТ-401'
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Read. Find all</h4>
+
+    <pre class="js"><code data-trim>
+Students.find({ name: 'Анна' }, function (err, students) {
+  console.log(students);
+})
+    </code></pre>
+
+    <pre class="js fragment"><code data-trim>
+[{
+  _id: '58c04c5a05b513f855fe1319',
+  name: 'Анна',
+  group: 'ФИИТ-401'
+}]
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Update</h4>
+
+    <pre class="js"><code data-trim>
+Student.findById(id, function (error, student) {
+  student.course = 5;
+  student.save(function (err, updatedStudent) {
+    if (err) {
+      // обработка ошибки
+    }
+  });
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Update</h4>
+
+    <pre class="js"><code data-trim>
+Student.update(
+  { _id: id },
+  {
+    $set: { course: 5 }
+  },
+  function (err, student) {}
+);
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Find and update</h4>
+
+    <pre class="js"><code data-trim>
+Student.findByIdAndUpdate(id,
+  {
+    $set: { course: 5 }
+  },
+  { upsert: true },
+  function (err, student) {}
+);
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Delete</h4>
+
+    <pre class="js"><code data-trim>
+Student.findOne({ name: 'Анна' }, function (error, student) {
+  student.remove();
+});
+    </code></pre>
+
+    <pre class="js fragment"><code data-trim>
+Student.findByIdAndRemove(id, function (error, deletedStudent) {
+  console.log(deletedStudent._id);
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Pseudo-join</h4>
+
+    <pre class="js"><code data-trim>
+var group = new Group({ _id: 2, name: 'ФИИТ-401' });
+    </code></pre>
+
+    <pre class="js fragment"><code data-trim>
+group.save(function (err) {
+  if (err) {...}
+  var student = new Student({
+    name: 'Анна',
+    _group: group._id
+  });
+  student.save(function (err) {...});
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Pseudo-join</h4>
+
+    <pre class="js"><code data-trim>
+Student
+  .findOne({ name: 'Анна' })
+  .populate('_group')
+  .exec(function (err, student) {
+    console.log(student._group.name);
+  });
+    </code></pre>
+
+    <pre class="js fragment"><code data-trim>
+// 'ФИИТ-401'
+    </code></pre>
+
+    <a class="fragment" href="http://mongoosejs.com/docs/populate.html">Подробнее</a>
+  </section>
+
+  <section>
+    <h3>Индексы</h3>
+  </section>
+
+  <section>
+    <h4>На определенное поле</h4>
+
+    <pre class="js"><code data-trim>
+var studentSchema = new Schema({
+  name: {
+    type: String,
+    index: true
+  }
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Уникальный индекс</h4>
+
+    <pre class="js"><code data-trim>
+var studentSchema = new Schema({
+  name: {
+    type: String,
+    index: true,
+    unique: true
+  }
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Составной индекс</h4>
+
+    <pre class="js"><code data-trim>
+var studentSchema = new Schema({
+  name: String,
+  course: Number,
+  birthday: Date
+});
+    </code></pre>
+
+    <pre class="js fragment"><code data-trim>
+studentSchema.index({ name: 1, course: -1 });
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h4>Лекция предыдущего года</h4>
+
+  <a href="https://www.youtube.com/watch?v=CZKl22peGJk">Базы данных</a>
+</section>
+
+<section>
+  <h3>Вопросы?</h3>
+</section>
+
+</div></div>
+
+<script src="../lib/js/head.min.js"></script>
+<script src="../js/reveal.js"></script>
+<script>
+    Reveal.initialize({
+        controls: false,
+        center: true,
+        history: true,
+        hideAddressBar: true,
+        progress: true,
+        slideNumber: 'c',
+        transition: 'slide',
+        width: '100%',
+        height: '100%',
+        margin: 0,
+        minScale: 1,
+        maxScale: 1,
+        dependencies: [
+            {
+                src: '../plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            },
+            {
+                src: '../plugin/menu/menu.js'
+            }
+        ],
+        menu: {
+            side: 'left',
+            numbers: false,
+            titleSelector: 'h1, h2, h3, h4, h5, h6',
+            hideMissingTitles: true,
+            markers: true,
+            custom: false,
+            themes: false,
+            transitions: false,
+            openButton: true,
+            openSlideNumber: false,
+            keyboard: true
+        },
+    });
+</script>
+</body>
+</html>
