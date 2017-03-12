@@ -6,3 +6,7 @@
 4. Автоматизация вёрстки
 5. [Эксплуатация сервиса](https://urfu-2016.github.io/webdev-slides/05-deploy/)
 6. [Базы данных](https://urfu-2016.github.io/webdev-slides/06-databases/)
+
+# Слайды к хакатонам
+
+1. [Хакатон, день первый](https://urfu-2016.github.io/webdev-slides/hackatone-01/)
