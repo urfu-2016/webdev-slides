@@ -1,0 +1,28 @@
+html.network img {
+	position:center;
+    height:17.5em;
+}
+
+.reveal section img {
+    border: 0px solid #000;
+}
+
+.reveal .slides section .fragment.visible.hide-on-current-fragment {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.reveal .slides section .fragment.hide-on-current-fragment {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+.reveal section img.no-shadow {
+    border: 0px solid #000;
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0.0);
+}
+
+.reveal a:hover img.no-shadow {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
