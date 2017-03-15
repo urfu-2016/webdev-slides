@@ -1,0 +1,18 @@
+{
+  "private": true,
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "jest",
+    "selenium": "selenium-standalone start"
+  },
+  "dependencies": {
+    "express": "^4.15.2"
+  },
+  "devDependencies": {
+    "jest": "^19.0.2",
+    "nodemon": "^1.11.0",
+    "selenium-standalone": "^6.0.1",
+    "supertest": "^3.0.0",
+    "webdriverio": "^4.6.2"
+  }
+}
