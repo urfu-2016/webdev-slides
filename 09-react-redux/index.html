@@ -1,0 +1,1486 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>React. Redux.</title>
+
+    <link rel="stylesheet" href="../css/reveal.css">
+    <link rel="stylesheet" href="../css/theme/yandex.css">
+    <link rel="stylesheet" href="./css/user.css">
+
+    <link rel="stylesheet" href="../css/zenburn.css">
+
+    <link rel="stylesheet" href="./plugin/prism/prism.css">
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+
+        <section>
+            <h2>React. Redux.</h1>
+
+            <div>
+                <div class="author">Антон Конев</div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Ping</h1>
+        </section>
+
+        <section>
+            <h2>Часть 1: React</h2>
+
+            <ol>    
+                <li class="fragment">С чего начинался реакт?</li>
+                <li class="fragment">Что за JSX и как на нём писать?</li>
+                <li class="fragment">Как работают компоненты?</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Часть 2: Redux</h2>
+
+            <ol>    
+                <li class="fragment">Что за Redux?</li>
+                <li class="fragment">Как связан Flux и Redux?</li>
+                <li class="fragment">Как работает Redux с React?</li>
+            </ol>
+        </section>
+
+        <section data-background-video="./video/intro.mp4" data-background-video-loop data-background-video-muted></section>
+
+        <!-- REACT -->
+
+        <section>
+            <h2>Зачем и почему?</h2>
+        </section>
+
+        <section>
+            <h2>Немного истории</h2>
+            <h3 class="gray">Эволюция задач перед JS</h3>
+        </section>
+
+        <section>
+            <h2>Простые</h2>
+            <img src="./images/1.gif" style="width: 75%"/>
+        </section>
+
+        <section>
+            <h3>Взаимодействие</h3>
+            <img src="./images/3.png" style="width: 75%"/>
+        </section>
+
+        <section>
+            <h3>Более сложные</h3>
+            <img src="./images/2.gif" style="width: 80%"/>
+        </section>
+        
+        <section>
+            <blockquote>SPA — <br/>веб-приложение или сайт, который загружает только одну страницу и все последующие запросы обрабатываются без полной перезагрузки страницы.</blockquote>
+        </section>
+
+        <section>
+            <h3>Взаимодействие</h3>
+            <img src="./images/4.png" style="width: 75%"/>
+        </section>
+
+        <section>
+            <h2>Сложные</h2>
+            <video data-autoplay loop="loop" style="width: 75%" src="./video/music.mp4"></video>
+        </section>
+
+        <section>
+            <blockquote>Изоморфное приложение— <br/>приложение, которое может работать и на стороне сервера и на стороне клиента . </blockquote>
+        </section>
+
+        <section>
+            <h3>Взаимодействие</h3>
+            <img src="./images/5.png" style="width: 75%"/>
+        </section>
+
+        <section>
+            <h3>Задачи перед JS на сегодня</h3>
+
+            <ol>    
+                <li class="fragment">
+                    интерфейс
+                </li>
+                <li class="fragment">
+                    логика приложения
+                </li>
+                <li class="fragment">
+                    взаимодействие с сервером
+                </li>
+                <li class="fragment">
+                    расширяемость
+                </li>
+            </ol>
+        </section>
+
+        <section data-background-image="./images/20.gif" data-background-size="cover"></section>
+
+        <section>
+            <h2>Проблемы роста</h2>
+            
+            <ol>    
+                <li class="fragment">
+                    Cложный код
+                </li>
+                <li class="fragment">
+                    Высокий порог входа
+                </li>
+                <li class="fragment">
+                    Плохое переиспользование кода
+                </li>
+                <li class="fragment">
+                    Падение производительности на больших системах
+                </li>
+                <li class="fragment">
+                    Сложное управление состоянием приложения
+                </li>
+            </ol>
+        </section>
+
+        <section data-background-image="./images/21.gif" data-background-size="cover"></section>
+
+        <section>
+            <h1>React</h1>
+
+            <ul>
+                <li class="fragment"><span class="gray">Что: </span>Библиотека</li>
+                <li class="fragment"><span class="gray">Кем: </span>Facebook/Instagram</li>
+                <li class="fragment"><span class="gray">Когда: </span>Май 2013</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Концепции React</h2>
+
+            <ol>
+                <li class="fragment">Всё – компонент</li>
+                <li class="fragment">Гибкая абстракция над DOM</li>
+                <li class="fragment">Изоморфный код</li>
+                <li class="fragment">Реактивный рендеринг</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Без Virtual DOM</h2>
+            <img src="./images/8.png" style="width: 80%"/>
+        </section>
+
+        <section>
+            <h2>Virtual DOM</h2>
+            <img src="./images/10.png" style="width: 80%"/>
+        </section>
+
+        <section>
+            <h2>Virtual DOM</h2>
+            <video data-autoplay loop="loop" style="width: 80%" src="./video/virtual-dom-in-work.mp4"></video>
+        </section>
+
+        <section>
+            <h2>Первый компонент</h2>
+            <img src="./images/6.jpg" style="width: 70%"/>
+        </section>
+
+        <section>
+            <h2>Первый компонент</h2>
+            <img src="./images/7.jpg" style="width: 70%"/>
+        </section>
+
+        <section>
+            <h2>JSX</h2>
+        </section>
+
+        <section>
+            <h2>Первый компонент</h2>
+            <pre class="fragment">
+                <code class="language-markup" data-trim data-noescape>
+                    &lt;div id="root"&gt;&lt;/div&gt;
+                </code>
+            </pre>
+
+            <pre class="fragment">
+                <code class="language-javascript" data-trim data-noescape>
+import React from 'react';
+import ReactDom from 'react-dom';
+
+class ChatTitle extends React.Component {
+    render() {
+        return (&lt;div className="chatTitle"&gt;Заголовок&lt;/div&gt;);
+    }
+}
+
+ReactDom.render(&lt;ChatTitle/&gt;, document.getElementById('root'));
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Первый компонент</h2>
+            <pre>
+                <code class="language-markup" data-trim data-noescape>
+                    &lt;div id="root"&gt;&lt;/div&gt;
+                </code>
+            </pre>
+
+            <pre>
+                <code class="language-javascript" data-trim data-noescape>
+import React from 'react';
+import ReactDom from 'react-dom';
+
+<div class="mark">class ChatTitle extends React.Component {
+    render() {
+        return (&lt;div className="chatTitle"&gt;Заголовок&lt;/div&gt;);
+    }
+}</div>
+ReactDom.render(&lt;ChatTitle/&gt;, document.getElementById('root'));
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Первый компонент</h2>
+            <pre>
+                <code class="language-javascript" data-trim data-noescape>
+import React from 'react';
+import ReactDom from 'react-dom';
+
+const ChatTitle = () => 
+    &lt;div className="chatTitle"&gt;Заголовок&lt;/div&gt;;
+}
+
+ReactDom.render(&lt;ChatTitle/&gt;, document.getElementById('root'));
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Первый компонент</h2>
+            <pre>
+                <code class="language-javascript" data-trim data-noescape>
+import React from 'react';
+import ReactDom from 'react-dom';
+
+<div class="mark">const ChatTitle = () => 
+    &lt;div className="chatTitle"&gt;Заголовок&lt;/div&gt;;
+}</div>
+ReactDom.render(&lt;ChatTitle/&gt;, document.getElementById('root'));
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Первый компонент</h2>
+            <pre>
+                <code class="language-javascript" data-trim data-noescape>
+import React from 'react';
+import ReactDom from 'react-dom';
+
+const ChatTitle = () => 
+    &lt;div <span class="mark">className</span>="chatTitle"&gt;Заголовок&lt;/div&gt;;
+}
+
+ReactDom.render(<span class="mark">&lt;ChatTitle/&gt;</span>, document.getElementById('root'));
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>React без JSX</h2>
+
+            <span class="gray">JSX</span><pre class="fragment">
+                <code class="language-javascript">
+                    &lt;div className="awesome-div"&gt;
+                        &lt;img src="./images/1.png"/&gt;
+                    &lt;div&gt;
+                </code>
+            </pre>
+
+            <span class="gray">JS</span><pre class="fragment">
+                <code class="language-javascript">
+                    React.createElement(
+                        'div',
+                        { className: 'awesome-div' },
+                        React.createElement(
+                            'img',
+                            { src: './images/1.png' },
+                            null)
+                    )
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Отличия между JSX и HTML</h2>
+        </section>
+
+        <section>
+            <h2>Атрибуты тегов</h2>
+
+            <span class="gray">HTML </span><pre class="fragment"><code class="language-markup">&lt;input type="text" maxlength="30"/&gt;</code></pre>
+            <span class="gray">JSX </span><pre class="fragment"><code class="language-markup">&lt;input type="text" maxLength="30"/&gt;</code></pre>
+        </section>
+
+        <section>
+            <h2>Все элементы закрыты</h2>
+
+            <span class="gray">HTML </span><pre class="fragment"><code class="language-markup">&lt;span&gt;Я первая строка&lt;br&gt;А я вторая&lt;/span&gt</code></pre>
+            <span class="gray">JSX </span><pre class="fragment"><code class="language-markup">&lt;span&gt;Я первая строка&lt;br/&gt;А я вторая&lt;/span&gt</code></pre>
+        </section>
+
+        <section>
+            <h2>Имена атрибутов основаны<br/>на DOM API</h2>
+
+            <pre class="fragment"><code class="language-javascript">document.getElementById("title").className="my-great-classname";</code></pre>
+        </section>
+
+        <section>
+            <h2>Имена атрибутов основаны<br/>на DOM API</h2>
+
+            <pre><code class="language-javascript">document.getElementById("title").<span class="mark">className</span>="my-great-classname";</code></pre>
+        </section>
+
+        <section>
+            <h2>Особенности JSX</h2>
+        </section>
+
+        <section>
+            <h2>Один корневой элемент</h2>
+
+            <pre>
+                <code class="language-javascript">
+class ChatTitle extends React.Component {
+    render() {
+        return (
+            &lt;div className="chatTitle"&gt;Заголовок&lt;/div&gt;
+
+        );
+    }
+}
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Один корневой элемент</h2>
+
+            <pre>
+                <code class="language-javascript">
+class ChatTitle extends React.Component {
+    render() {
+        return (
+<div class="mark">            &lt;div className="chatTitle"&gt;Заголовок&lt;/div&gt;</div>
+        );
+    }
+}
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Один корневой элемент</h2>
+
+            <pre>
+                <code class="language-javascript">
+class ChatTitle extends React.Component {
+    render() {
+        return (
+<div class="mark">            &lt;div className="chatTitle"&gt;Заголовок&lt;/div&gt;
+            &lt;div className="chatSubtitle"&gt;Подзаголовок&lt;/div&gt;</div>        );
+    }
+}
+                </code>
+            </pre>
+
+            <p class="fragment">При рендере компонента: <span class="red">Unexpected identifier</span></p>
+        </section>
+
+        <section>
+            <h2>Условия в JSX</h2>
+
+            <div class="fragment">
+            <pre>
+                <code class="language-javascript">
+                    &lt;div className="greeting"&gt;Привет, ребята!&lt;/div&gt;
+                </code>
+            </pre>
+
+            <pre>
+                <code class="language-javascript">
+                    React.createElement("div", { className: "greeting" }, 
+                        "Привет, ребята!");
+                </code>
+            </pre>
+            </div>
+
+            <pre class="fragment">
+                <code class="language-javascript">
+                    &lt;div className={if(true){return "greeting"}}&gt;Привет, ребята!&lt;/div&gt;
+                </code>
+            </pre>
+
+            <pre class="fragment">
+                <code class="language-javascript">
+                    React.createElement("div", {className: if(true){return "greeting"}},
+                        "Привет, ребята!");
+                </code>
+            </pre>
+
+            <p class="fragment">При рендере компонента: <span class="red">Unexpected token if</span></p>
+        </section>
+
+        <section>
+            <h2>Динамические значения</h2>
+
+            <pre>
+                <code class="language-javascript">
+                    const className = 'awesome-class';
+                    const reallyDangerousHtml = 'содержимое div без экранирования';
+                    const innerHtml = {__html: {reallyDangerousHtml}};
+
+                    &lt;div className={className} dangerouslySetInnerHTML={innerHtml}/&gt;
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Динамический рендеринг</h2>
+
+            <p>Встроенная защита от атак XSS: всё экранируется</p>
+
+            <pre>
+                <code class="language-javascript">
+                    &lt;div dangerouslySetInnerHTML={
+                        {__html: 'содержимое div без экранирования'}
+                    }/&gt;
+                </code>
+            </pre>
+        </section>
+
+        <section data-background-image="./images/11.jpg" data-background-size="cover">
+            <h2>Компоновка компонентов</h2>
+        </section>
+
+        <section>
+            <h2>Объединение компонентов</h2>
+            <img src="./images/12.jpg" style="width:60%"/>
+        </section>
+
+        <section>
+            <h2>Объединение компонентов</h2>
+            <pre>
+                <code class="language-javascript">
+export default class Chat extends Component {
+    render() {
+        return (
+            &lt;div&gt;
+                &lt;ChatTitle/&gt;
+                &lt;ChatStream/&gt;
+                &lt;ChatMessageBox/&gt;
+            &lt;/div&gt;
+        );
+    }
+}
+                </code>
+            </pre>
+        </section>
+
+                <section>
+            <h2>Объединение компонентов</h2>
+            <pre>
+                <code class="language-javascript">
+export default class Chat extends Component {
+    render() {
+        return (
+<div class="bg-green">            &lt;div&gt;
+                <span class="bg-red">&lt;ChatTitle/&gt;</span>
+                <span class="bg-blue">&lt;ChatStream/&gt;</span>
+                <span class="bg-yellow">&lt;ChatMessageBox/&gt;</span>
+            &lt;/div&gt;</div>        );
+    }
+}
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Вкладывание компонентов</h2>
+            <img src="./images/22.jpg" style="width:60%"/>
+        </section>
+
+        <section>
+            <h2>Вкладывание компонентов</h2>
+            <pre>
+                <code class="language-javascript">
+export default class Chat extends Component {
+    render() { return (&lt;ChatMessage/&gt;); }
+}
+                </code>
+            </pre>
+
+            <pre>
+                <code class="language-javascript">
+import UserIcon from '../UserIcon';
+import MessageTitle from '../MessageTitle';
+import MessageContent from '../MessageContent';
+
+class ChatMessage extends React.Component {
+    render() {
+        return (&lt;div className="chatMessage"&gt;
+            &lt;UserIcon/&gt;
+            &lt;MessageTitle/&gt;
+            &lt;MessageContent/&gt;
+        &lt;/div&gt;);
+    }}
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Атрибуты</h2>
+        </section>
+
+        <section>
+            <h2>Атрибуты</h2>
+            <img src="./images/13.png" style="width: 80%"/>
+        </section>
+
+        <section>
+            <h2>Атрибуты</h2>
+            <img src="./images/14.png" style="width: 80%"/>
+        </section>
+
+        <section>
+            <h2>Атрибуты</h2>
+            
+            <pre>
+                <code class="language-javascript">
+export default class Chat extends Component {
+    render() {
+        return (&lt;ChatTitle chat="English"/&gt;);
+    }
+}
+                </code>
+            </pre>
+
+            <div class="fragment">
+                <pre>
+                    <code class="language-javascript">
+class ChatTitle extends React.Component {
+    const {chat} = this.props;
+
+    render() {
+        return (&lt;div className="chatTitle"&gt;{chat}&lt;/div&gt;);
+    }
+}
+                    </code>
+                </pre>
+            </div>
+        </section>
+
+        <section>
+            <h2>Атрибуты</h2>
+            
+            <pre>
+                <code class="language-javascript">
+export default class Chat extends Component {
+    render() {
+        return (&lt;ChatTitle chat="English"/&gt;);
+    }
+}
+                </code>
+            </pre>
+
+            <div>
+                <pre>
+                    <code class="language-javascript">
+class ChatTitle extends React.Component {
+    <span class="mark">const {chat} = this.props;</span>
+
+    render() {
+        return (&lt;div className="chatTitle"&gt;<span class="mark">{chat}</span>&lt;/div&gt;);
+    }
+}
+                    </code>
+                </pre>
+            </div>
+        </section>
+
+        <section>
+            <h2>Типы, значение по умолчанию атрибутов</h2>
+
+            <div class="fragment">
+                <pre>
+                    <code class="language-javascript">
+class ChatTitle extends React.Component {
+    render() {
+        return (&lt;div className="chatTitle"&gt;{this.props.title}&lt;/div&gt;);
+    }
+}
+
+ChatTitle.propTypes = {title: React.PropTypes.string};
+ChatTitle.defaultProps = {title: ''};
+                    </code>
+                </pre>
+
+                <a href="https://facebook.github.io/react/docs/typechecking-with-proptypes.html">Дополнительная информация про PropTypes</a>
+            </div>
+        </section>
+
+        <section>
+            <h2>Типы, значение по умолчанию атрибутов</h2>
+
+            <div>
+                <pre>
+                    <code class="language-javascript">
+class ChatTitle extends React.Component {
+    render() {
+        return (&lt;div className="chatTitle"&gt;{this.props.title}&lt;/div&gt;);
+    }
+}
+
+ChatTitle.<span class="mark">propTypes</span> = {title: React.PropTypes.string};
+ChatTitle.<span class="mark">defaultProps</span> = {title: ''};
+                    </code>
+                </pre>
+
+                <a href="https://facebook.github.io/react/docs/typechecking-with-proptypes.html">Дополнительная информация про PropTypes</a>
+            </div>
+        </section>
+
+        <section>
+            <h2>Children</h2>
+            <h3 class="gray">Потомки</h3>
+        </section>
+
+        <section>
+            <h2>Children</h2>
+
+            <pre>
+                <code class="language-javascript">
+export default class Chat extends Component {
+    render() {
+        return (&lt;ChatTitle&gt;
+            English
+        &lt;/ChatTitle&gt;);
+    }
+}
+                </code>
+            </pre>
+
+            <div class="fragment">
+                <pre>
+                    <code class="language-javascript">
+class ChatTitle extends React.Component {
+    const {children} = this.props;
+
+    render() {
+        return (&lt;div className="chatTitle"&gt;{children}&lt;/div&gt;);
+    }
+}
+                    </code>
+                </pre>
+            </div>
+        </section>
+
+        <section>
+            <h2>Children</h2>
+
+            <pre>
+                <code class="language-javascript">
+export default class Chat extends Component {
+    render() {
+        return (&lt;ChatTitle&gt;
+            English
+        &lt;/ChatTitle&gt;);
+    }
+}
+                </code>
+            </pre>
+
+            <div>
+                <pre>
+                    <code class="language-javascript">
+class ChatTitle extends React.Component {
+    const <span class="mark">{children}</span> = this.props;
+
+    render() {
+        return (&lt;div className="chatTitle"&gt;{children}&lt;/div&gt;);
+    }
+}
+                    </code>
+                </pre>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Компоненты высшего порядка</h2>
+            <h3 class="gray">Higher order components или HOC</h3>
+            <a href="https://facebook.github.io/react/docs/higher-order-components.html">Дополнительная информация</a>
+        </section>
+
+        <section>
+            <h2>Состояние компонента</h2>
+        </section>
+
+        <section>
+            <h2>Состояние компонента</h2>
+            <pre>
+                <code>
+                    constructor(props) {
+                        // ...
+                        this.state = {
+                            isLoading: true,
+                            hasError: false
+                        };
+                    }
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Состояние компонента</h2>
+            <ol>
+                <li>Компонент реагирует на изменение состояния</li>
+                <li>Инициализация происходит в одном месте</li>
+                <li>Изменять состояние на прямую нельзя</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Работа с формами</h2>
+            <img src="./images/23.jpg" style="width:60%"/>
+        </section>
+
+        <section>
+            <h2>Работа с формами</h2>
+            <ul>
+                <li>Как получить данные из input?</li>
+                <li>Как обрабатывать события?</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Ссылки на DOM узел</h2>
+            <h3 class="gray">ref</h3>
+        </section>
+
+        <section>
+            <h2>Ссылки на DOM узел</h2>
+            <pre class="fragment">
+                <code class="language-javascript">
+export default class ChatMessageBox extends Component {
+    constructor() {
+        super(...arguments);
+        this.refInput = ref => {this._input = ref;};
+    }
+    render() {
+        return &lt;input type="text" ref={this.refInput}/&gt;;
+    }
+}
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Ссылки на DOM узел</h2>
+            <pre>
+                <code class="language-javascript">
+export default class ChatMessageBox extends Component {
+    constructor() {
+        super(...arguments);
+        <span class="mark">this.refInput = ref => {this._input = ref;};</span>
+    }
+    render() {
+        return &lt;input type="text" <span class="mark">ref={this.refInput}</span>/&gt;;
+    }
+}
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Виды компонентов</h2>
+            <ol>
+                <li>Неуправляемые</li>
+                <li>Контролируемые</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Неуправляемые компоненты</h2>
+            <pre>
+                <code class="language-javascript">
+class Form extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(event) {
+    alert('Отправлено значение: ' + this.input.value);
+    event.preventDefault();
+  }
+  
+  ...
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Неуправляемые компоненты</h2>
+            <pre>
+                <code class="language-javascript">
+class Form extends React.Component {
+  ...
+  render() {
+    return (&lt;form&gt;
+        &lt;input
+            type="text"
+            ref={(input) => this.input = input}
+        /&gt;
+        &lt;input 
+            type="submit"
+            onSubmit={this.handleSubmit}
+            value="Отправить"
+        /&gt;
+    &lt;/form&gt;);
+  }
+}
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Неуправляемые компоненты</h2>
+            <pre>
+                <code class="language-javascript">
+class Form extends React.Component {
+  ...
+  render() {
+    return (&lt;form&gt;
+        &lt;input
+            type="text"
+            <span class="mark">ref={(input) => this.input = input}</span>
+        /&gt;
+        &lt;input 
+            type="submit"
+            <span class="mark">onSubmit={this.handleSubmit}</span>
+            value="Отправить"
+        /&gt;
+    &lt;/form&gt;);
+  }
+}
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Неуправляемые компоненты</h2>
+            <ol>
+                <li class="fragment">Простота</li>
+                <li class="fragment">Использует единственный<br/>обработчик на форму</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Управляемые компоненты</h2>
+            <pre>
+                <code class="language-javascript">
+class Form extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: ''};
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+  
+  ...
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Управляемые компоненты</h2>
+            <pre>
+                <code class="language-javascript">
+class Form extends React.Component {
+  ...
+  render() {
+    return (&lt;form&gt;
+        &lt;input
+            type="text"
+            value={this.state.value}
+            onChange={this.handleChange}
+        /&gt;
+        &lt;input type="submit" value="Отправить" /&gt;
+    &lt;/form&gt;);
+  }
+}
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Управляемые компоненты</h2>
+            <ol>
+                <li class="fragment">Состояние изменяется через интерфейс</li>
+                <li class="fragment">Поведение полностью управляется в коде JS</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Контекст</h2>
+        </section>
+
+        <section>
+            <h2>Контекст</h2>
+            <img src="./images/13.png" style="width: 80%"/>
+        </section>
+
+        <section>
+            <h2>Контекст</h2>
+            <img src="./images/15.png" style="width: 80%"/>
+        </section>
+
+        <section>
+            <h2>Контекст</h2>
+            <span class="gray">Создатель контекста</span>
+            <pre>
+                <code class="language-javascript">
+import ChildComponent from '../ChildComponent';
+
+class ParentComponent extends React.Component {
+    getChildContext() {
+        return {color: 'purple'};
+    }
+    render() { return &lt;ChildComponent/&gt; }
+}
+
+ParentComponent.childContextTypes = {
+    color: React.PropTypes.string
+};
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Контекст</h2>
+            <span class="gray">Создатель контекста</span>
+            <pre>
+                <code class="language-javascript">
+import ChildComponent from '../ChildComponent';
+
+class ParentComponent extends React.Component {
+<div class="mark">    getChildContext() {
+        return {color: 'purple'};
+    }</div>    render() { return &lt;ChildComponent/&gt; }
+}
+
+<div class="mark">ParentComponent.childContextTypes = {
+    color: React.PropTypes.string
+};</div>
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Контекст</h2>
+            <span class="gray">Дочерний компонент, который использует данные</span>
+            <pre>
+                <code class="language-javascript">
+class ChildComponent extends React.Component {
+    render() { return this.context.color; }
+}
+
+ChildComponent.contextTypes = {
+  color: React.PropTypes.string
+};
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Контекст</h2>
+            <span class="gray">Дочерний компонент, который использует данные</span>
+            <pre>
+                <code class="language-javascript">
+class ChildComponent extends React.Component {
+    render() { return <span class="mark">this.context.color</span>; }
+}
+
+<div class="mark">ChildComponent.contextTypes = {
+  color: React.PropTypes.string
+};</div>
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Жизненный цикл компонента</h2>
+        </section>
+
+        <section>
+            <h2>Части жизненного цикла</h2>
+            <ol>
+                <li class="fragment">Монтирование компонента</li>
+                <li class="fragment">Изменение атрибутов (props)</li>
+                <li class="fragment">Изменение состояния (state)</li>
+                <li class="fragment">Удаление компонента</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Монтирование компонента</h2>
+            <img src="./images/16.png" style="height: 80%"/>
+        </section>
+
+        <section>
+            <h2>Изменение атрибутов (props)</h2>
+            <img src="./images/18.png" style="height: 80%"/>
+        </section>
+
+        <section>
+            <h2>Изменение состояния (state)</h2>
+            <img src="./images/19.png" style="height: 80%"/>
+        </section>
+
+        <section>
+            <h2>Удаление компонента</h2>
+            <img src="./images/17.png" style="height: 80%"/>
+        </section>
+
+        <section>
+            <h2>Абстракция DOM</h2>
+            <h3 class="fragment">
+                Virtual DOM
+            </h3>
+            <div class="fragment">
+                <h3>SyntheticEvent</h3>
+                <a href="https://facebook.github.io/react/docs/events.html#supported-events">Перечень всех событий</a>
+            </div>
+        </section>
+
+        <section>
+            <h2>Ключи</h2>
+
+            <span class="gray">До </span>
+            <pre class="fragment">
+                <code class="language-markup">
+                    &lt;ul&gt;
+                        &lt;li&gt;Спать&lt;/li&gt;
+                        &lt;li&gt;Кушать&lt;/li&gt;
+                    &lt;/ul&gt;
+                </code>
+            </pre>
+            <span class="gray">После </span>
+            <pre class="fragment">
+                <code class="language-markup">
+                    &lt;ul&gt;
+                        &lt;li&gt;Учиться&lt;/li&gt;
+                        &lt;li&gt;Спать&lt;/li&gt;
+                    &lt;/ul&gt;
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Ключи</h2>
+
+            <pre class="fragment">
+                <code class="language-javascript">
+                    render() {
+                        const items = ['Учиться', 'Спать'];
+                        return (&lt;ul&gt;
+                            {
+                                items.map((item, i) => &lt;li key={i}&gt;{item}&lt;/li&gt;)
+                            }
+                        &lt;/ul&gt;);
+                    }
+                </code>
+            </pre>
+
+            <p class="fragment">
+                Использование индекса массива в качестве ключа<br/>опасно и может привести к коллизиям!
+                <a href="https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318#.hdqgbwnvr">Подробнее</a>
+            </p>
+        </section>
+
+        <section>
+            <h2>Итоги</h2>
+            <ul>
+                <li>Что такое React и как он появился</li>
+                <li>Virtual DOM, SyntheticEvent</li>
+                <li>Что такое компоненты и как их использовать</li>
+                <li>Атрибуты, Состояние компонент, Контекст</li>
+                <li>Жизненный цикл компонентов</li>
+                <li>Особенности при разработке</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Вопросы</h2>
+            <a class="huge" href="http://bit.ly/react-frontend">bit.ly/react-frontend</a>
+            <a class="huge" href="http://bit.ly/react-backend">bit.ly/react-backend</a>
+            <a class="huge" href="http://bit.ly/react-lecture">bit.ly/react-lecture</a>
+        </section>
+
+        <section data-background-image="./images/24.gif" data-background-size="cover"></section>
+
+        <!-- REDUX -->
+        <section>
+            <h2>Redux</h2>
+        </section>
+
+        <section>
+            <blockquote>
+                Redux— это схема обработки данных в приложении.
+            </blockquote>
+            <p>Основана на Flux.</p>
+        </section>
+
+        <section data-background-image="./images/26.png" data-background-size="cover"></section>
+    
+        <section>
+            <h2>MVC</h2>
+            <img src="./images/27.png" style="width: 75%"/>
+        </section>
+
+        <section>
+            <h2>MVC</h2>
+            <img src="./images/28.png" style="width: 75%"/>
+        </section>
+
+        <section>
+            <h2>Redux</h2>
+            <img src="./images/53.png" style="width: 75%"/>
+        </section>
+
+        <section>
+            <h2>Action</h2>
+            <ul>
+                <li class="fragment">Приводит действие и данные к определённому виду</li>
+            </ul>
+
+            <pre class="fragment">
+                <code class="language-javascript">
+// action
+const SELECT_CHAT = 'CHATS@@SELECT_CHAT';
+
+// action creator
+export function selectChat(chat) {
+    return {
+        type: SELECT_CHAT,
+        payload: chat
+    };
+}
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Store</h2>
+            <ul>
+                <li class="fragment">Хранит состояние</li>
+                <li class="fragment">Единый объект</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Store</h2>
+            <img src="./images/41.png" style="height: 75%"/>
+        </section>
+
+        <section>
+            <h2>Reducers</h2>
+            <ul>
+                <li class="fragment">Функция обработки событий</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Reducers</h2>
+            <img src="./images/42.png" style="height: 75%"/>
+        </section>
+
+        <section>
+            <h2>Инициализация приложения</h2>
+            <ol>
+                <li class="fragment">Инициализация Store</li>
+                <li class="fragment">Установка связи между<br/>хранилищем и компонентами</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Обработка действий</h2>
+            <img src="./images/43.png" style="width: 75%"/>
+        </section>
+
+        <section>
+            <h2>Обработка действий</h2>
+            <img src="./images/44.png" style="width: 75%"/>
+        </section>
+
+        <section>
+            <h2>Обработка действий</h2>
+            <img src="./images/45.png" style="width: 75%"/>
+        </section>
+
+        <section>
+            <h2>Обработка действий</h2>
+            <img src="./images/46.png" style="width: 75%"/>
+        </section>
+
+        <section>
+            <h2>Обработка действий</h2>
+            <img src="./images/47.png" style="width: 75%"/>
+        </section>
+
+        <section>
+            <h2>Обработка действий</h2>
+            <img src="./images/48.png" style="width: 75%"/>
+        </section>
+
+        <section>
+            <h2>Обработка действий</h2>
+            <img src="./images/49.png" style="width: 75%"/>
+        </section>
+
+        <section>
+            <h2>Обработка действий</h2>
+            <img src="./images/50.png" style="width: 75%"/>
+        </section>
+
+        <section>
+            <h2>Обработка действий</h2>
+            <img src="./images/51.png" style="width: 75%"/>
+        </section>
+
+        <section>
+            <h2>Итого</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Action</th>
+                        <th>Store</th>
+                        <th>Reducer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Redux</td>
+                        <td>Формирует действие</td>
+                        <td>Хранит состояние</td>
+                        <td>Функция изменения состояния</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>react-redux</h2>
+        </section>
+
+        <section>
+            <img src="./images/52.jpg" style="width: 75%"/>
+        </section>
+
+        <section>
+            <h2>Action</h2>
+            <pre class="fragment">
+                <code class="language-javascript">
+/* /src/actions/chats.js */
+
+// action
+const SELECT_CHAT = 'CHATS@@SELECT_CHAT';
+
+// action creator
+export function selectChat(chat) {
+    return {
+        type: SELECT_CHAT,
+        chat
+    };
+}
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Store</h2>
+            <h3>Initial State</h3>
+            <pre class="fragment">
+                <code class="language-javascript">
+/* /src/store/initialState.js */
+
+// initial state
+export default {
+    chat: null,
+    chats: []
+};
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Store</h2>
+            <pre class="fragment">
+                <code class="language-javascript">
+/* /src/store/index.js */
+
+import {createStore} from 'redux';
+import reducer from '../reducers/index.js';
+
+import initialState from './initialState.js';
+
+export default createStore(
+    reducer,
+    initialState
+);
+
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>Reducer</h2>
+            <pre class="fragment">
+                <code class="language-javascript">
+/* /src/reducers/chat.js */
+const SELECT_CHAT = 'CHATS@@SELECT_CHAT';
+
+export default function (state = null, action) {
+    switch (action.type) {
+
+    case SELECT_CHAT:
+        return action.chat;
+
+    default:
+        return state;
+    }
+}
+
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>View</h2>
+            <h3>Root component</h3>
+            <pre class="fragment">
+                <code class="language-javascript">
+/* /src/index.js */
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
+import store from './store/index.js';
+import App from './components/App';
+
+ReactDOM.render(
+    &lt;Provider store={store}&gt;
+        &lt;App/&gt;
+    &lt;/Provider&gt;,
+    document.getElementById('root')
+);
+                </code>
+            </pre>
+        </section>
+
+        <section>
+            <h2>View</h2>
+            <h3>Получение данных из Store</h3>
+            <pre class="fragment">
+                <code class="language-javascript">
+import {connect} from 'react-redux';
+import ChatsList from '../components/ChatList';
+
+const mapStateToProps = state => {
+    return {
+        chat: state.chat,
+        chats: state.chats
+    };
+};
+
+export default connect(mapStateToProps)(ChatList);
+                </code>
+            </pre>
+            <p class="fragment">chat и chats станут доступными в атрибутах компонента ChatList</p>
+        </section>
+
+        <section>
+            <h2>View</h2>
+            <h3>Dispatch события из View</h3>
+            <pre class="fragment">
+                <code class="language-javascript">
+import {connect} from 'react-redux';
+import {selectChat} from '../../actions/chats.js';
+
+import ChatsList from '../components/ChatList';
+
+const mapDispatchToProps = dispatch => {
+    return {
+        selectChat: payload => dispatch(selectChat(payload))
+    };
+};
+
+export default connect(null, mapDispatchToProps)(ChatList);
+                </code>
+            </pre>
+            <p class="fragment">selectChat станет доступными в атрибутах компонента ChatList</p>
+        </section>
+
+        <section>
+            <h2>Итоги</h2>
+            <ul>
+                <li>Познакомились с Redux</li>
+                <li>Узнали какие роли выполняют<br/>персонажи в Redux</li>
+                <li>Рассмотрели процесс инициализации<br/>приложения</li>
+                <li>Узнали как обрабатывается<br/>любое событие</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Ссылки</h3>
+            <a class="huge" href="http://bit.ly/redux-frontend">bit.ly/redux-frontend</a>
+            <a class="huge" href="http://bit.ly/react-backend">bit.ly/react-backend</a>
+            <a class="huge" href="http://bit.ly/react-lecture">bit.ly/react-lecture</a>
+            <br/>
+            <h3>Обратная связь</h3>
+            <a class="huge" href="http://bit.ly/lecture-feedback">bit.ly/lecture-feedback</a>
+        </section>
+    </div>
+</div>
+
+<script src="../js/head.min.js"></script>
+<script src="../js/reveal.js"></script>
+
+<script>
+// More info https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+    controls: false,
+    slideNumber: 'c',
+    history: true,
+    margin: 0,
+    width: 960,
+    height: 700,
+    transition: false,
+
+    // More info https://github.com/hakimel/reveal.js#dependencies
+    dependencies: [
+        { src: '../plugin/notes/notes.js', async: true },
+        { src: './plugin/prism/prism.js', async: true }
+    ]
+});
+</script>
+</body>
+</html>

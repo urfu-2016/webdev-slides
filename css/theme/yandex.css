@@ -12,6 +12,15 @@
     src: url('SourceCodePro-Light.ttf');
 }
 
+.reveal .author {
+    text-align: center;
+    display: inline-block;
+}
+
+.reveal .author::first-letter {
+    color: red; 
+}
+
 /*********************************************
  * GLOBAL STYLES
  *********************************************/

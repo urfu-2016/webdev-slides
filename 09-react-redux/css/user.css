@@ -1,0 +1,109 @@
+.reveal .canvas {
+    height: 700px;
+}
+
+.reveal .canvas>img {
+    position: absolute;
+    background: none;
+    box-shadow: none;
+}
+
+.reveal .gray {
+    color: gray;
+}
+
+.reveal .red {
+    color: red;
+}
+
+.reveal .bg-green {
+    background: green;
+}
+
+.reveal .bg-red {
+    background: red;
+}
+
+.reveal .bg-blue {
+    background: blue;
+}
+
+.reveal .bg-yellow {
+    color: black;
+    background: yellow;
+}
+
+.reveal .mark {
+    background: #777;
+}
+
+.reveal .unlisted {
+    list-style: none;
+}
+
+.reveal pre {
+    padding: 0 20px;
+    font-size: .7em;
+}
+
+.reveal code pre {
+    display: inline-block;
+}
+
+.reveal li {
+    margin: 15px;
+    line-height: 1.3;
+    font-size: 1.3em;
+}
+
+.reveal li video {
+    display: none;
+}
+
+.reveal li.current-fragment video {
+    position: absolute;
+    max-width: 350px;
+    max-height: 200px;
+    right: 0px;
+    top: 120px;
+    display: block;
+}
+
+.reveal .logo {
+    width: 300px;
+    height: 150px;
+    border: 15px solid #fff;
+    background-color: #fff;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 15px;
+}
+
+.reveal .logo.angular {
+    background-image: url(../images/angular.png);
+}
+
+.reveal .logo.backbone {
+    background-image: url(../images/backbone.png);
+}
+
+.reveal .logo.ember {
+    background-image: url(../images/ember.png);
+}
+
+.reveal [data-background-image] h2 {
+    padding: 50px;
+    background: #fff;
+    color: #000;
+}
+
+.reveal section img {
+    background: transparent;
+}
+
+.reveal .huge {
+    font-size: 1.6em;
+    display: block;
+}
