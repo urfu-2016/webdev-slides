@@ -9,7 +9,7 @@
 7. [Тестирование](https://urfu-2016.github.io/webdev-slides/07-tests)
 8. DOM
 9. [React. Redux.](https://urfu-2016.github.io/webdev-slides/09-react-redux/)
-10. [Клиент-Сервер](https://urfu-2016.github.io/webdev-slides/10-client-server/)(HTTP, REST, xmlHttpRequest, fetch, CORS)
+10. [Клиент-Сервер](https://urfu-2016.github.io/webdev-slides/10-client-server/) (HTTP, REST, xmlHttpRequest, fetch, CORS)
 
 # Слайды к хакатонам
 
