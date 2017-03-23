@@ -2,13 +2,14 @@
 
 1. [Git](https://gebetix.github.io/git/) ([Командная работа](https://urfu-2015.github.io/webdev-slides/1-2-teamwork-git-github/))
 2. [Express.js](https://urfu-2016.github.io/webdev-slides/02-expressjs/)
-3. [Организация вёрстки](https://urfu-2016.github.io/webdev-slides/3-bem/)
+3. [Организация вёрстки](https://urfu-2016.github.io/webdev-slides/03-bem/)
 4. Автоматизация вёрстки
 5. [Эксплуатация сервиса](https://urfu-2016.github.io/webdev-slides/05-deploy/)
 6. [Базы данных](https://urfu-2016.github.io/webdev-slides/06-databases/)
 7. [Тестирование](https://urfu-2016.github.io/webdev-slides/07-tests)
 8. DOM
 9. [React. Redux.](https://urfu-2016.github.io/webdev-slides/09-react-redux/)
+10. [Клиент-Сервер](https://urfu-2016.github.io/webdev-slides/10-client-server/)(HTTP, REST, xmlHttpRequest, fetch, CORS)
 
 # Слайды к хакатонам
 
