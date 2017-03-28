@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>JavaScript, Intro</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="../css/reveal.css">
+    <link rel="stylesheet" href="../css/theme/yandex.css" id="theme">
+    <link rel="stylesheet" href="css/user.css">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="../lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="../lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body class="yandex"><div class="reveal"><div class="slides">
+    <section>
+        <h2>DOM, который построил <strike>Джек</strike> Netscape</h2>
+        <p class="author"><small>Чистяков Денис</small></p>
+    </section>
+
+    <section>
+        <h4>DOM (Document Object Model) — это программный интерфейс, для чтения и
+            редактирования содержимомого <nobr>HTML, XML-документов</nobr></h4>
+    </section>
+
+    <section>
+        <h4>Это дерево, узлами которого могут быть элементы, текст, комментарии,
+            атрибуты и т.д.</h4>
+    </section>
+
+    <section>
+        <h4>Простейший DOM</h4>
+        <pre class="size-XS html"><code data-noescape>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+<span class="fragment highlight mark init_visible" data-fragment-index="1">&lt;head&gt;</span>
+    &lt;title&gt;DOM&lt;/title&gt;
+<span class="fragment highlight mark init_visible" data-fragment-index="1">&lt;/head&gt;</span>
+<span class="fragment highlight blue init_visible" data-fragment-index="2">&lt;body&gt;</span>
+&lt;form class="auth form" id="auth" data-form-value="123" action="/login/"&gt;
+    &lt;input type="text" value="" name="login"&gt;
+    &lt;input type="password" value="" name="password"&gt;
+    &lt;button&gt;Войти&lt;/button&gt;
+&lt;/form&gt;
+<span class="fragment highlight blue init_visible" data-fragment-index="2">&lt;/body&gt;</span>
+&lt;/html&gt;
+        </code></pre>
+    </section>
+
+    <section>
+        <h4>Что позволяет нам DOM?</h4>
+        <ul>
+            <li>Искать элементы</li>
+            <li>Обход дерева</li>
+            <li>Изменять атрибуты узла</li>
+            <li>Добавлять / удалять / клонировать узлы</li>
+            <li>Обрабатывать события на узлах</li>
+        </ul>
+    </section>
+
+    <section data-background-image="images/68853667_2_40464.jpg">
+        <h4 class="grey-bg">Поиск элементов</h4>
+    </section>
+
+    <section>
+        <pre class="size-XS html"><code data-noescape>
+&lt;form class="auth form" id="auth" data-form-value="123" action="/login/"&gt;
+    &lt;input type="text" value="" name="login"&gt;
+    &lt;input type="password" value="" name="password"&gt;
+    &lt;button&gt;Войти&lt;/button&gt;
+&lt;/form&gt;
+        </code></pre>
+    </section>
+
+    <section>
+        <h4>getElementById</h4>
+        <pre class="size-S js"><code data-noescape>
+document.getElementById(<span class="fragment highlight mark init_visible" data-fragment-index="1">'auth'</span>)  // [object <span class="fragment highlight blue init_visible" data-fragment-index="2">HTMLFormElement</span>]
+        </code></pre>
+        <pre class="size-XS html"><code data-noescape>
+<span class="fragment highlight mark init_visible" data-fragment-index="1">&lt;form class="auth form" id="auth" data-form-value="123" action="/login/"&gt;</span>
+    &lt;input type="text" value="" name="login"&gt;
+    &lt;input type="password" value="" name="password"&gt;
+    &lt;button&gt;Войти&lt;/button&gt;
+<span class="fragment highlight mark init_visible" data-fragment-index="1">&lt;/form&gt;</span>
+        </code></pre>
+    </section>
+
+    <section>
+        <h4>getElementsByTagName</h4>
+        <pre class="size-S js"><code data-noescape>
+document.getElementsByTagName(<span class="fragment highlight mark init_visible" data-fragment-index="1">'input'</span>)  // [object <span class="fragment highlight blue init_visible" data-fragment-index="2">HTMLCollection</span>]
+        </code></pre>
+        <pre class="size-XS html"><code data-noescape>
+&lt;form class="auth form" id="auth" data-form-value="123" action="/login/"&gt;
+    <span class="fragment highlight mark init_visible" data-fragment-index="1">&lt;input type="text" value="" name="login"&gt;</span>
+    <span class="fragment highlight mark init_visible" data-fragment-index="1">&lt;input type="password" value="" name="password"&gt;</span>
+    &lt;button&gt;Войти&lt;/button&gt;
+&lt;/form&gt;
+        </code></pre>
+    </section>
+
+    <section>
+        <h4>querySelector</h4>
+        <pre class="size-S js"><code data-noescape>
+document.querySelector(<span class="fragment highlight mark init_visible" data-fragment-index="1">'#auth'</span>)  // [object HTMLFormElement]
+        </code></pre>
+        <pre class="size-XS html"><code data-noescape>
+<span class="fragment highlight mark init_visible" data-fragment-index="1">&lt;form class="auth form" id="auth" data-form-value="123" action="/login/"&gt;</span>
+    &lt;input type="text" value="" name="login"&gt;
+    &lt;input type="password" value="" name="password"&gt;
+    &lt;button&gt;Войти&lt;/button&gt;
+<span class="fragment highlight mark init_visible" data-fragment-index="1">&lt;/form&gt;</span>
+        </code></pre>
+    </section>
+
+    <section>
+        <h4>querySelector</h4>
+        <pre class="size-S js"><code data-noescape>
+document.querySelector(<span class="fragment highlight mark init_visible" data-fragment-index="1">'.auth'</span>)  // [object HTMLFormElement]
+        </code></pre>
+        <pre class="size-XS html"><code data-noescape>
+<span class="fragment highlight mark init_visible" data-fragment-index="1">&lt;form class="auth form" id="auth" data-form-value="123" action="/login/"&gt;</span>
+    &lt;input type="text" value="" name="login"&gt;
+    &lt;input type="password" value="" name="password"&gt;
+    &lt;button&gt;Войти&lt;/button&gt;
+<span class="fragment highlight mark init_visible" data-fragment-index="1">&lt;/form&gt;</span>
+        </code></pre>
+    </section>
+
+    <section>
+        <h4>querySelector</h4>
+        <pre class="size-S js"><code data-noescape>
+document.querySelector(<span class="fragment highlight mark init_visible" data-fragment-index="1">'[name="login"]'</span>)  // [object HTMLInputElement]
+        </code></pre>
+        <pre class="size-XS html"><code data-noescape>
+&lt;form class="auth form" id="auth" data-form-value="123" action="/login/"&gt;
+    <span class="fragment highlight mark init_visible" data-fragment-index="1">&lt;input type="text" value="" name="login"&gt;</span>
+    &lt;input type="password" value="" name="password"&gt;
+    &lt;button&gt;Войти&lt;/button&gt;
+&lt;/form&gt;
+        </code></pre>
+    </section>
+
+    <section>
+        <h4><code>querySelector</code> всегда возвращает <nobr><u>только первый</u></nobr> элемент</h4>
+    </section>
+
+    <section>
+        <h4>querySelector</h4>
+        <pre class="size-S js"><code data-noescape>
+document.querySelector(<span class="fragment highlight mark init_visible" data-fragment-index="1">'input'</span>)  // [object HTMLInputElement]
+        </code></pre>
+        <pre class="size-XS html"><code data-noescape>
+&lt;form class="auth form" id="auth" data-form-value="123" action="/login/"&gt;
+    <span class="fragment highlight mark init_visible" data-fragment-index="1">&lt;input type="text" value="" name="login"&gt;</span>
+    &lt;input type="password" value="" name="password"&gt;
+    &lt;button&gt;Войти&lt;/button&gt;
+&lt;/form&gt;
+        </code></pre>
+    </section>
+
+    <section>
+        <h4>querySelectorAll</h4>
+        <pre class="size-S js"><code data-noescape>
+document.querySelectorAll(<span class="fragment highlight mark init_visible" data-fragment-index="1">'input,button'</span>)  // [object <span class="fragment highlight blue init_visible" data-fragment-index="2">NodeList</span>]
+        </code></pre>
+        <pre class="size-XS html"><code data-noescape>
+&lt;form class="auth form" id="auth" data-form-value="123" action="/login/"&gt;
+    <span class="fragment highlight mark init_visible" data-fragment-index="1">&lt;input type="text" value="" name="login"&gt;</span>
+    <span class="fragment highlight mark init_visible" data-fragment-index="1">&lt;input type="password" value="" name="password"&gt;</span>
+    <span class="fragment highlight mark init_visible" data-fragment-index="1">&lt;button&gt;Войти&lt;/button&gt;</span>
+&lt;/form&gt;
+        </code></pre>
+    </section>
+
+    <section>
+        <h4>HTMLCollection и NodeList — <u>не массивы</u>, поэтому методов forEach, map и т.п.— нет!</h4>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p class="left size-XS"><a href="http://stackoverflow.com/questions/2600343/why-does-document-queryselectorall-return-a-staticnodelist-rather-than-a-real-ar/2601582">Why does document.querySelectorAll return a StaticNodeList rather than a real Array?</a></p>
+    </section>
+
+    <section>
+        <h4>Итерирование по коллекциям</h4>
+        <pre class="size-S js"><code data-noescape>
+// Вариант №1
+var collection = document.querySelectorAll('input,button');
+for (var i = 0, len = collection.length; i < len; i++) {
+    var elem = collection[i];
+}
+        </code></pre>
+    </section>
+
+    <section>
+        <h4>Итерирование по коллекциям</h4>
+        <pre class="size-S js"><code data-noescape>
+// Вариант №2
+var elems = document.querySelectorAll('input,button');
+var elemsList = <span class="fragment highlight blue init_visible" data-fragment-index="1">Array.prototype.slice.call</span>(elems);
+elemsList.forEach(function(elem) {
+    …
+});
+        </code></pre>
+    </section>
+
+    <section>
+        <h4>Итерирование по коллекциям</h4>
+        <pre class="size-S js"><code data-noescape>
+// Вариант №3
+var elemsList = <span class="fragment highlight blue init_visible" data-fragment-index="1">Array.from</span>(document.querySelectorAll('input,button'));
+elemsList.forEach(function(elem) {
+    …
+});
+        </code></pre>
+    </section>
+
+    <section data-background-image="images/kokteili.jpg">
+        <h4 class="grey-bg">Атрибуты и свойства</h4>
+    </section>
+
+    <section>
+        <h4>*Attribute</h4>
+        <pre class="size-S js"><code data-noescape>
+var form = document.getElementById('auth');
+        </code></pre>
+        <pre class="size-S js fragment"><code data-noescape>
+form.getAttribute('action'); // '/login/'
+        </code></pre>
+        <pre class="size-S js fragment"><code data-noescape>
+<span class="fragment">form.hasAttribute('method'); // false</span>
+<span class="fragment">form.setAttribute('method', 'POST');</span>
+<span class="fragment">form.hasAttribute('method'); // true
+form.getAttribute('method'); // 'POST'</span>
+<span class="fragment">form.removeAttribute('method');</span>
+<span class="fragment">form.hasAttribute('method'); // false</span>
+        </code></pre>
+    </section>
+
+    <section>
+        <h4>data-атрибуты</h4>
+        <pre class="size-S js fragment"><code data-noescape>
+form.getAttribute('data-form-value'); // '123'
+        </code></pre>
+        <pre class="size-S js fragment"><code data-noescape>
+form.dataset.formValue; // '123'
+form.dataset.hasOwnProperty('formValue'); // true
+        </code></pre>
+        <pre class="size-S js fragment"><code data-noescape>
+form.dataset.fooBarBazBaf = 'boo'; // data-foo-bar-baz-baf="boo"
+form.hasAttribute('data-foo-bar-baz-baf'); // true
+        </code></pre>
+        <pre class="size-XS html"><code data-noescape>
+&lt;form class="auth form" id="auth" <span class="fragment highlight blue init_visible" data-fragment-index="1">data-form-value="123"</span> action="/login/"&gt;
+    &lt;input type="text" value="" name="login"&gt;
+    &lt;input type="password" value="" name="password"&gt;
+    &lt;button&gt;Войти&lt;/button&gt;
+&lt;/form&gt;
+        </code></pre>
+    </section>
+
+    <section>
+        <h4>Атрибуты !== свойства</h4>
+        <pre class="size-S js"><code data-noescape>
+form.getAttribute('action'); // "/"
+form.getAttribute('method'); // null
+form.getAttribute('id'); // "auth"
+        </code></pre>
+        <pre class="size-S js fragment"><code data-noescape>
+form.action; // "https://yandex.ru/login/"
+form.method; // "get"
+form.id; // "auth"
+        </code></pre>
+    </section>
+
+    <section>
+        <h4>Классы</h4>
+        <pre class="size-S js"><code data-noescape>
+form.className; // 'auth form'
+form.className += ' login-form'; // 'auth form login-form'
+        </code></pre>
+        <pre class="size-S js fragment"><code data-noescape>
+form.classList.add('login-form');
+<span class="fragment">form.classList.item(1); // 'form'
+form.classList.item(2); // 'login-form'</span>
+<span class="fragment">form.classList.contains('login-form'); // true</span>
+<span class="fragment">form.classList.remove('login-form');</span>
+        </code></pre>
+    </section>
+
+    <section data-background-image="images/a417aa58840414d3b56747a7187db133.jpg">
+        <h4 class="grey-bg">Создание элементов</h4>
+    </section>
+
+    <section>
+        <h4>createElement + appendChild</h4>
+        <pre class="size-S js"><code data-noescape>
+var elem = document.createElement('span');
+        </code></pre>
+        <pre class="size-S js fragment"><code data-noescape>
+elem.className = 'error';
+elem.setAttribute('id', 'auth-error');
+elem.setAttribute('status', 'auth-error');
+elem.textContent = 'Введен неверный логин или пароль';
+        </code></pre>
+        <pre class="size-S js fragment"><code data-noescape>
+document.body.appendChild(elem);
+        </code></pre>
+    </section>
+
+    <section>
+        <h4>cloneNode</h4>
+        <pre class="size-S js"><code data-noescape>
+var clone = elem.cloneNode(<span class="fragment highlight blue init_visible" data-fragment-index="1">true</span>);
+        </code></pre>
+        <pre class="size-S js fragment" data-fragment-index="2"><code data-noescape>
+clone.id = 'mail-error';
+clone.textContent = 'Не удалось отправить письмо';
+        </code></pre>
+        <pre class="size-S js fragment" data-fragment-index="3"><code data-noescape>
+document.body.appendChild(clone);
+        </code></pre>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <div class="fragment">
+            <p class="left size-XS"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Node">Node</a></p>
+            <p class="left size-XS"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">Element</a></p>
+        </div>
+    </section>
+
+    <section data-background-image="images/avatar_538_49.jpg">
+        <h4 class="grey-bg">События</h4>
+    </section>
+
+    <section>
+        <h4>Все DOM-элементы могут реагировать на те или иные события</h4>
+    </section>
+
+    <section>
+        <h4>Можно навешивать обработчики в HTML</h4>
+        <pre class="size-XS html"><code data-noescape>
+&lt;form class="auth form" id="auth" data-form-value="123"
+  action="/login/" <span class="fragment highlight blue init_visible">onsubmit="submitHandler()"</span>&gt;
+    &lt;input type="text" value="" name="login"&gt;
+    &lt;input type="password" value="" name="password"&gt;
+    &lt;button <span class="fragment highlight blue init_visible">onclick="clickHandler()"</span>&gt;Войти&lt;/button&gt;
+&lt;/form&gt;
+        </code></pre>
+    </section>
+
+    <section>
+        <h4>Почему это плохо?</h4>
+        <ul class="size-S">
+            <li>Нельзя навешать более одного обработчика на узел</li>
+            <li class="fragment">JS и HTML становятся тесно связаны</li>
+            <li class="fragment">При изменении HTML необходимо всегда помнить про атрибуты с
+обработчиками</li>
+            <li class="fragment">Нельзя динамически навешивать обработчики</li>
+        </ul>
+    </section>
+
+    <section>
+        <h4>addEventListener</h4>
+        <pre class="size-S js"><code data-noescape>
+var form = document.getElementById('auth');
+form.addEventListener(<span class="fragment highlight blue init_visible" data-fragment-index="1">'submit'</span>, <span class="fragment highlight blue init_visible" data-fragment-index="2">submitHandler</span>);
+        </code></pre>
+        <pre class="size-S js fragment" data-fragment-index="3"><code data-noescape>
+var button = document.querySelector('button');
+button.addEventListener('click', function(<span class="fragment highlight blue init_visible" data-fragment-index="4">event</span>) {
+    console.log(this, <span class="fragment highlight blue init_visible" data-fragment-index="4">event</span>);
+});
+button.addEventListener('click', clickHandler);
+button.addEventListener('click', yetAnotherClickHandler);
+        </code></pre>
+    </section>
+
+    <section>
+        <h4>Все обработчики будут вызваны в порядке их установки</h4>
+    </section>
+
+    <section>
+        <h4>Контекстом функции обработчика событий (<code>this</code>) всегда
+            является DOM-узел на котором обрабатывается событие</h4>
+        <h4>Т.е. узел относительно которого был вызван <code>addEventListener</code></h4>
+    </section>
+
+    <section>
+        <h4>Объект события <code>event</code></h4>
+        <ul class="size-S">
+            <li data-fragment-index="1"><code>target</code> — узел на котором фактически произошло событие</li>
+            <li class="fragment" data-fragment-index="2"><code>altKey</code> — была ли нажата клавиша <kbd>alt</kbd> во время события</li>
+            <li class="fragment" data-fragment-index="2"><code>ctrlKey</code> — была ли нажата клавиша <kbd>ctrl</kbd> во время события</li>
+            <li class="fragment" data-fragment-index="2"><code>shiftKey</code> — была ли нажата клавиша <kbd>shift</kbd> во время события</li>
+            <li class="fragment" data-fragment-index="3"><code>type</code> — тип события (<code>click</code>, <code>submit</code>, etc) строкой</li>
+        </ul>
+    </section>
+
+    <section data-background-image="images/kotyata.jpg">
+        <h4 class="grey-bg">Существует два подхода</h4>
+        <ul class="grey-bg size-S">
+            <li>Всплытие событий (Bubbling)</li>
+            <li>Перехват событий (Capturing)</li>
+        </ul>
+    </section>
+
+    <section>
+        <h4>Всплытие событий (Bubbling)</h4>
+        <img src="images/event-order-bubbling.gif" alt="">
+    </section>
+
+    <section id="bubbling">
+        <h4>Всплытие событий (Bubbling)</h4>
+        <div class="d d1">
+            <div class="d d2">
+                <div class="d d3"></div>
+            </div>
+        </div>
+        <script>
+            (function() {
+                const d = document.querySelectorAll('#bubbling .d');
+                Array.from(d).reverse().forEach(function(elem, index) {
+                    elem.addEventListener('click', function() {
+                        setTimeout(function(elem) {
+                            elem.classList.add('yellow-bg');
+
+                            setTimeout(function(elem) {
+                                elem.classList.remove('yellow-bg');
+                            }, 700, elem);
+                        }, index * 700, this);
+                    });
+                });
+            })();
+        </script>
+    </section>
+
+    <section>
+        <h4>Всплытие событий (Bubbling)</h4>
+        <pre class="size-S js"><code data-noescape>
+var button = document.querySelector('button');
+button.addEventListener('click', clickHandler, <span class="fragment highlight blue init_visible" data-fragment-index="1">false</span>);
+button.addEventListener('click', yetAnotherClickHandler, <span class="fragment highlight blue init_visible" data-fragment-index="1">false</span>);
+        </code></pre>
+    </section>
+
+    <section>
+        <h4>Перехват событий (Capturing)</h4>
+        <img src="images/event-order-capturing.gif" alt="">
+    </section>
+
+    <section id="capturing">
+        <h4>Перехват событий (Capturing)</h4>
+        <div class="d d1">
+            <div class="d d2">
+                <div class="d d3"></div>
+            </div>
+        </div>
+        <script>
+            (function() {
+                const d = document.querySelectorAll('#capturing .d');
+                Array.from(d).forEach(function(elem, index) {
+                    elem.addEventListener('click', function() {
+                        setTimeout(function(elem) {
+                            elem.classList.add('yellow-bg');
+
+                            setTimeout(function(elem) {
+                                elem.classList.remove('yellow-bg');
+                            }, 700, elem);
+                        }, index * 700, this);
+                    });
+                });
+            })();
+        </script>
+    </section>
+
+    <section>
+        <h4>Перехват событий (Capturing)</h4>
+        <pre class="size-S js"><code data-noescape>
+var button = document.querySelector('button');
+button.addEventListener('click', clickHandler, <span class="fragment highlight blue init_visible" data-fragment-index="1">true</span>);
+button.addEventListener('click', yetAnotherClickHandler, <span class="fragment highlight blue init_visible" data-fragment-index="1">true</span>);
+        </code></pre>
+    </section>
+
+    <section>
+        <h4>По умолчанию последним параметром передается <code>false</code>
+            и события всплывают</h4>
+    </section>
+
+    <section id="bubbling-stop-propagation">
+        <h4>Bubbling + stopPropagation</h4>
+        <div class="d d1">
+            <div class="d d2">
+                <div class="d d3"></div>
+            </div>
+        </div>
+        <script>
+            (function() {
+                const d = document.querySelectorAll('#bubbling-stop-propagation .d');
+                Array.from(d).forEach(function(elem, index) {
+                    elem.addEventListener('click', function(event) {
+                        event.stopPropagation();
+
+                        elem.classList.add('yellow-bg');
+
+                        setTimeout(function(elem) {
+                            elem.classList.remove('yellow-bg');
+                        }, 700, elem);
+                    }, false);
+                });
+            })();
+        </script>
+    </section>
+
+    <section>
+        <h4>Bubbling + stopPropagation</h4>
+        <pre class="size-S js"><code data-noescape>
+var button = document.querySelector('button');
+button.addEventListener('click', function(event) {
+    <span class="fragment highlight blue init_visible" data-fragment-index="1">event.stopPropagation()</span>;
+}, <span class="fragment highlight blue init_visible" data-fragment-index="2">false</span>);
+  </code></pre>
+    </section>
+
+    <section id="capturing-stop-propagation">
+        <h4>Capturing + stopPropagation</h4>
+        <div class="d d1">
+            <div class="d d2">
+                <div class="d d3"></div>
+            </div>
+        </div>
+        <script>
+            (function() {
+                const d = document.querySelectorAll('#capturing-stop-propagation .d');
+                Array.from(d).forEach(function(elem, index) {
+                    elem.addEventListener('click', function(event) {
+                        event.stopPropagation();
+
+                        elem.classList.add('yellow-bg');
+
+                        setTimeout(function(elem) {
+                            elem.classList.remove('yellow-bg');
+                        }, 700, elem);
+                    }, true);
+                });
+            })();
+        </script>
+    </section>
+
+    <section>
+        <h4>Capturing + stopPropagation</h4>
+        <pre class="size-S js"><code data-noescape>
+var button = document.querySelector('button');
+button.addEventListener('click', function(event) {
+    <span class="fragment highlight blue init_visible" data-fragment-index="1">event.stopPropagation()</span>;
+}, <span class="fragment highlight blue init_visible" data-fragment-index="2">true</span>);
+  </code></pre>
+    </section>
+
+    <section>
+        <h4><code>stopImmediatePropagation</code> так же отменяет всплытие /
+            погружение, но так же отменяет все следующие обработчики на узле</h4>
+    </section>
+
+    <section>
+        <h4>У многих элементов есть действия по умолчанию</h4>
+    </section>
+
+    <section>
+        <h4>preventDefault</h4>
+        <pre class="size-S js"><code data-noescape>
+var form = document.getElementById('auth');
+
+form.addEventListener('submit', function(event) {
+    console.log(event.target);
+    <span class="fragment highlight blue init_visible">event.preventDefault();</span>
+});
+        </code></pre>
+    </section>
+
+    <section>
+        <h4>Благодаря всплытию / погружению событий возможно использовать
+            такой подход, как «Делегирование событий»</h4>
+    </section>
+
+    <section>
+        <h4>Делегирование событий</h4>
+        <pre class="size-S html"><code>
+<ul>
+    <li><a href="#maps">Карты</a></li>
+    <li><a href="#market">Маркет</a></li>
+    <li><a href="#news">Новости</a></li>
+    <li><a href="#translate">Переводчик</a></li>
+    <li><a href="#images">Картинки</a></li>
+    <li><a href="#video">Видео</a></li>
+    <li><a href="#music">Музыка</a></li>
+    <li><a href="#more" class="more">ещё</a></li>
+</ul>
+        </code></pre>
+    </section>
+
+    <section>
+        <h4>Делегирование событий</h4>
+        <pre class="size-S js"><code data-noescape>
+document.addEventListener('click', function(event) {
+    <span class="fragment highlight blue init_visible">event.preventDefault();</span>
+
+    if (<span class="fragment highlight blue init_visible">event.target.tagName === 'A'</span>) {
+        if (<span class="fragment highlight blue init_visible">event.target.classList.contains('more')</span>) {
+            openMorePopup();
+        } else {
+            console.log(event.target.href);
+        }
+    }
+});
+        </code></pre>
+    </section>
+
+    <section>
+        <h4>Мы научились</h4>
+        <ul>
+            <li>Искать элементы</li>
+            <li>Изменять атрибуты узла</li>
+            <li>Добавлять / удалять / клонировать узлы</li>
+            <li>Обрабатывать события на узлах</li>
+            <li>Делегировать обработку событий родительским узлам</li>
+        </ul>
+    </section>
+
+</div></div>
+
+<script src="../lib/js/head.min.js"></script>
+<script src="../js/reveal.js"></script>
+
+<script>
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: false,
+        progress: true,
+        slideNumber: true,
+        history: true,
+        center: true,
+        hideAddressBar: true,
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+            {
+                src: '../plugin/highlight/highlight.js',
+                async: true,
+                condition: function () {
+                    return !!document.querySelector('pre code');
+                },
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            },
+            {
+                src: '../plugin/menu/menu.js'
+            }
+        ],
+        menu: {
+            side: 'left',
+            numbers: true,
+            titleSelector: 'h1, h2, h3, h4, h5, h6',
+            hideMissingTitles: true,
+            markers: true,
+            custom: false,
+            themes: false,
+            transitions: false,
+            openButton: true,
+            openSlideNumber: false,
+            keyboard: true
+        },
+    });
+
+</script>
+
+</body>
+</html>

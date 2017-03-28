@@ -1,0 +1,15 @@
+.gray {
+  color: #777;
+}
+
+.reveal .slides pre {
+  font-size: 0.65em;
+}
+
+.reveal section .join-result {
+  width: 40%;
+}
+
+.reveal section .join-img {
+  width: 20%;
+}

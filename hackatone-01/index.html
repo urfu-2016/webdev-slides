@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Хакатон</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../css/reveal.css">
+    <link rel="stylesheet" href="../lib/css/zenburn.css">
+    <link rel="stylesheet" href="../css/theme/yandex.css" id="theme">
+    <link rel="stylesheet" href="./css/user.css">
+</head>
+<body class="yandex"><div class="reveal"><div class="slides">
+
+    <section>
+        <pre>
+
+        &lt;!doctype html&gt;
+        &lt;html lang=&quot;ru&quot;&gt;
+            &lt;head&gt;
+                &lt;meta charset=&quot;utf-8&quot;&gt;
+                &lt;link rel=&quot;stylesheet&quot; href=&quot;css/slides.css&quot;&gt;
+            &lt;/head&gt;
+
+            &lt;body class=&quot;reveal&quot;&gt;
+                &lt;section&gt;
+                    &lt;h2&gt;<span class="green" style="font-weight: bold; font-size: 1.2em">Хакатон</span>&lt;/h2&gt;
+                &lt;/section&gt;
+
+                &lt;script src=&quot;js/reveal.js&quot;&gt;&lt;/script&gt;
+                &lt;script src=&quot;js/slides.js&quot;&gt;&lt;/script&gt;
+            &lt;/body&gt;
+        &lt;/html&gt;
+        </pre>
+    </section>
+
+    <section class="center">
+        <img src="images/04.jpg" width=200 height=150>
+        <img src="images/05.jpg" width=200 height=150>
+        <img src="images/06.jpg" width=200 height=150>
+        <h4 class="green">Сервис «Фотоквест»</h4>
+        <img src="images/01.jpg" width=200 height=150>
+        <img src="images/02.jpg" width=200 height=150>
+        <img src="images/03.jpg" width=200 height=150>
+    </section>
+
+    <section>
+        <h4 class="green">Граффити Екатеринбурга</h4>
+        <div style="padding: 0 0 0 390px">
+            <p class="left"><img src="images/04.jpg" width=200 height=120></p>
+            <p class="left"><img src="images/05.jpg" width=200 height=120></p>
+            <p class="left"><img src="images/06.jpg" width=200 height=120></p>
+        </div>
+    </section>
+
+    <section class="center">
+        <span>Геолокация пользователя</span> <span class="green">≈</span> <span> Геолокация фотки</span>
+    </section>
+
+    <section>
+        <h4 class="green">Граффити Екатеринбурга</h4>
+        <div style="padding: 0 0 0 350px">
+            <p class="left"><span class="pros fragment"></span><img src="images/04.jpg" width=200 height=120></p>
+            <p class="left"><span class="pros fragment"></span><img src="images/05.jpg" width=200 height=120></p>
+            <p class="left"><span class="cons fragment"></span><img src="images/06.jpg" width=200 height=120></p>
+        </div>
+    </section>
+
+    <section>
+        <h4 class="green">Автор квеста</h4>
+        <p class="pros left">Авторизация и регистрация</p>
+        <p class="pros left">Создание квеста</p>
+        <p class="pros left">Добавление фотографий в квест с указанием <span class="green">геолокации</span></p>
+    </section>
+
+    <section>
+        <h4 class="green">Участник квеста</h4>
+        <p class="pros left">Авторизация и регистрация</p>
+        <p class="pros left">Просмотр списка квестов</p>
+        <p class="pros left">Прохождение квеста</p>
+    </section>
+
+    <section>
+        <h4 class="green">Features</h4>
+        <p class="pros left fragment">Комменты к фоткам</p>
+        <p class="pros left fragment">Emoji в комментах 🙀</p>
+        <p class="pros left fragment">Поиск квестов по названию</p>
+        <p class="pros left fragment">Лайки <img height=55 style="vertical-align: middle; position: relative;top: -10px;" src="images/like.png"></p>
+        <p class="pros left fragment">Рейтинг квестов по лайкам</p>
+        <p class="pros left fragment">Статистика</p>
+    </section>
+
+    <section data-background=images/idea.png></section>
+
+    <section>
+        <h4 class="green">3 дня – 3 этапа</h4>
+        <ol>
+            <li class="left">Эксплуатация и вёрстка</li>
+            <li class="left">Регистрация&nbsp;и&nbsp;создание&nbsp;квестов</li>
+            <li class="left">Прохождение квестов и лайки</li>
+        </ol>
+    </section>
+
+    <section>
+        <h4 class="green">1 этап</h4>
+        <p class="pros left">Договориться о взаимодействиях</p>
+        <p class="pros left">Договориться о технологиях</p>
+        <p class="pros left">Наладить эксплуатацию</p>
+        <p class="pros left">Страница списка квестов</p>
+        <p class="pros left">Страница квеста</p>
+        <p class="pros left">Документация</p>
+        <p class="question left fragment">Поиск квестов по названию</p>
+    </section>
+
+    <section>
+        <h4 class="green">Технологии</h4>
+        <p class="left">Платформа – <span class="red">Node.js</span></p>
+        <p class="left">Сервер – <span class="grey">Express.js, Koa, ...</span></p>
+        <p class="left">Шаблоны – <span class="grey">Handlebars, JSX, ...</span></p>
+        <p class="left">База данных – <a href="https://mlab.com/">mLab</a>, <a href="https://www.elephantsql.com/">ElephantSQL</a>, ...</p>
+        <p class="left">Деплой – <a href="https://surge.sh/">Surge</a>, <a href="https://heroku.com/">Heroku</a>, ...</p>
+        <p class="left">Continues Integration – <a href="https://surge.sh/">Travis</a>, <a href="https://codeship.com/">Codeship</a>, ...</p>
+    </section>
+
+    <section>
+        <h4 class="green">Регламент</h4>
+        <p class="left fragment"><span class="red">8</span> часов + 🍴</p>
+        <p class="left fragment"><span class="grey">4</span> этапа</p>
+        <p class="fragment green">После каждого</p>
+        <ul class="left" style="float: left;">
+            <li class="left fragment">Синхронизация</li>
+            <li class="left fragment">Обмен знаниями</li>
+            <li class="left fragment">Демонстрация</li>
+            <li class="left fragment">Планирование следующего</li>
+        </ul>
+    </section>
+
+    <section>
+        <h4 class="green">Hackaflow</h4>
+        <ol class="fragment left">
+            <li class="left">Подготовка к разработке</li>
+            <li class="left">Начало работы над задачей</li>
+            <li class="left">Работа над задачей</li>
+            <li class="left">Создание пулла c решением</li>
+            <li class="left">Ревью и обновление пулла</li>
+            <li class="left">Слияние пулла с основной веткой</li>
+        </ol>
+    </section>
+
+    <section>
+        <h4 class="green">1. Подготовка к разработке</h4>
+        <pre class="flat">
+
+<span class="fragment"><img src="images/fork.png" width=100></span>
+<span class="fragment">git <span class="green">clone</span> <span class="grey">git@github.com:gogoleff/notes-app-example.git</span></span>
+
+<span class="fragment">git <span class="green">remote</span> add upstream <span class="grey">git@github.com:urfu-2016/notes-app-example.git</span></span>
+        </pre>
+    </section>
+
+    <section>
+        <h4 class="green">1. Подготовка к разработке</h4>
+        <img src="images/flow-1.png" width=800>
+    </section>
+
+    <section>
+        <h4 class="green">2. Начало работы над задачей</h4>
+        <pre class="flat">
+
+<span class="fragment">git <span class="green">checkout</span> master</span>
+
+<span class="fragment">git <span class="green">pull</span> upstream master</span>
+
+<span class="fragment">git <span class="green">checkout</span> <span class="magenta">-b</span> <span class="grey">deploy-to-heroku</span></span>
+        </pre>
+    </section>
+
+    <section>
+        <h4 class="green">3. Работа над задачей</h4>
+
+        <pre class="flat">
+
+<span class="fragment">git <span class="green">add</span> <span class="grey">Procfile package.json app/</span></span>
+
+<span class="fragment">git <span class="green">commit</span> <span class="magenta">-m</span> <span class="grey">"Настроен деплой в Heroku"</span></span>
+<div class="reload fragment"><img src="images/reload.gif" width=100 height=100></div>
+        </pre>
+    </section>
+
+    <section>
+        <h4 class="green">4. Создание пулла c решением</h4>
+        <pre class="flat">
+
+<span>git <span class="green">checkout</span> <span class="grey">deploy-to-heroku</span></span>
+
+<span class="fragment">git <span class="green">pull</span> upstream <span class="magenta">--rebase</span> master</span>
+<img class="fragment" src="images/rebase.png">
+<span class="fragment"><span class="red">*</span> git <span class="green">add</span> <span class="grey">file-with-resolved-conflict</span></span>
+
+<span class="fragment"><span class="red">*</span> git <span class="green">rebase</span> <span class="magenta">--continue</span></span>
+<div class="reload fragment" style="top: 340px"><img src="images/reload.gif" width="100" height="100"></div>
+<span class="fragment">git <span class="green">push</span> origin <span class="grey">deploy-to-heroku</span></span>
+        </pre>
+
+    </section>
+
+    <section>
+        <h4 class="green">2-4. Работа над задачей</h4>
+        <img src="images/flow-2.png" width=800>
+    </section>
+
+    <section>
+        <h4 class="green">5. Ревью и обновление пулла</h4>
+        <pre class="flat fragment">
+
+    <span>git <span class="green">checkout</span> <span class="grey">deploy-to-heroku</span></span>
+
+    <span>git <span class="green">add</span> <span class="grey">package.json</span></span>
+
+    <span>git <span class="green">commit</span> <span class="magenta">-m</span> <span class="grey">"Добавлена команда для деплоя в Heroku"</span></span>
+    <div class="reload" style="top: 80px"><img src="images/reload.gif" width="100" height="100"></div>
+    <span>git <span class="green">pull</span> upstream <span class="magenta">--rebase</span> master</span>
+
+    <span>git <span class="green">push</span> <span class="red">-f</span> origin <span class="grey">deploy-to-heroku</span></span>
+        </pre>
+    </section>
+
+    <section>
+        <h4 class="green">5. Обновление пулла</h4>
+        <img src="images/flow-3.png" width=800>
+    </section>
+
+    <section>
+        <h4 class="green">6. Слияние пулла с основной веткой</h4>
+        <pre class="flat fragment">
+
+    <span>git <span class="green">checkout</span> <span class="grey">deploy-to-heroku</span></span>
+
+    <span>git <span class="green">pull</span> upstream <span class="magenta">--rebase</span> master</span>
+
+    <span>git <span class="green">push</span> <span class="red">-f</span> origin <span class="grey">deploy-to-heroku</span></span>
+
+    <span class="fragment"><img src="images/merge.png"></span>
+        </pre>
+    </section>
+
+    <!-- <section>
+        <h4 class="green">Общая схема</h4>
+        <img src="images/flow.png" width=800>
+    </section> -->
+
+    <section>
+        <img src="images/go.jpg" width=500>
+    </section>
+
+</div></div>
+
+<script src="../lib/js/head.min.js"></script>
+<script src="../js/reveal.js"></script>
+<script>
+    Reveal.initialize({
+        controls: false,
+        center: false,
+        history: true,
+        hideAddressBar: true,
+        progress: true,
+        slideNumber: false,
+        transition: 'slide',
+        dependencies: [
+            {
+                src: '../plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

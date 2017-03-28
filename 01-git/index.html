@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="ru">
+
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="reveal.js/css/reveal.css">
+        <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+        <link rel="stylesheet" href="css/custom.css">
+        <!-- d3.js -->
+        <script src="https://d3js.org/d3.v3.min.js"></script>
+        <!-- gitgraph.js -->
+        <script src="js/gitgraph.js"></script>
+        <title>Git</title>
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <div class="slides">
+
+                <section data-state="title-event"  data-transition="slide">
+                  <h1 class="title">git</h1>
+                    <aside class="notes">
+                        Лекция про git
+                    </aside>
+                </section>
+
+                <section data-transition="slide">
+                    <section id="what-is-git" class="titleslide slide level1" data-transition="slide"><div style="font-size: 60px;">Что такое git?</div>
+                    <aside class="notes">
+Большинство из вас, наверное, слышали о Git, но если нет -
+                         Git является инструментом управления версиями.
+                         Это просто красивая обертка - в сущности Git позволяет отслеживать, какие изменения вы делаете в файл.
+                         Вы, вероятно, использовали инструмент контроля версий, или, может быть, даже изобрел тот, который работает для вас.
+                    </aside>
+                    </section>
+                    <section id="section" class="slide level2">
+                        <p class="center">
+                            <br>
+                            <img src="https://pbs.twimg.com/media/C3maMplVYAAv-mf.jpg" style="max-height: 15em">
+                            <br>
+                            <a href="https://pbs.twimg.com/media/C3maMplVYAAv-mf.jpg" data-preview-link>Link</a>
+                        </p>
+                    <aside class="notes">
+Если вы когда-либо работали на бумаге с помощью Word, вы, вероятно, была создана система управления verison, которая работает для вас, сохранив файл с различными тегами "Версия".
+                        Причина кто-то может сделать это, потому что они, как имеющие резервную копию всех своих прошлых изменений. Если кто-то хочет удалить абзац, вы сохраните копию старой версии на всякий случай
+                        И когда вы сотрудничать с кем-то, это становится все более сложной задачей. Отслеживание изменений и слияние содержимое, добавленное разными людьми отнимает много времени.
+                        Как вы можете себе представить, это представляет проблему в разработке программного обеспечения.
+                        Вполне вероятно, что несколько человек будут работать на том же самом файле иногда даже одновременно.
+                        Даже небольшие программные проекты могут иметь десятки файлов в нескольких папках.
+                        Кроме того, разработчики часто экспериментировать с функциями, и это никогда не должно влиять на "мастер" копию проекта
+                    </aside>
+                    </section>
+                    <section id="section" class="slide level2">
+                        <p class="center">
+                            <br>
+                            <img src="http://imgs.xkcd.com/comics/git.png" style="max-height: 15em">
+                            <br>
+                            <a href="http://imgs.xkcd.com/comics/git.png" data-preview-link>Link</a>
+                        </p>
+                    <aside class="notes">
+Git на помощь! По сути, Git может быть это, это может быть история всех изменений, внесенных в каждый файл в проекте.
+                         Но, к сожалению, вы должны понять, как она работает, чтобы эффективно его использовать.
+                         Большинство людей при введении мерзавцу, выбрасываются в использовании, и, как правило, не понимают, как это работает. Когда что-то вы никогда не сталкивались прежде, чем произойдет, вы можете не знать, что делать.
+                         Я знаю, что удаленные проекты и загрузить новую копию репо, потому что я случайно создал конфликт какой-то.
+                         С помощью этого разговора, я хотел бы представить, что я называю большие идеи Git, которые помогут вам понять, как работает Git.
+                    </aside>
+                    </section>
+                    <section>
+                        <div style="font-size: 60px;">git - это расширение для вашего workflow</div>
+                        <aside class="notes">Первое, что нужно понимать, что Git является дополнением к вашему текущему рабочий процесс. Вы можете работать так, как вы обычно работаете, и все, что вам нужно сделать, это использовать Git каждый раз, когда вы хотите сохранить ваш прогресс</aside>
+                    </section>
+                    <section>
+                        <h3>Workflow</h3>
+                        <div style="text-align: center; width: 100%; display: inline-block"><code></code></div>
+                        <div style="text-align: center; width: 100%; display: inline-block"></div>
+                        <div style="text-align: center; width: 100%; display: inline-block"><code></code></div>
+                        <div style="text-align: left; width: 45%; display: inline-block">Редактирование файлов</div>
+                        <div style="text-align: center; width: 45%; display: inline-block" class="fragment" data-fragment-index="2"><code style="background-color: red; color: white; padding: .25em">$EDITOR</code></div>
+                        <div style="text-align: center; width: 100%; display: inline-block"></div>
+                        <div style="text-align: left; width: 45%; display: inline-block" ></div>
+                        <div style="text-align: center; width: 45%; display: inline-block"></div>
+                        <div style="text-align: center; width: 100%; display: inline-block"></div>
+                        <div style="text-align: left; width: 45%; display: inline-block" ></div>
+                        <div style="text-align: center; width: 45%; display: inline-block">
+                        </div>
+                        <div style="text-align: center; width: 100%; display: inline-block"></div>
+                        <div style="text-align: left; width: 45%; display: inline-block">Сохранение изменений</div>
+                        <div style="text-align: center; width: 45%; display: inline-block" class="fragment" data-fragment-index="5"><code style="background-color: black; color: white; border-radius: 5em; padding: .25em" >git commit</code></div>
+                        <aside class="notes">
+Прежде чем говорить о Git, давайте поговорим о рабочем процессе.
+                            
+                             Это простой пример рабочего процесса. Вы редактировать файл и сохранить файл. SPC.
+                             После того, как вы достигнете того, что вы считаете, стабильное состояние, вы можете сохранить файл под другим именем, как резервное копирование, или сохранить его на Dropbox или же вы, как правило, внедрить систему контроля версий
+                             При использовании Git однако, вы не должны сохранить другую версию файла.
+                             Когда вы будете готовы, чтобы сохранить текущую версию файла в качестве резервной копии, вы делаете это в Git, принимая снимок текущего состояния.
+                             Вы можете взять "снимок" текущего состояния файла с помощью команды под названием Git фиксации.
+                             Что на самом деле происходит, что, когда вы можете создать "снимок", он записывает текущее состояние всех файлов в каталоге отслеживаются.
+                    </section>
+                    <section data-state="demo1-event" data-transition="none">
+                        <h3><code>git commit</code></h3>
+                                <div class="fragment demo1-start" style="margin: 50px 0px;">
+                                </div>
+                                <div class="fragment demo1-git-commit-1" style="margin: 50px 0px;">
+                                </div>
+                                <div class="fragment demo1-git-commit-2" style="margin: 50px 0px;">
+                                </div>
+                            <div >
+                                <svg id="demo1-chart"></svg>
+                            </div>
+                        <aside class="notes">
+Итак, что же снимок выглядит?
+                            Давайте предположим, что снимок выглядит как этот круг здесь.
+                        Как я упоминал ранее, снимок содержит текущее состояние файла или каталога.
+                        Когда мерзавец создает снимок, он также создает ряд и придает тот номер к нему.
+                        Git использует алгоритм для вычисления этого числа и
+                        Этот номер является уникальным, весьма маловероятно, что два таких номера будут такими же,
+                        Каждый снимок / фиксации вы создаете, будет иметь свой собственный номер, прикрепленный к нему. И это число называется HASH. Вы можете, как правило, вы можете использовать первые 6 или 7 символов, чтобы однозначно идентифицировать снимок в вашем проекте.
+                        Допустим, вы создали это первый коммит, и теперь вы сделаете больше изменений в файл. и хотите сохранить их.
+                        При внесении изменений в файлы и сохранить их с помощью Git фиксации, Git создает новый снимок с новым HASH.
+                        Git также делает несколько других вещей.
+                        1) Это позволяет создать сообщение, которое идет вместе с этой фиксации. Коммит должен иметь сообщение!
+                        2) При создании новой фиксации создан, он сохраняет ссылку на родительский фиксации. Снимок может иметь несколько родителей - то есть вы можете взять изменения из двух фиксаций и объединить их в одно целое. 
+                        3) Независимо от фиксации представляет текущее состояние проекта, Git хранит ссылку, что ток фиксации в головке этикетки
+                        В VCS документе слово, мы создали несколько версий, но мы не отслеживать, как мы получили к каждому государству. Git позволяет сделать это за счет хранения всей этой информации
+                        Вам может быть интересно, где же мерзавец магазин все это - мы вернемся к этому.
+                        Это, как вы можете себе представить, формирует график.
+                        </aside>
+                    </section>
+                    <section data-state="network" class="slide level2">
+                        <div style="font-size: 60px;">А зачем мне все это?</div>
+                            <div class="fragment demo0-start" style="margin: 50px 0px;">
+                            </div>
+                            <div class="fragment demo0-git-story-1" style="margin: 50px 0px;">
+                            </div>
+                            <div class="fragment demo0-git-story-2" style="margin: 50px 0px;">
+                            </div>
+                            <div class="fragment demo0-git-story-3" style="margin: 50px 0px;">
+                            </div>
+                            <div class="fragment demo0-git-delete-merge" style="margin: 50px 0px;">
+                            </div>
+                            <div >
+                                <svg id="demo0-chart"></svg>
+                            </div>
+                    <aside class="notes">
+и как с любым графиком, вы можете выбрать, чтобы рассказать историю.
+                        В этом случае, мы хотим работать на особенности программного обеспечения, и во время работы над ней мы получаем новую идею.
+                        Вы можете вернуться к предыдущему состоянию проекта, и ответвление к работе над новой идеей - не влияет на вашу текущую работу.
+                        И, когда вы будете готовы, вы можете вытащить эти изменения обратно в основной отрасли
+                        Вы можете вернуться назад и пересмотреть отдельные изменения, сделанные в какой-либо фиксации.
+                        Вы даже можете отменить изменения, применить эти изменения в другое состояние вашего проекта.
+                        Кроме того, можно отказаться от ветку целиком, или переключаться между ветвями.
+                        Отрасли являются удивительными, и мы будем говорить более способными ветви чуть позже.
+                        Дело в том, что этот граф существует.
+                        Этот график является документация, как ваш проект пришел, чтобы быть, то есть история вашего проекта график, который вы можете пройти по собственному желанию.
+                    </aside>
+                    </section>
+                    <section>
+                        <div style="font-size: 60px;">Идея #1</div>
+                        git история это граф
+                        <aside class="notes">
+Так что это большая идея номер 1, история Git представляет собой график, который вы можете пройти, что позволяет перейти к любому "спасенных" состоянии в проекте
+                        </aside>
+                    </section>
+                </section>
+
+                <section data-transition="slide">
+                    <section id="so-really-what-is-git" class="titleslide slide level1" data-transition="slide">
+                        <div style="font-size: 60px;">Функции git</div>
+                    </section>
+                    <section>
+<code>
+<pre style="top: 25%; font-size: .2em; width: 100%">
+git help --all
+usage: git [--version] [--help] [-C <path>] [-c name=value]
+           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
+           [-p|--paginate|--no-pager] [--no-replace-objects] [--bare]
+           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
+           <command> [<args>]
+
+available git commands in '/Applications/Xcode.app/Contents/Developer/usr/libexec/git-core'
+
+  add                       clone                     fast-import               interpret-trailers        notes                     remote-testsvn            submodule
+  add--interactive          column                    fetch                     log                       p4                        repack                    subtree
+  am                        commit                    fetch-pack                ls-files                  pack-objects              replace                   svn
+  annotate                  commit-tree               filter-branch             ls-remote                 pack-redundant            request-pull              symbolic-ref
+  apply                     config                    fmt-merge-msg             ls-tree                   pack-refs                 rerere                    tag
+  archimport                count-objects             for-each-ref              mailinfo                  patch-id                  reset                     unpack-file
+  archive                   credential                format-patch              mailsplit                 prune                     rev-list                  unpack-objects
+  bisect                    credential-cache          fsck                      merge                     prune-packed              rev-parse                 update-index
+  bisect--helper            credential-cache--daemon  fsck-objects              merge-base                pull                      revert                    update-ref
+  blame                     credential-osxkeychain    gc                        merge-file                push                      rm                        update-server-info
+  branch                    credential-store          get-tar-commit-id         merge-index               quiltimport               send-email                upload-archive
+  bundle                    cvsexportcommit           grep                      merge-octopus             read-tree                 send-pack                 upload-pack
+  cat-file                  cvsimport                 gui--askpass              merge-one-file            rebase                    sh-i18n--envsubst         var
+  check-attr                cvsserver                 hash-object               merge-ours                receive-pack              shell                     verify-commit
+  check-ignore              daemon                    help                      merge-recursive           reflog                    shortlog                  verify-pack
+  check-mailmap             describe                  http-backend              merge-resolve             relink                    show                      verify-tag
+  check-ref-format          diff                      http-fetch                merge-subtree             remote                    show-branch               web--browse
+  checkout                  diff-files                http-push                 merge-tree                remote-ext                show-index                whatchanged
+  checkout-index            diff-index                imap-send                 mergetool                 remote-fd                 show-ref                  write-tree
+  cherry                    diff-tree                 index-pack                mktag                     remote-ftp                stage
+  cherry-pick               difftool                  init                      mktree                    remote-ftps               stash
+  citool                    difftool--helper          init-db                   mv                        remote-http               status
+  clean                     fast-export               instaweb                  name-rev                  remote-https              stripspace
+
+git commands available from elsewhere on your $PATH
+
+  loglive
+
+'git help -a' and 'git help -g' list available subcommands and some
+concept guides. See 'git help <command>' or 'git help <concept>'
+to read about a specific subcommand or concept.
+</pre>
+</code>
+                    <aside class="notes">
+                        So we know that git history is a graph, right? And 
+                        This graph that we created has to be stored somewhere, right? 
+                        This graph is stored in a .git folder 
+                        Every folder on your computer that has a .git folder is git repository.
+                        There is only one such .git folder in a git repo.
+                        all git commit does, is add content to that .git folder.
+                        and git commit is only just one function that git provides
+                        what if you wanted to do more, like manipulate an existing snapshot, delete a set of changes, reorder your history. 
+                        git offers you other tools to do that.
+                        git is essentially a toolkit that contains a bunch of functions that help organize snapshots of content. 
+                        This is a list of all the functions available to you.
+                        Note - git is not github. what is github? github stores git repository in the internet and that's basically all it does
+                        So, as I was saying this is the list of functions
+                    </aside>
+</section>
+<section>
+<code>
+<pre style="top: -25%; font-size: .2em; width: 100%">
+git help --all
+usage: git [--version] [--help] [-C <path>] [-c name=value]
+           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
+           [-p|--paginate|--no-pager] [--no-replace-objects] [--bare]
+           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
+           <command> [<args>]
+
+available git commands in '/Applications/Xcode.app/Contents/Developer/usr/libexec/git-core'
+
+  add                       clone                                                                                                                             submodule
+  add--interactive                                    fetch                     log
+  am                        commit
+  annotate
+  apply                                                                                                                                                       tag
+                                                                                                                                    reset
+  archive                                             format-patch
+  bisect                                                                        merge
+  bisect--helper                                                                                          pull                      revert
+  blame                                               gc                                                  push                      rm
+  branch
+                                                      grep
+                                                      gui--askpass                                        rebase
+
+                            daemon                    help                                                reflog
+
+                            diff                                                                          remote
+  checkout
+
+
+  cherry-pick                                         init                                                                          stash
+                                                                                mv                                                  status
+  clean                                               instaweb
+
+git commands available from elsewhere on your $PATH
+
+  loglive
+
+'git help -a' and 'git help -g' list available subcommands and some
+concept guides. See 'git help <command>' or 'git help <concept>'
+to read about a specific subcommand or concept.
+</pre>
+</code>
+                    <aside class="notes">
+                        But you don't have to use every one of the functions available. I've only every had to use a handful.
+Но так как сначала Git был скорее инструментарием для создания СКВ, чем СКВ, удобной для пользователей, в нём полно команд, выполняющих низкоуровневые операции, которые спроектированы так, чтобы их можно было использовать в цепочку в стиле UNIX, а также использовать в сценариях. Эти команды, как правило, называют служебными ("plumbing" — трубопровод), а ориентированные на пользователя называют пользовательскими ("porcelain" — фарфор).
+ https://git-scm.com/book/en/v2/Git-Internals-Plumbing-and-Porcelain
+                    </aside>
+</section>
+                    <section>
+                        <h3>Workflow</h3>
+                        <div style="text-align: center; width: 100%; display: inline-block" class="fragment" data-fragment-index="1"><code></code></div>
+                        <div style="text-align: center; width: 100%; display: inline-block" class="fragment" data-fragment-index="1"><code style="background-color: rgba(0, 0, 0, .25); color: white; border-radius: 5em; padding: .25em" >git init</code></div>
+                        <div style="text-align: center; width: 100%; display: inline-block" class="fragment" data-fragment-index="1"><code></code></div>
+                        <div style="text-align: left; width: 45%; display: inline-block">Редактирование файлов</div>
+                        <div style="text-align: center; width: 45%; display: inline-block" class="fragment" data-fragment-index="2"><code style="background-color: red; color: white; padding: .25em">$EDITOR</code></div>
+                        <div style="text-align: center; width: 100%; display: inline-block"></div>
+                        <div style="text-align: left; width: 45%; display: inline-block" class="fragment" data-fragment-index="0">Групповые изменения</div>
+                        <div style="text-align: center; width: 45%; display: inline-block" class="fragment" data-fragment-index="3"><code style="background-color: black; color: white; border-radius: 5em; padding: .25em" >git add</code></div>
+                        <div style="text-align: center; width: 100%; display: inline-block"></div>
+                        <div style="text-align: left; width: 45%; display: inline-block" class="fragment" data-fragment-index="0">Просмотр изменений</div>
+                        <div style="text-align: center; width: 45%; display: inline-block">
+                            <code class="fragment" data-fragment-index="4" style="background-color: black; color: white; border-radius: 5em; padding: .25em" >git status</code>
+                        </div>
+                        <div style="text-align: center; width: 100%; display: inline-block"></div>
+                        <div style="text-align: left; width: 45%; display: inline-block">Сохранение изменений</div>
+                        <div style="text-align: center; width: 45%; display: inline-block" class="fragment" data-fragment-index="5"><code style="background-color: black; color: white; border-radius: 5em; padding: .25em" >git commit</code></div>
+                        <aside class="notes">Let's talk about our workflow again. To  actually use git we need to add a couple of steps to the workflow we talked about earlier. We group changes before committing them.
+                            And we do this using the git add command.
+                            if we open a folder and try to "git add" a file, git will throw us an error. it doesn't know where to add the file to. We need to create a .git folder first and we do that using git init. You only need to do this once for a project, at the every beginning. If a project is already using git, then that .git folder exists and you can run any git command.
+                            the git add command, adds the content you specify to a "staging area"
+                            You can add multiple files at the same time to the staging area
+                            And then, when you call the git commit function, git takes everything that is in the staging area and pushes it into a new snapshot
+                            Think of the content in the staging area as the changes you would like your next snapshot to represent
+                            SPC
+                            Before you commit these changes to a new snapshot, you might want to review your changes.
+                            SPC
+                            git status is used to review your changes, 
+                            SPC
+                            And to actually save this snapshot you can use git commit
+                        </aside>
+                    </section>
+                    <section>
+                        <code style="background-color: black; color: white; border-radius: 5em; padding: .25em" >git rm</code>
+                        <br>
+                        <br>
+                        <code class="fragment" data-fragment-index="0" style="background-color: black; color: white; border-radius: 5em; padding: .25em" >git rm log.txt</code>
+                        <br>
+                        <br>
+                        <code class="fragment" data-fragment-index="1" style="background-color: black; color: white; border-radius: 5em; padding: .25em" >git rm *.txt</code>
+                    </section>
+                    <section>
+                        <code style="background-color: black; color: white; border-radius: 5em; padding: .25em" >.gitignore</code>
+                    </section>
+                    <section>
+                            <p class="center">
+                            <img src="img/local.png"  style="max-height: 15em;"  alt="git operations">
+                                <br>
+                            <a href="https://github.com/schacon/git-presentations" data-preview-link>Link</a>
+                            </p>
+                            <aside class="notes"> 
+                                Here is another way to look at this
+                                The most important takeaway here is that you use git add to create what you want your next snapshot to look like. 
+                                The working directory is the files in your folder.
+                                You make changes to your working directory and git add them to the staging area. 
+                                you can add multiple files
+                                Next, you commit the staged files into a git repository
+                                git commit updates the .git folder and thereby updating the graph
+                            </aside>
+                    </section>
+                    <section class="slide level2">
+                        <p class="center">
+                        <img src="img/commit-1.svg"  style="max-height: 15em;"  alt="commit structure">
+                            <br>
+                        <a href="https://github.com/schacon/git-presentations" data-preview-link>Link</a>
+                        </p>
+                    <aside class="notes">
+                        This is the structure of a single commit/snapshot. snapshot (unofficial)==commit(git internal object).
+                        Tree is like a directory and can link to other trees or blobs. blobs are like files.
+                    </aside>
+                    </section>
+                    <section>
+                        <div style="font-size: 60px;">Идея #2</div>
+                        Помните разницу между HEAD, stage and рабочей директорией
+                        <br>
+                        <a href="https://git-scm.com/blog/2011/07/11/reset.html" data-preview-link>Link</a>
+                    </section>
+                </section>
+                <section data-transition="slide">
+                    <section><div style="font-size: 60px;">Ветки</div></section>
+                    <section data-state="demo2-event" data-transition="none">
+                        <h3><code>git branch master</code></h3>
+                                <div class="fragment demo2-start" style="margin: 50px 0px;">
+                                </div>
+                                <div class="fragment demo2-git-branch" style="margin: 50px 0px;">
+                                </div>
+                                <div class="fragment demo2-git-commit" style="margin: 50px 0px;">
+                                </div>
+                            <div >
+                                <svg id="demo2-chart"></svg>
+                            </div>
+                    <aside class="notes">
+                        Let's talk about branches. Branches are just labels. The default branch is master. HEAD represents your current commit. When you add a snapshot succesfully, git will change the reference of the branch to the new HEAD, which is the new or current commit
+                    </aside>
+                    </section>
+                    <section data-state="demo3-event" data-transition="none">
+                        <h3><code>git checkout -b feature</code></h3>
+                                <div class="fragment demo3-start" style="margin: 50px 0px;">
+                                </div>
+                                <div class="fragment demo3-git-checkout-b" style="margin: 50px 0px;">
+                                </div>
+                                <div class="fragment demo3-git-commit-0" style="margin: 50px 0px;">
+                                </div>
+                            <div>
+                                <svg id="demo3-chart"></svg>
+                            </div>
+                    </section>
+                    <section data-state="demo6-event" data-transition="none">
+                        <h3><code>git checkout master</code></h3>
+                                <div class="fragment demo6-start" style="margin: 50px 0px;">
+                                </div>
+                                <div class="fragment demo6-git-checkout-feature" style="margin: 50px 0px;">
+                                </div>
+                            <div >
+                                <svg id="demo6-chart"></svg>
+                            </div>
+                    </section>
+                    <section data-state="demo4-event" data-transition="none">
+                        <h3><code>git merge master</code></h3>
+                                <div class="fragment demo4-start" style="margin: 50px 0px;">
+                                </div>
+                                <div class="fragment demo4-git-fetch" style="margin: 50px 0px;">
+                                </div>
+                                <div class="fragment demo4-git-merge-feature" style="margin: 50px 0px;">
+                                </div>
+                                <div class="fragment demo4-git-checkout-feature" style="margin: 50px 0px;">
+                                </div>
+                                <div class="fragment demo4-git-merge-master" style="margin: 50px 0px;">
+                                </div>
+                            <div >
+                                <svg id="demo4-chart"></svg>
+                            </div>
+                    </section>
+                    <section>
+                        <div style="font-size: 60px;">Идея #3</div>
+                        Ветки это всего лишь указатели
+                    </section>
+                </section>
+
+<!--                 <section data-transition="slide">
+                    <section data-transition="slide">
+                    <div style="font-size: 60px;">Разрешение конфликтов</div
+                    </section>
+
+                    <section data-background-video="https://github.com/kdheepak89/think-git/blob/gh-pages/img/git-mergetool.mov?raw=true" data-background-color="#000000">
+                        <div class="fragment hide-on-current-fragment" style="background-color: rgba(0, 0, 0, 0.75); color: #fff; padding: 20px;">
+                            <h3 style="color: white;">demo</h3>
+                        </div>
+                    <aside class="notes">
+                        demo showing git mergetool
+                    </aside>
+                    </section>
+
+                    <section>
+                        <h3>Best Mergetools</h3>
+                        <br>
+                        <a href="http://stackoverflow.com/questions/572237/whats-the-best-three-way-merge-tool" data-preview-link>Link</a>
+                    <aside class="notes">
+                        There are mergetools out there other than vim, kdiff3 is open source and free on all platforms. p4merge is great.
+                    </aside>
+                    </section> 
+
+                </section> -->
+
+                <section data-transition="slide">
+                    <section data-transition="slide">
+                    <div style="font-size: 60px;">Изменение истории</div>
+                    </section>
+                    <section data-state="demo5-event" data-transition="none">
+                        <h3><code>git rebase master</code></h3>
+                                <div class="fragment demo5-start" style="margin: 50px 0px;">
+                                </div>
+                                <div class="fragment demo5-git-fetch" style="margin: 50px 0px;">
+                                </div>
+                                <div class="fragment demo5-git-rebase-1" style="margin: 50px 0px;">
+                                </div>
+                                <div class="fragment demo5-git-rebase-2" style="margin: 50px 0px;">
+                                </div>
+                            <div >
+                                <svg id="demo5-chart"></svg>
+                            </div>
+                    </section>
+<!--                     <section data-background-video="https://github.com/kdheepak89/think-git/blob/gh-pages/img/git-rebase.mov?raw=true" data-background-color="#000000">
+                        <div class="fragment hide-on-current-fragment" style="background-color: rgba(0, 0, 0, 0.75); color: #fff; padding: 20px;">
+                            <h3 style="color: white;">demo</h3>
+                        </div>
+                    <aside class="notes">
+                        demo showing git rebase
+                    </aside>
+                    </section>
+                    <section data-background-video="https://github.com/kdheepak89/think-git/blob/gh-pages/img/git-rebase-interactive.mov?raw=true" data-background-color="#000000">
+                        <div class="fragment hide-on-current-fragment" style="background-color: rgba(0, 0, 0, 0.75); color: #fff; padding: 20px;">
+                            <h3 style="color: white;">demo</h3>
+                        </div>
+                    <aside class="notes">
+                        demo showing git rebase interactive
+                    </aside>
+                    </section> -->
+                    <section>
+                        <div style="font-size: 60px;">Идея #4</div>
+                        Локальная история - делай с ней, что угодно
+                    </section>
+                </section>
+
+                <section data-transition="slide">
+                    <section><div style="font-size: 60px;">Удаленный репозиторий</div></section>
+                    <section id="section" class="slide level2">
+                        <p class="center">
+                            <br>
+                            <img src="https://s10.postimg.org/48f32pe4p/image.png">
+                            <br>
+                        </p>
+                    </section>
+                    <section id="section" class="slide level2">
+                        <p class="center">
+                            <br>
+                            <img src="https://s10.postimg.org/4jwjfgukp/image.png">
+                            <br>
+                        </p>
+                    </section>
+                    <section id="section" class="slide level2">
+                        <p class="center">
+                            <br>
+                            <img src="https://s10.postimg.org/ktmpid58p/image.png">
+                            <br>
+                        </p>
+                    </section>
+                    <section id="section" class="slide level2">
+                        <p class="center">
+                            <br>
+                            <img src="https://s10.postimg.org/wu85j3cnd/image.png">
+                            <br>
+                        </p>
+                    </section>
+                    <section id="section" class="slide level2">
+                        <p class="center">
+                            <br>
+                            <img src="https://s10.postimg.org/ltd0e2keh/image.png">
+                            <br>
+                        </p>
+                    </section>
+                    <section>
+                            <p class="center">
+                            <img src="img/local-remote.svg"  style="max-height: 15em;"  alt="git operations">
+                                <br>
+                            <a href="https://github.com/schacon/git-presentations" data-preview-link>Link</a>
+                            </p>
+                            <aside class="notes">Everything we've seen so far has been local. </aside>
+                    </section>
+                    <section data-state="demo5-event" data-transition="none">
+                        <h3><code>git pull = git fetch + git merge</code></h3>
+                    </section>
+<!--                     <section data-background-video="" data-background-color="#000000">
+                        <div class="fragment hide-on-current-fragment" style="background-color: rgba(0, 0, 0, 0.75); color: #fff; padding: 20px;">
+                            <h3 style="color: white;">demo</h3>
+                        </div>
+                    <aside class="notes">
+                        demo showing git fetch
+                    </aside>
+                    </section> -->
+                    <section>
+                        <div style="font-size: 60px;">Идея #5</div>
+                        Удаленная ветка это специальная ветка, но все-таки это ветка :)
+                    </section>
+
+                </section>
+
+
+                <section data-transition="slide">
+                    <section><div style="font-size: 60px;">Разрешение конфликтов</div></section>
+                    <section id="section" class="slide level2">
+                        <p class="center">
+                            <br>
+                            <img src="https://css-tricks.com/wp-content/uploads/2014/04/01-unmerged-paths-after-merge.gif">
+                            <br>
+                        </p>
+                    </section>
+                    <section id="section" class="slide level2">
+                        <p class="center">
+                            <br>
+                            <img src="https://css-tricks.com/wp-content/uploads/2014/04/02-conflict-markers.png">
+                            <br>
+                        </p>
+                    </section>
+                    <section id="section" class="slide level2">
+                        <p class="center">
+                            <br>
+                            <img src="http://www.jetbrains.com/help/img/idea/2016.3/resolveConflict.png">
+                            <br>
+                        </p>
+                    </section>
+                    <section>
+                        <div style="font-size: 60px;">Идея #6</div>
+                        Конфликты надо решать
+                    </section>
+                </section>
+
+
+                <section data-transition="slide">
+                    <section data-transition="slide">
+                    <div style="font-size: 60px;">Суммируем идеи</div>
+                    </section>
+                    <section id="commit-related-changes" class="slide level2">
+                        <div style="font-size: 60px;">История git это граф</div>
+                    </section>
+                    <section id="commit-often" class="slide level2">
+                        <div style="font-size: 60px;">Разница между working directory, staging area и .git repository</div>
+                    </section>
+                    <section id="branches-are-inexpensive" class="slide level2">
+                        <div style="font-size: 60px;">Ветки это всего лишь указатели</div>
+                    </section>
+                    <section id="commit-only-if-tests-pass" class="slide level2">
+                        <div style="font-size: 60px;">Удаленная ветка это тоже ветка</div>
+                    </section>
+                    <section id="write-good-commit-messages" class="slide level2">
+                        <div style="font-size: 60px;">Локальная история - делай с ней, что угодно</div>
+                    </section>
+                    <section id="write-good-commit-messages" class="slide level2">
+                        <div style="font-size: 60px;">Конфликты надо решать</div>
+                    </section>
+                </section>
+
+                <section data-transition="slide">
+                    <section data-transition="slide">
+                    <h1>Best practices</h1>
+                    </section>
+                    <section id="commit-often" class="slide level2">
+                        <div style="font-size: 60px;">Коммить чаще!</div>
+                    </section>
+                    <section id="commit-related-changes" class="slide level2">
+                        <div style="font-size: 60px;">Связанные изменения в один коммит</div>
+                        <br>
+                        <code class="fragment" data-fragment-index="1" style="background-color: black; color: white; border-radius: 5em; padding: .25em" >git stash</code>
+                    </section>
+                    <section id="branches-are-inexpensive" class="slide level2">
+                        <div style="font-size: 60px;">Ветки - это дешево</div>
+                    </section>
+                    <section id="commit-only-if-tests-pass" class="slide level2">
+                        <div style="font-size: 60px;">Push в мастер, только если прошел тесты</div>
+                    </section>
+                    <section id="write-good-commit-messages" class="slide level2">
+                        <div style="font-size: 60px;">Пиши хорошие сообщения для коммитов!</div>
+                    </section>
+                    <section id="discuss-workflow-with-team" class="slide level2">
+                        <div style="font-size: 60px;">Обсуждай рабочий процесс с командой!!!</div>
+                    </section>
+                </section>
+                <section>
+                    <div style="font-size: 60px;">Полезные ссылки</div>
+                    <br>
+                    <ul>
+                        <li><a href="https://www.alexkras.com/getting-started-with-git/">Git Cheat Sheet</a></li>
+                        <li><a href="https://habrahabr.ru/company/mailru/blog/267595/">Статья с Хабра про разные кейсы</a></li>
+                    </ul>
+                </section>
+
+			</div>
+
+		</div>
+
+
+		<script src="reveal.js/lib/js/head.min.js"></script>
+        <script src="reveal.js/js/reveal.js"></script>
+        <script src="js/data.js"></script>
+        <script src="js/data0.js"></script>
+        <script src="js/updatedisplay.js"></script>
+        <script src="js/updatedisplay0.js"></script>
+
+	</body>
+</html>
