@@ -10,6 +10,7 @@
 8. [DOM](https://urfu-2016.github.io/webdev-slides/08-dom/)
 9. [React. Redux.](https://urfu-2016.github.io/webdev-slides/09-react-redux/)
 10. [Клиент-Сервер](https://urfu-2016.github.io/webdev-slides/10-client-server/) (HTTP, REST, xmlHttpRequest, fetch, CORS)
+11. [Клиент-Сервер](https://urfu-2016.github.io/webdev-slides/11-client-server/) (GraphQL, Apollo Client)
 
 # Слайды к хакатонам
 

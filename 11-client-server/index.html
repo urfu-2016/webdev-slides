@@ -1,0 +1,1103 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>GraphQL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../css/reveal.css">
+    <link rel="stylesheet" href="../lib/css/zenburn.css">
+    <link rel="stylesheet" href="../css/theme/yandex.css" id="theme">
+    <link rel="stylesheet" href="./css/user.css">
+</head>
+<body class="yandex">
+<div class="reveal">
+    <div class="slides">
+
+        <section class="large center">
+            <h2>Клиент-Сервер</h2>
+            <p>
+                <small class="grey">GraphQL</small>
+            </p>
+            <p>
+                <small>Воронцов Максим</small>
+            </p>
+        </section>
+
+        <section>
+            <h4>REST</h4>
+            <img class="fragment" src="./images/friends.svg" style="width: 80%;">
+        </section>
+
+        <section>
+            <h4>REST</h4>
+            <img src="./images/data.svg" style="width: 80%;">
+        </section>
+
+        <section>
+            <h4>REST</h4>
+            <table style="width: 100%;">
+                <tr>
+                    <td class="fragment" style="width: 33%; padding: 0;">
+                        <pre style="font-size: 20px !important; text-align: center; ">students/42</pre>
+                    </td>
+                    <td class="fragment" style="width: 33%; padding: 0;">
+                        <pre style="font-size: 20px !important; text-align: center; ">students/42/friends</pre>
+                    </td>
+                    <td class="fragment" style="width: 33%; padding: 0;">
+                        <pre style="font-size: 20px !important; text-align: center; ">?</pre>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <img src="./images/needed-data-graph.svg" style="width: 100%;"><br>
+        </section>
+
+        <section>
+            <h4>REST</h4>
+            <pre>
+/students/42/groups/
+/students/42/departments/
+
+</pre>
+            <pre class="fragment">
+/students/42/friends/groups/
+/students/42/friends/departments/
+
+</pre>
+            <pre class="fragment">
+/students/42/friends_with_groups_and_departments/
+            </pre>
+        </section>
+
+        <section>
+            <h4>REST</h4>
+            <p class="cons left">Сложности в проектировании при росте зависимостей между сущностями</p>
+            <p class="cons left fragment">Большое число запросов</p>
+            <p class="cons left fragment">Лишние данные в ответе от сервера</p>
+            <p class="cons left fragment">Всегда необходимо помнить об обратной совместимости</p>
+            <p class="cons left fragment">Нет удобных инструментов для разработки</p>
+        </section>
+
+        <section class="center">
+            <img src="./images/graphql-logo.svg">
+            <h3 style="color: #E10098;">GraphQL</h3>
+        </section>
+
+        <section>
+            <h4>GraphQL</h4>
+            Язык запросов к API, а так же среда исполнения для этих запросов
+        </section>
+
+        <section>
+            <h4>GraphQL</h4>
+            <p class="pros left fragment" style="font-size: 35px;">Строгая типизация</p>
+            <p class="pros left fragment" style="font-size: 35px;">Получаем только то, что действительно необходимо</p>
+            <p class="pros left fragment" style="font-size: 35px;">Возможность получить все необходимые данные за один
+                запрос</p>
+            <p class="pros left fragment" style="font-size: 35px;">Отсутствие проблем с обратной совместимостью и
+                расширением</p>
+            <p class="pros left fragment" style="font-size: 35px;">Удобные инструменты для разработки</p>
+            <p class="pros left fragment" style="font-size: 35px;">Реализации на всех популярных языках</p>
+        </section>
+
+        <section class="center">
+            <img src="./images/needed-data-graph.svg" style="width: 80%;">
+        </section>
+
+        <section class="center">
+            <h4>GraphQL</h4>
+            <img src="./images/data-graph.svg" style="width: 100%;">
+        </section>
+
+        <section class="center">
+            <h4>GraphQL</h4>
+            <img src="./images/data-query-1.svg" style="width: 100%;">
+        </section>
+
+        <section class="center">
+            <h4>GraphQL</h4>
+            <img src="./images/data-query-2.svg" style="width: 100%;">
+        </section>
+
+        <section class="center">
+            <h4>GraphQL</h4>
+            <img src="./images/data-query-3.svg" style="width: 100%;">
+        </section>
+
+        <section>
+            <h4>GraphQL</h4>
+            <img src="./images/root-query.svg" style="width: 100%">
+        </section>
+
+        <section>
+            <h4>GraphQL</h4>
+            <pre class="flat"><code class="language-javascript">
+query {
+  student(id: 42) {
+    friends {
+      group {
+        name
+      }
+      department {
+        name
+      }
+    }
+  }
+}
+            </code></pre>
+        </section>
+
+        <section class="center">
+            <h4>GraphiQL</h4>
+        </section>
+
+        <section>
+            <h4>Types</h4>
+            <pre class="fragment">ID, Int, Float, String, Boolean</pre>
+            <table>
+                <tr>
+                    <td style="width: 50%;">
+                        <pre>
+
+<span class="fragment">type Group {
+  id: ID
+  name: String
+}</span>
+
+<span class="fragment">type Student {
+  id: ID
+  name: String
+  age: Int
+  group: Group
+}</span>
+            </pre>
+                    </td>
+                    <td style="width: 50%;">
+                        <pre class="fragment">
+
+type Query {
+  group(id: ID!): Group
+  groups: [Group]
+
+  student(id: ID!): Student
+  students: [Student]
+}
+                        </pre>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <section>
+            <h4>Unions</h4>
+            <pre>type Student {
+  id: ID
+  name: String
+  age: Int
+  group: Group
+}
+
+type Lecturer {
+  id: ID
+  name: String
+  degree: String
+}
+
+union Person = Student | Lecturer</pre>
+        </section>
+
+        <section>
+            <h4>Queries</h4>
+            <table>
+                <tr>
+                    <td style="width: 50%"><pre class="flat"><code class="language-javascript">query {
+  student(id: 1) {
+    id
+    name
+    age
+    group {
+      name
+    }
+  }
+}
+            </code></pre>
+                    </td>
+                    <td style="width: 50%"><pre class="flat fragment"><code class="language-javascript">{
+  "data": {
+    "student": {
+      "id": 1,
+      "name": "Максим",
+      "age": 22,
+      "group": {
+        "name": "МГКН-1"
+      }
+    }
+  }
+}
+            </code></pre>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <section>
+            <h4>Queries</h4>
+            <table>
+                <tr>
+                    <td style="width: 50%;">
+<pre class="flat"><code class="language-javascript">query {
+  student(id: 1) {
+    name
+    group {
+      name
+    }
+  }
+
+  group(id: 1) {
+    name
+  }
+}
+            </code></pre>
+                    </td>
+                    <td>
+                        <pre class="flat fragment"><code class="language-javascript">{
+  "data": {
+    "student": {
+      "name": "Максим",
+      "group": {
+        "id": 1,
+        "name": "МГКН-1"
+      }
+    },
+    "group": {
+      "name": "МГКН-1"
+    }
+  }
+}</code></pre>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <section>
+            <h4>Aliases</h4>
+            <table>
+                <tr>
+                    <td><pre class="flat"><code class="language-javascript">query {
+  first: student(id: 1) {
+    id
+    name
+    age
+  }
+
+  second: student(id: 2) {
+    id
+    name
+    age
+  }
+}
+            </code></pre>
+                    </td>
+                    <td><pre class="flat fragment"><code class="language-javascript">{
+  "data": {
+    "first": {
+      "id": 1,
+      "name": "Максим",
+      "age": 22
+    },
+    "second": {
+      "id": 2,
+      "name": "Иван",
+      "age": 19
+    }
+  }
+}
+            </code></pre>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <section>
+            <h4>Named Queries</h4>
+            <pre class="flat"><code class="language-javascript">query StudentsQuery {
+  first: student(id: 1) {
+    id
+    name
+    age
+  }
+
+  second: student(id: 2) {
+    id
+    name
+    age
+  }
+}
+            </code></pre>
+        </section>
+
+        <section>
+            <h4>Fragments</h4>
+            <pre class="flat"><code class="language-javascript">fragment StudentFields on Student {
+    id
+    name
+    age
+    group {
+        id
+        name
+    }
+}
+            </code></pre>
+        </section>
+
+        <section>
+            <h4>Fragments</h4>
+            <pre class="flat"><code class="language-javascript">query {
+    first: student(id: 1) {
+        ...StudentFields
+    }
+
+    second: student(id: 2) {
+        ...StudentFields
+    }
+}
+            </code></pre>
+        </section>
+
+        <section>
+            <h4>Inline fragments</h4>
+            <pre>query {
+  persons {
+    <span class="fragment">__typename # Meta field</span>
+    ... on Student {
+      name
+      group {
+        name
+      }
+    }
+
+    ... on Lecturer {
+      name
+      degree
+    }
+  }
+}</pre>
+        </section>
+
+        <section>
+            <h4>Variables</h4>
+            <pre>query StudentQuery($id: ID!) {
+  student(id: $id) {
+    id
+    name
+    age
+  }
+}
+
+</pre>
+            <pre class="fragment"><code>// Variables
+
+{
+  "id": "1"
+}</code></pre>
+        </section>
+
+        <section>
+            <h4>Directives</h4>
+            <pre>query StudentQuery($id: ID!, <span class="green">$withGroup: Boolean!</span>) {
+  student(id: $id) {
+    id
+    name
+    age
+    group <span class="green">@include(if: $withGroup)</span> {
+      id
+      name
+    }
+  }
+}</pre>
+        </section>
+
+        <section>
+            <h4>Directives</h4>
+            <pre>query StudentQuery($id: ID!, <span class="green">$withoutAge: Boolean!</span>) {
+  student(id: $id) {
+    id
+    name
+    age <span class="green">@skip(if: $withoutAge)</span>
+    group {
+      id
+      name
+    }
+  }
+}</pre>
+        </section>
+
+        <section>
+            <h4>Mutations</h4>
+            <pre>mutation CreateStudent($name: String!, $age: Int!, $groupId: ID!) {
+  createStudent(name: $name, age: $age, groupId: $groupId) {
+    id
+    name
+    age
+    group {
+      id
+      name
+    }
+  }
+}</pre>
+        </section>
+
+        <section class="center">
+            <a href="https://github.com/graphql/graphql-js/" target="_blank">GraphQL.js</a>
+        </section>
+
+        <section>
+            <h4>Queries</h4>
+            <pre><span class="grey">$</span> npm install --save graphql</pre>
+            <pre class="flat"><code class="language-javascript" data-noescape>
+<span class="fragment">const { graphql, buildSchema } = require('graphql');</span>
+<span class="fragment">const students = [
+    { id: '1', name: 'Maxim' },
+    { id: '2', name: 'Ivan' }
+];</span>
+<span class="fragment">const schema = buildSchema(`
+  type Student {
+    id: ID
+    name: String
+  }
+
+  type Query {
+    student(id: ID!): Student
+  }
+`);</span>
+</code></pre>
+        </section>
+
+        <section>
+            <h4>Queries</h4>
+            <pre class="flat"><code class="language-javascript" data-noescape>const root = {
+  student: args => {
+    return students.find(student => student.id === args.id);
+  }
+};
+
+<span class="fragment">const query = `
+  query {
+    student(id: 1) {
+      name
+    }
+  }
+`;</span>
+
+<span class="fragment">graphql(schema, query, root).then(response => {
+  // { data: { student: { name: "Максим" } } }
+});</span>
+            </code></pre>
+        </section>
+
+        <section>
+            <h4>Mutations</h4>
+            <pre class="flat"><code class="language-javascript" data-noescape><span class="fragment">const schema = buildSchema(`
+  type Student {
+    id: ID
+    name: String
+  }
+
+  type Mutation {
+    createStudent(name: String!): Student
+  }
+`);
+</span></code></pre>
+            </code></pre>
+        </section>
+
+        <section>
+            <h4>Mutations</h4>
+            <pre class="flat"><code class="language-javascript" data-noescap>const root = {
+  createStudent: args => {
+    const newStudent = {
+      id: newId,
+      name: args.name
+    };
+
+    students.push(newStudent);
+
+    return newStudent;
+  }
+};
+</code></pre>
+        </section>
+
+        <section>
+            <h4>Mutations</h4>
+            <pre class="flat"><code class="language-javascript" data-noescap>const mutation = `
+  mutation {
+    createStudent(name: "Peter") {
+      id
+      name
+    }
+  }
+`;
+
+graphql(schema, mutation, root).then(response => {
+  console.log(response);
+});
+
+// {"data": { "createStudent": { "id": 4, "name": "Peter" }}}</code></pre>
+        </section>
+
+        <section>
+            <h4>GraphQL Server</h4>
+            <pre><span class="grey">$</span> npm install --save express express-graphql
+</pre>
+            <pre class="flat"><code class="language-javascript" data-noescape>
+<span class="fragment" data-fragment-index="1">const express = require('express');</span>
+<span class="fragment" data-fragment-index="2">const graphqlHTTP = require('express-graphql');</span>
+
+<span class="fragment" data-fragment-index="1">const app = express();</span>
+
+<span class="fragment" data-fragment-index="2">app.use('/graphql', graphqlHTTP({
+  schema: schema,
+  rootValue: root,
+  graphiql: true
+}));</span>
+
+<span class="fragment" data-fragment-index="1">app.listen(4000, () => {
+  console.log('Listening on http://localhost:4000/graphql');
+});</span>
+            </code></pre>
+        </section>
+
+        <section class="center">
+            <h4>GraphQL Server</h4>
+            <img src="./images/express-graphql-flow.svg" style="width: 100%">
+        </section>
+
+        <section>
+            <h4>Schema</h4>
+            <pre class="flat"><code data-noescape>const {
+  GraphQLID,
+  GraphQLString,
+  GraphQLObjectType
+} = require('graphql');
+
+const GroupType = new GraphQLObjectType({
+  name: 'Group',
+  fields: {
+    id: { type: GraphQLID },
+    name: { type: GraphQLString }
+  }
+});
+            </code></pre>
+        </section>
+
+        <section>
+            <h4>Schema</h4>
+            <img src="./images/data.svg" style="width: 80%;">
+        </section>
+
+        <section>
+            <h4>Schema</h4>
+            <pre class="flat"><code class="language-javascript" data-noescape>const StudentType = new GraphQLObjectType({
+  name: 'Student',
+  fields: {
+    id: { type: GraphQLID },
+    name: { type: GraphQLString },
+    age: { type: GraphQLInt },
+    group: {
+      type: GroupType,
+      resolve: parentValue => {
+        return groups.find(group => {
+          return group.id === parentValue.groupId
+        });
+      }
+    }
+  }
+});
+            </code></pre>
+        </section>
+
+        <section>
+            <h4>Schema</h4>
+            <pre class="flat"><code class="language-javascript" data-noescape>const Query = new GraphQLObjectType({
+  name: 'Query',
+  fields: {
+    student: {
+      type: StudentType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) }
+      },
+      resolve(parentValue, { id }) {
+        return students.find(student => {
+          return student.id === id;
+        });
+      }
+    }
+  }
+});
+            </code></pre>
+        </section>
+
+        <section>
+            <h4>Schema</h4>
+            <pre class="flat"><code class="language-javascript">const Query = new GraphQLObjectType({
+  name: 'Query',
+  fields: {
+    // ...
+
+    students: {
+      type: new GraphQLList(StudentType),
+      resolve() {
+        return students;
+      }
+    }
+  }
+});
+            </code></pre>
+        </section>
+
+        <section>
+            <h4>Schema</h4>
+            <pre class="flat"><code>module.exports = new GraphQLSchema({
+  query: Query
+});
+            </code></pre>
+        </section>
+
+        <section>
+            <h4>Schema</h4>
+            <pre class="flat"><code class="language-javascript" data-noescape>const Mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: {
+    createStudent: {
+      type: StudentType,
+      args: {
+        name: new GraphQLNonNull(GraphQLString),
+        age: new GraphQLNonNull(GraphQLInt),
+        groupId: new GraphQLNonNull(GraphQLID)
+      },
+      resolve(parentValue, args) {
+        return StudentModel.create(args);
+      }
+    }
+  }
+});
+            </code></pre>
+        </section>
+
+        <section>
+            <h4>Schema</h4>
+            <pre class="flat"><code class="language-javascript">module.export = new GraphQLSchema({
+  query: Query,
+  mutation: Mutation
+});
+            </code></pre>
+        </section>
+
+        <section>
+            <h4>Practical example</h4>
+            <img src="./images/real-data-flow.svg" style="width: 100%;">
+        </section>
+
+        <section>
+            <h4>Errors</h4>
+            <pre class="flat"><code class="language-javascript">
+query {
+  student(id: 1) {
+    name
+    wrongField
+  }
+}
+            </code></pre>
+        </section>
+
+        <section>
+            <h4>Errors</h4>
+            <pre class="flat"><code class="language-javascript" style="font-size: 20px !important;">{
+  "errors": [
+    {
+      "message": "Cannot query field \"wrongField\" on type \"Student\".",
+      "locations": [
+        {
+          "line": 4,
+          "column": 5
+        }
+      ]
+    }
+  ]
+}
+                        </code></pre>
+        </section>
+
+        <section>
+            <h4>Errors</h4>
+            <pre class="flat"><code class="language-javascript">{
+  "data": null,
+  "errors": [
+    {
+      "code": "UNQ",
+      "message": "Fields must be unique",
+      "details": {
+        "fields": [
+          "name"
+        ]
+      }
+    }
+  ]
+}</code></pre>
+        </section>
+
+        <section>
+            <h4>GraphQL</h4>
+            <p class="left cons fragment">Новая технология</p>
+            <p class="left cons fragment">Мало паттернов</p>
+            <p class="left cons fragment">Сложности при работе с SQL базами данных</p>
+            <p class="left cons fragment">Сложности при работе с рекативными данными</p>
+        </section>
+
+        <section class="center">
+            <h4>GraphQL Clients</h4>
+        </section>
+
+        <section>
+            <h4>GraphQL Clients</h4>
+            <table style="font-size: 35px;">
+                <tbody>
+                <tr>
+                    <td>Название</td>
+                    <td>Описание</td>
+                </tr>
+                <tr>
+                    <td>Lokka</td>
+                    <td>Максимально простой в использовании. Базовая поддержка Query и Mutations. Простейшее
+                        кэширование
+                    </td>
+                </tr>
+                <tr>
+                    <td>Apollo</td>
+                    <td>Более гибкий. Хороший баланс между функциональностью и сложностью использования</td>
+                </tr>
+                <tr>
+                    <td>Relay</td>
+                    <td>Наиболее функциональный, из-за чего наиболее сложный в использовании. Много внимания уделено
+                        производительности (особенно на мобильных).
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="center">
+            <h3>React + Apollo Client</h3>
+        </section>
+
+        <section class="center">
+            <h4>React + Apollo Client</h4>
+            <br>
+            <img class="center" src="./images/react-app.svg" style="width: 100%;">
+        </section>
+
+        <section>
+            <h4>React + Apollo Client</h4>
+            <pre><span class=grey>$</span> npm install --save apollo-client react-apollo graphql-tag</pre>
+        </section>
+
+        <section>
+            <h4>Apollo Client Setup</h4>
+            <pre class="flat"><code class="language-javascript" data-noescape>import React from 'react';
+import ReactDOM from 'react-dom';
+import ApolloClient from 'apollo-client';
+import { ApolloProvider } from 'react-apollo';
+
+<span class="fragment">const client = new ApolloClient({});</span>
+
+<span class="fragment">const Root = () => (
+  &lt;ApolloProvider client={client}&gt;
+    &lt;div&gt;Root Component&lt;/div&gt;
+  &lt;/ApolloProvider&gt;
+);</span>
+
+<span class="fragment">ReactDOM.render(
+  &lt;Root /&gt;,
+  document.getElementById('root')
+);</span>
+            </code></pre>
+        </section>
+
+        <section>
+            <h4>Queries</h4>
+            <pre class="flat"><code class="language-javascript" data-noescape>import React from 'react';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+
+<span class="fragment">const query = gql`
+  query Student($id: ID!) {
+    student(id: $id) {
+      name
+      group {
+        name
+      }
+    }
+  }
+`;</span>
+            </code></pre>
+        </section>
+
+        <section>
+            <h4>Queries</h4>
+            <pre class="flat"><code class="language-javascript" data-noescape>import React from 'react';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+
+const Student = ({ data }) => (
+  <span class="fragment">&lt;div&gt;
+    &lt;div&gt;Имя: {data.student.name}&lt;/div&gt;
+    &lt;div&gt;Группа: {data.student.group.name}&lt;/div&gt;
+  &lt;/div&gt;</span>
+);
+
+export default graphql(query, {
+  options: ({ id }) => ({ variables: { id } })
+})(Student);
+            </code></pre>
+            <pre class="flat red fragment">Uncaught TypeError: Cannot read property 'name' of undefined</pre>
+        </section>
+
+        <section>
+            <h4>Queries</h4>
+            <pre class="flat"><code class="language-javascript" data-noescape>import React from 'react';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+
+const Student = ({ data }) => {
+  if (data.loading) {
+      return &lt;div&gt;Loading...&lt;/div&gt;;
+  }
+
+  // ...
+};
+
+export default graphql(query, {
+    options: ({ id }) => ({ variables: { id } })
+})(Student);
+            </code></pre>
+        </section>
+
+        <section>
+            <h4>Mutations</h4>
+            <pre class="flat"><code class="language-javascript" data-noescape>const Student = ({ data }) => {
+  // ...
+
+  return (
+    &lt;div&gt;
+      &lt;div&gt;Имя: {data.student.name}&lt;/div&gt;
+      &lt;div&gt;Группа: {data.student.group.name}&lt;/div&gt;
+      &lt;button&gt;Удалить&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+            </code></pre>
+        </section>
+
+        <section>
+            <h4>Mutations</h4>
+            <pre class="flat"><code class="language-javascript">const mutation = gql`
+  mutation RemoveStudent($id: ID!) {
+    removeStudent(id: $id)
+  }
+`;
+            </code></pre>
+        </section>
+
+        <section>
+            <h4>Mutations</h4>
+            <pre class="flat"><code class="language-javascript">export default graphql(mutation)(graphql(query, {
+  options: ({ id }) => ({ variables: { id } })
+})(Student));
+            </code></pre>
+        </section>
+
+        <section>
+            <h4>Mutations</h4>
+            <pre class="flat"><code class="language-javascript" data-noescape>import { compose } from 'react-apollo';
+
+<span class="fragment">// compose(f, g, h)(x) === f(g(h(x)))</span>
+
+<span class="fragment">export default compose(
+  graphql(query, {
+    options: ({ id }) => ({ variables: { id } })
+  }),
+  graphql(mutation)
+)(Student);</span>
+            </code></pre>
+        </section>
+
+        <section>
+            <h4>Mutations</h4>
+            <pre class="flat"><code class="language-javascript" data-noescape>class Student extends React.Component {
+  handleRemoveClick() {
+    this.props.mutate({
+      <span class="fragment">variables: { id: this.props.id }</span>
+    })
+      <span class="fragment">.then(() => { ... })
+      .catch(response => {
+        console.log(response.graphQLErrors);
+      });</span>
+  }
+
+  // ...
+}
+            </code></pre>
+        </section>
+
+        <section>
+            <h4>Mutations</h4>
+            <pre class="flat"><code class="language-javascript" data-noescape>class Student extends React.Component {
+  render() {
+    // ...
+
+    return (
+      &lt;div&gt;
+        &lt;div&gt;Имя: {data.student.name}&lt;/div&gt;
+        &lt;div&gt;Группа: {data.student.group.name}&lt;/div&gt;
+        &lt;button onClick={this.handleRemoveClick}&gt;
+          Удалить
+        &lt;/button&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+            </code></pre>
+        </section>
+
+        <section>
+            <h4>Cache</h4>
+            <div class="left fragment">
+                <small>Students: Петя, Вася, Маша</small>
+            </div>
+            <table style="font-size: 35px;">
+                <tr>
+                    <td class="fragment">
+                        <ol>
+                            <li>Зашли на страницу со списком всех студентов</li>
+                            <li>Перешли на страницу Васи</li>
+                            <li>Удалили</li>
+                            <li>Вернулись на страницу со списком всех студентов</li>
+                        </ol>
+                    </td>
+                    <td class="fragment">
+                        <ol>
+                            <li>Зашли на страницу Васи по прямой ссылке</li>
+                            <li>Удалили</li>
+                            <li>Перешли на страницу со списком всех студентов</li>
+                        </ol>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <section>
+            <h4>Cache</h4>
+            <pre class="flat"><code class="language-javascript" data-noescape>
+class Student extends React.Component {
+  handleRemoveClick() {
+    this.props.mutate({
+      variables: { id: this.props.id },
+      refetchQueries: [
+        'Students'
+      ]
+    })
+      .then(() => { ... })
+      .catch(() => { ... });
+  }
+
+  // ...
+}
+            </code></pre>
+        </section>
+
+        <section>
+            <h4>Apollo Client</h4>
+            <p class="pros left fragment">Простота использования</p>
+            <p class="pros left fragment">Гибкая настройка кэширования</p>
+            <p class="pros left fragment">Fragments</p>
+            <p class="pros left fragment">Optimistic Updates</p>
+            <p class="pros left fragment">Polling</p>
+        </section>
+
+        <section class="center">
+            <p>GraphQL</p>
+            <p>
+                <a target="_blank" href="http://facebook.github.io/graphql/">GraphQL Specification</a>
+            </p>
+            <p>
+                <a target="_blank" href="https://github.com/graphql/graphql-js">GraphQL.js</a>
+            </p>
+            <p>
+                <a target="_blank" href="http://graphql.org/learn/best-practices/">GraphQL Best Practices</a>
+            </p>
+            <p>GraphQL Clients</p>
+            <p>
+                <a target="_blank" href="https://github.com/kadirahq/lokka">Lokka</a>
+            </p>
+            <p>
+                <a target="_blank" href="http://dev.apollodata.com">Apollo</a>
+            </p>
+            <p>
+                <a target="_blank" href="https://facebook.github.io/relay/">Relay</a>
+            </p>
+        </section>
+
+        <section class="center">
+            <p>Examples</p>
+            <p>
+                <a target="_blank" href="https://github.com/urfu-2016/graphql-server-example">GraphQL Server</a>
+            </p>
+            <p>
+                <a target="_blank" href="https://github.com/urfu-2016/react-apollo-example">React + Apollo</a>
+            </p>
+        </section>
+
+    </div>
+</div>
+
+<script src="../lib/js/head.min.js"></script>
+<script src="../js/reveal.js"></script>
+<script>
+    Reveal.initialize({
+        controls: false,
+        center: false,
+        history: true,
+        hideAddressBar: true,
+        progress: true,
+        slideNumber: true,
+        transition: 'none',
+        dependencies: [
+            {
+                src: '../plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            },
+            {
+                src: '../plugin/menu/menu.js'
+            }
+        ],
+        menu: {
+            side: 'left',
+            numbers: false,
+            titleSelector: 'h1, h2, h3, h4, h5, h6',
+            hideMissingTitles: true,
+            markers: true,
+            custom: false,
+            themes: false,
+            transitions: false,
+            openButton: true,
+            openSlideNumber: false,
+            keyboard: true
+        }
+    });
+</script>
+</body>
+</html>
