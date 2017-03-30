@@ -1,0 +1,155 @@
+img {
+    background: none !important;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.left {
+    text-align: left;
+}
+
+.column {
+    display:inline-block;
+    width: 49%;
+    vertical-align: top !important;
+}
+
+pre,
+pre code {
+    font-size: 26px !important;
+}
+
+pre {
+    margin: 10px 15px !important;
+    width: 100% !important;
+}
+
+.reveal pre code {
+    padding: 15px 18px !important;
+    line-height: 35px !important;
+    border: 2px solid rgba(63, 63, 63, 0.3) !important;
+    background: rgba(63, 63, 63, 0.2) !important;
+    max-height: 100% !important;
+}
+
+pre.flat code {
+    line-height: 35px !important;
+    padding: 0 0 !important;
+    border: 0 !important;
+    background: none !important;
+}
+
+.reveal section .fragment.init_visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+.reveal section .fragment.highlight {
+    transition-duration: .3s;
+}
+
+.red {
+    color: #ab4642 !important;
+}
+
+.green {
+    color: #a1b56c !important;
+}
+
+.white {
+    color: #fff !important;
+}
+
+h4 span,
+.magenta {
+    color: #a0a0f0 !important;
+}
+
+.grey {
+    color: #777 !important;
+}
+
+.nodejs .resources {
+    display:inline-block;
+    width: 24%;
+    vertical-align: top;
+}
+
+.nodejs .resources img {
+    height: 100px;
+}
+
+.nodejs .operations td {
+    border: 0;
+}
+
+.nodejs .operations td div {
+    padding: 5px 20px;
+}
+
+.demo {
+    color: #FFDA44
+}
+
+.demo img {
+    position: relative; top: -4px;
+}
+
+.reveal section .fragment.init_visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+.reveal section .fragment.highlight {
+    transition-duration: .3s;
+}
+
+.highlight.highlight-magenta.fragment.visible,
+.highlight.highlight-magenta.static {
+    background-color: rgb(162, 146, 0);
+}
+.highlight.highlight-magenta.fragment.visible,
+.highlight.highlight-magenta.fragment.visible * {
+    color: white !important;
+}
+
+.highlight.highlight-opacity.fragment.visible,
+.highlight.highlight-opacity.static {
+    opacity: .2 !important;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.pros,
+.cons,
+.question {
+    padding-left: 50px !important;
+}
+
+.pros:before,
+.cons:before,
+.question:before {
+    position: absolute;
+    left: 0;
+}
+
+.pros:before {
+    content: '✓';
+    color: #a1b56c !important;
+}
+
+.cons:before {
+    content: '✗';
+    color: #992200 !important;
+}
+
+.question:before {
+    content: '?';
+    color: #546BD2 !important;
+}
+
+.yellow {
+    color: #efef8f;
+}
