@@ -6,11 +6,13 @@
 4. Автоматизация вёрстки
 5. [Эксплуатация сервиса](https://urfu-2016.github.io/webdev-slides/05-deploy/)
 6. [Базы данных](https://urfu-2016.github.io/webdev-slides/06-databases/)
-7. [Тестирование](https://urfu-2016.github.io/webdev-slides/07-tests)
+7. [Тестирование](https://urfu-2016.github.io/webdev-slides/07-tests/)
 8. [DOM](https://urfu-2016.github.io/webdev-slides/08-dom/)
 9. [React. Redux.](https://urfu-2016.github.io/webdev-slides/09-react-redux/)
 10. [Клиент-Сервер](https://urfu-2016.github.io/webdev-slides/10-client-server/) (HTTP, REST, xmlHttpRequest, fetch, CORS)
-11. [Клиент-Сервер](https://urfu-2016.github.io/webdev-slides/11-client-server/index.html) (GraphQL, Apollo Client)
+11. [Клиент-Сервер](https://urfu-2016.github.io/webdev-slides/11-client-server/) (GraphQL, Apollo Client)
+12. ...
+13. [Клиентская производительность](https://urfu-2016.github.io/webdev-slides/13-client-performance/) ([PDF](https://yadi.sk/i/XWf-qtpQ3GsN8e), [Demo](https://github.com/sameoldmadness/perf-chat))
 
 # Слайды к хакатонам
 
