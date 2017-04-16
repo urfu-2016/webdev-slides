@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Хакатон #2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../css/reveal.css">
+    <link rel="stylesheet" href="../lib/css/zenburn.css">
+    <link rel="stylesheet" href="../css/theme/yandex.css" id="theme">
+    <link rel="stylesheet" href="./css/user.css">
+</head>
+<body class="yandex"><div class="reveal"><div class="slides">
+
+<section class="center">
+    <pre class="flat">
+        PUT /hackatones/2 HTTP/1.1
+        Accept: application/json
+        Accept-Encoding: gzip, deflate
+        Host: localhost:5000
+        User-Agent: HTTPie/0.9.3
+
+        {
+            "title": "<span class="red" style="font-weight: bold; font-size: 1.2em">Хакатон №2</span>"
+        }
+
+
+        HTTP/1.1 204 No content
+        Date: Sun, 17 Apr 2016 10:00:00 GMT
+        X-Powered-By: Express
+        </pre>
+    </pre>
+</section>
+
+<section class="center">
+    <img src="images/04.jpg" width=200 height=150>
+    <img src="images/05.jpg" width=200 height=150>
+    <img src="images/06.jpg" width=200 height=150>
+    <h4 class="green">Сервис «Фотоквест»</h4>
+    <img src="images/01.jpg" width=200 height=150>
+    <img src="images/02.jpg" width=200 height=150>
+    <img src="images/03.jpg" width=200 height=150>
+</section>
+
+<section>
+    <h4 class="green">3 дня – 3 этапа</h4>
+    <ol>
+        <li class="left">Эксплуатация и вёрстка</li>
+        <li class="left"><span class="fragment highlight highlight-magenta init_visible">Регистрация&nbsp;и&nbsp;создание&nbsp;квестов</span></li>
+        <li class="left">Прохождение квестов и лайки</li>
+    </ol>
+</section>
+
+<section>
+    <h4 class="green">1 этап</h4>
+    <p class="pros left">Договориться о взаимодействиях</p>
+    <p class="pros left">Договориться о технологиях</p>
+    <p class="pros left">Наладить эксплуатацию</p>
+    <p class="pros left">Страница списка квестов</p>
+    <p class="pros left">Страница квеста</p>
+    <p class="pros left">Документация</p>
+    <p class="question left">Поиск квестов по названию</p>
+</section>
+
+<section>
+    <h4 class="green">Технический долг</h4>
+</section>
+
+<section data-background="images/td-1.png" data-background-size="50%" data-background-color="white"></section>
+<section data-background="images/td-2.png" data-background-size="50%" data-background-color="white"></section>
+<section data-background="images/td-3.png" data-background-size="50%" data-background-color="white"></section>
+<section data-background="images/td-4.png" data-background-size="50%" data-background-color="white"></section>
+
+<section>
+    <h4 class="green">2 этап</h4>
+    <p class="pros left fragment">Регистрация и авторизация</p>
+    <p class="pros left fragment">Создание квеста: форма + загрузка фоток</p>
+    <p class="pros left fragment">Редактирование и удаление квеста</p>
+    <p class="pros left fragment">Страница квеста с фотками для игроков</p>
+    <p class="pros left fragment">Покрытие тестами и документация</p>
+    <p class="question left fragment">Сортировка фоток</p>
+    <p class="question left fragment">Комментарии к фоткам</p>
+</section>
+
+<section>
+    <h4 class="green">Технологии</h4>
+    <p class="left">Авторизация – <span class="grey">Passport.js</span></p>
+    <p class="left">Хранение фоток – <span class="grey">Flickr, Cloudinary</span></p>
+    <p class="left">Загрузка файлов – <span class="grey">Busboy, Multer</span></p>
+    <p class="left">Остальные рекомендации в <a href="https://github.com/urfu-2016/webdev-slides">лекциях</a></p>
+    <p>&nbsp;</p>
+</section>
+
+</div></div>
+
+<script src="../lib/js/head.min.js"></script>
+<script src="../js/reveal.js"></script>
+<script>
+    Reveal.initialize({
+        controls: false,
+        center: false,
+        history: true,
+        hideAddressBar: true,
+        progress: true,
+        slideNumber: false,
+        transition: 'slide',
+        dependencies: [
+            {
+                src: '../plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

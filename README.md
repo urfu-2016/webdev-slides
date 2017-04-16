@@ -17,3 +17,4 @@
 # Слайды к хакатонам
 
 1. [Хакатон, день первый](https://urfu-2016.github.io/webdev-slides/hackatone-01/)
+1. [Хакатон, день второй](https://urfu-2016.github.io/webdev-slides/hackatone-02/)
