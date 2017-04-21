@@ -13,6 +13,7 @@
 11. [Клиент-Сервер](https://urfu-2016.github.io/webdev-slides/11-client-server/) (GraphQL, Apollo Client)
 12. [Паттерны](https://urfu-2016.github.io/webdev-slides/12-patterns/)
 13. [Клиентская производительность](https://urfu-2016.github.io/webdev-slides/13-client-performance/) ([PDF](https://yadi.sk/i/XWf-qtpQ3GsN8e), [Demo](https://github.com/sameoldmadness/perf-chat))
+14. [Идентификация, аутентификация, авторизация](https://github.com/urfu-2016/webdev-slides/files/946289/authorization.pdf)
 14. [Производительный NodeJS](https://urfu-2016.github.io/webdev-slides/14-pro-nodejs/)
 
 # Слайды к хакатонам
