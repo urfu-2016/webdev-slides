@@ -16,7 +16,7 @@
 14. [Идентификация, аутентификация, авторизация (PDF)](https://github.com/urfu-2016/webdev-slides/files/946289/authorization.pdf)
 15. [Производительный NodeJS](https://urfu-2016.github.io/webdev-slides/14-pro-nodejs/)
 16. [Cookies, LocalStorage, IndexedDB](https://urfu-2016.github.io/webdev-slides/15-storage-apis/)
-17. [Geolocation, File](https://urfu-2016.github.io/webdev-slides/15-geolocation-file-apis/index.html)
+17. [Geolocation API, File API](https://urfu-2016.github.io/webdev-slides/15-geolocation-file-apis/index.html)
 
 # Слайды к хакатонам
 
