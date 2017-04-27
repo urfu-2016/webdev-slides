@@ -1,0 +1,265 @@
+img {
+    background: none !important;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.left {
+    text-align: left;
+}
+
+.column {
+    display:inline-block;
+    width: 49%;
+    vertical-align: top !important;
+}
+
+pre,
+pre code {
+    font-size: 26px !important;
+}
+
+pre {
+    margin: 10px 15px !important;
+    width: 100% !important;
+}
+
+.reveal pre code {
+    padding: 15px 18px !important;
+    line-height: 35px !important;
+    border: 2px solid rgba(63, 63, 63, 0.3) !important;
+    background: rgba(63, 63, 63, 0.2) !important;
+    max-height: 100% !important;
+}
+
+pre.flat code {
+    line-height: 35px !important;
+    padding: 0 0 !important;
+    border: 0 !important;
+    background: none !important;
+}
+
+.reveal section .fragment.init_visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+.reveal section .fragment.highlight {
+    transition-duration: .3s;
+}
+
+.red {
+    color: #ab4642 !important;
+}
+
+.green {
+    color: #a1b56c !important;
+}
+
+.white {
+    color: #fff !important;
+}
+
+h4 span,
+.magenta {
+    color: #a0a0f0 !important;
+}
+
+.grey {
+    color: #777 !important;
+}
+
+.nodejs .resources {
+    display:inline-block;
+    width: 24%;
+    vertical-align: top;
+}
+
+.nodejs .resources img {
+    height: 100px;
+}
+
+.nodejs .operations td {
+    border: 0;
+}
+
+.nodejs .operations td div {
+    padding: 5px 20px;
+}
+
+.demo {
+    color: #FFDA44
+}
+
+.demo img {
+    position: relative; top: -4px;
+}
+
+.reveal section .fragment.init_visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+.reveal section .fragment.highlight {
+    transition-duration: .3s;
+}
+
+.highlight.highlight-magenta.fragment.visible,
+.highlight.highlight-magenta.static {
+    background-color: rgb(162, 146, 0);
+}
+.highlight.highlight-magenta.fragment.visible,
+.highlight.highlight-magenta.fragment.visible * {
+    color: white !important;
+}
+
+.highlight.highlight-opacity.fragment.visible,
+.highlight.highlight-opacity.static {
+    opacity: .2 !important;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.pros,
+.cons,
+.question {
+    padding-left: 50px !important;
+}
+
+.pros:before,
+.cons:before,
+.question:before {
+    position: absolute;
+    left: 0;
+}
+
+.pros:before {
+    content: '✓';
+    color: #a1b56c !important;
+}
+
+.cons:before {
+    content: '✗';
+    color: #992200 !important;
+}
+
+.question:before {
+    content: '?';
+    color: #546BD2 !important;
+}
+
+.yellow {
+    color: #efef8f;
+}
+
+
+.download-text-example textarea {
+    border: 4px solid #ffdb4d;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    display: block;
+    width: 500px;
+    height: 250px;
+    outline: 0;
+    padding: 20px;
+    font-size: 40px;
+    color: #fff;
+    background: #333338;
+    resize: none;
+}
+
+.download-text-example button,
+.upload-images-example ::-webkit-file-upload-button {
+    outline: 0;
+    cursor: pointer;
+    background: #ffdb4d;
+    border: 0;
+    height: 50px;
+    font-size: 20px;
+    padding: 10px 25px;
+    margin-top: 20px;
+    display: block;
+    transition: background 0.1s ease-out;
+    border-radius: 3px;
+}
+
+.download-text-example button {
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+.download-text-example button:hover,
+.upload-images-example ::-webkit-file-upload-button:hover {
+    background: #ffd633;
+}
+
+.download-text-example a {
+    position: absolute;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    margin-top: 15px;
+    display: block;
+    transition: opacity .4s ease-out;
+}
+
+.download-text-example a[href] {
+    opacity: 1;
+    visibility: visible;
+}
+
+.upload-images-example input {
+    font-size: 15px;
+}
+
+.upload-images-example #uploaded-images {
+    padding: 10px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 20px;
+    width: 600px;
+    height: 200px;
+    background: rgba(255, 255, 255, .1);
+}
+
+#uploaded-images img {
+    width: 100px;
+    border-radius: 50%;
+    margin: 0;
+    margin-right: 10px;
+    float: left;
+}
+
+.dnd-example #drop-zone {
+    transition: background .1s ease-out;
+    float: left;
+    height: 250px;
+    width: 250px;
+    background: rgba(255, 255, 255, .1);
+    position: relative;
+}
+
+.dnd-example #drop-zone div {
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.dnd-example #names {
+    padding: 10px;
+    text-align: left;
+    font-size: 20px;
+    height: 230px;
+    width: 600px;
+    background: rgba(255, 255, 255, .1);
+    margin-left: 10px;
+    float: left;
+}
+
+.dnd-example #drop-zone.hovered {
+    background: rgba(255, 255, 255, .3);
+}
