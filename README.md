@@ -14,7 +14,8 @@
 12. [Паттерны](https://urfu-2016.github.io/webdev-slides/12-patterns/)
 13. [Клиентская производительность](https://urfu-2016.github.io/webdev-slides/13-client-performance/) ([PDF](https://yadi.sk/i/XWf-qtpQ3GsN8e), [Demo](https://github.com/sameoldmadness/perf-chat))
 14. [Идентификация, аутентификация, авторизация (PDF)](https://github.com/urfu-2016/webdev-slides/files/946289/authorization.pdf)
-14. [Производительный NodeJS](https://urfu-2016.github.io/webdev-slides/14-pro-nodejs/)
+15. [Производительный NodeJS](https://urfu-2016.github.io/webdev-slides/14-pro-nodejs/)
+16. [Cookies, LocalStorage, IndexedDB](https://urfu-2016.github.io/webdev-slides/15-storage-apis/)
 
 # Слайды к хакатонам
 
