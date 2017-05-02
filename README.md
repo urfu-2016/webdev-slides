@@ -17,6 +17,7 @@
 15. [Производительный NodeJS](https://urfu-2016.github.io/webdev-slides/14-pro-nodejs/)
 16. [Cookies, LocalStorage, IndexedDB](https://urfu-2016.github.io/webdev-slides/15-storage-apis/)
 17. [Geolocation API, File API](https://urfu-2016.github.io/webdev-slides/15-geolocation-file-apis/index.html)
+18. [History API, Selection API, Clipboard API, Editing API](https://urfu-2016.github.io/webdev-slides/16-history-and-selection-apis/index.html)
 
 # Слайды к хакатонам
 
