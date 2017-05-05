@@ -19,6 +19,7 @@
 17. [Geolocation API, File API](https://urfu-2016.github.io/webdev-slides/15-geolocation-file-apis/index.html)
 18. [History API, Selection API, Clipboard API, Editing API](https://urfu-2016.github.io/webdev-slides/16-history-and-selection-apis/index.html)
 19. [Fun APIs](https://urfu-2016.github.io/webdev-slides/16-fun-apis/index.html)
+20. [ES2015+](https://urfu-2016.github.io/webdev-slides/17-new-standarts-js/index.html)
 
 # Слайды к хакатонам
 
