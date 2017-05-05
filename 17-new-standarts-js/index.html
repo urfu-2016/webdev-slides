@@ -1,0 +1,969 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>ES2015+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../css/reveal.css">
+    <link rel="stylesheet" href="../lib/css/zenburn.css">
+
+    <link rel="stylesheet" href="../css/theme/yandex.css" id="theme">
+    <link rel="stylesheet" href="./css/user.css">
+</head>
+<body class="yandex nodejs"><div class="reveal"><div class="slides" style="width: 960px; height: 700px; zoom: 0.533571;">
+
+<section class="large">
+    <h2>ES2015+</h2>
+    <p><small><span style="color: red">В</span>асилий Кузнецов</small></p>
+</section>
+
+<section>
+    <h3>ECMAScript</h3>
+    <ul>
+        <li class="fragment">официальное название JavaScript</li>
+        <li class="fragment">принадлежит ассоциации Ecma</li>
+        <li class="fragment">Technical Committee 39 развивает ECMAScript</li>
+        <li class="fragment"><a target="_blank" href="https://github.com/tc39/tc39-notes">github.com/tc39/tc39-notes</a></li>
+        <li class="fragment">ECMAScript 2015 (ES6) принят 17 июня 2015</li>
+        <li class="fragment">ECMAScript 2016 принят 14 июня 2016</li>
+        <li class="fragment">ECMAScript 2017 разрабатывается</li>
+    </ul>
+</section>
+
+<section>
+    <h3>let</h3>
+    <pre class="fragment"><code class="hljs javascript size-XS">if (true) {
+    var a = 10;
+}
+
+console.log(a);</code><code class="fragment hljs javascript size-XS">//10</code></pre>
+
+</section>
+
+<section>
+    <h3>let</h3>
+    <pre><code class="hljs javascript size-XS">if (true) {
+    let a = 10;
+}
+
+console.log(a);</code><code class="fragment hljs javascript size-XS">//ReferenceError: a is not defined</code></pre>
+</section>
+
+<section>
+    <h3>let</h3>
+    <pre><code class="hljs javascript size-XS">console.log(a);
+
+let a = 10;</code><code class="fragment hljs javascript size-XS">//ReferenceError: a is not defined</code></pre>
+</section>
+
+<section>
+    <h3>let</h3>
+    <pre><code class="hljs javascript size-XS">let a;
+let a;</code><code class="fragment hljs javascript size-XS">//SyntaxError: Identifier 'a' has already been declared</code></pre>
+</section>
+
+<section>
+    <h3>const</h3>
+    <pre class="fragment"><code class="hljs javascript size-XS">const pi = 3.14;</code><code
+        class="fragment hljs javascript size-XS"
+    >pi = 3;</code><code class="fragment hljs javascript size-XS">//TypeError: Assignment to constant variable.</code></pre>
+</section>
+
+<section>
+    <h3>const</h3>
+    <pre class="fragment"><code class="hljs javascript size-XS">const animals = ['cat'];</code><code
+        class="fragment hljs javascript size-XS"
+    >animals[0] = 'dog';
+animals.push('bird');
+</code><code class="fragment hljs javascript size-XS">//['dog', 'bird']</code></pre>
+</section>
+
+<section>
+    <h3>const</h3>
+    <pre class="fragment"><code class="hljs javascript size-XS">const animal = { name: 'Барсик' };</code><code
+        class="fragment hljs javascript size-XS"
+    >animal.type = 'cat';
+animal.color = 'black';
+</code><code class="fragment hljs javascript size-XS">//{ name: 'Барсик', type: 'cat', color: 'black' }</code></pre>
+</section>
+
+<section>
+    <h3>Arrow functions</h3>
+    <div style="display: flex;">
+        <div style="width: 50%;">
+            <pre class="fragment"><code class="hljs javascript size-XS">function (name, surname) {
+    const greeting =
+        'hello, ' +
+        name +
+        ' ' +
+        surname;
+
+    return greeting;
+}
+</code></pre>
+        </div>
+        <div style="width: 50%;">
+            <pre class="fragment"><code class="hljs javascript size-XS">(name, surname) => {
+    const greeting =
+        'hello,' +
+        name +
+        ' ' +
+        surname;
+
+    return greeting;
+}
+</code></pre>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>Arrow functions</h3>
+    <div style="display: flex;">
+        <div style="width: 50%;">
+            <pre><code class="hljs javascript size-XS">function (name) {
+    const greeting =
+        'hello, ' +
+        name;
+
+    return greeting;
+}
+</code></pre>
+        </div>
+        <div style="width: 50%;">
+            <pre class="fragment"><code class="hljs javascript size-XS">name => {
+    const greeting =
+        'hello,' +
+        name;
+
+    return greeting;
+}
+</code></pre>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>Arrow functions</h3>
+    <div style="display: flex;">
+        <div style="width: 50%;">
+            <pre><code class="hljs javascript size-XS">function (name) {
+    return 'hello, ' + name;
+}
+</code></pre>
+        </div>
+        <div style="width: 50%;">
+            <pre class="fragment"><code class="hljs javascript size-XS">name => 'hello, ' + name;</code></pre>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3>Arrow functions</h3>
+    <pre><code class="hljs javascript size-XS">this.showPictures = function () {
+    this.pictutes.forEach(function (picture) {
+        picture.isShown = true;
+        this.showPicture(picture);
+    }, this);
+}</code></pre>
+</section>
+
+<section>
+    <h3>Arrow functions</h3>
+    <pre><code class="hljs javascript size-XS">this.showPictures = () => {
+    this.pictutes.forEach(picture => {
+        picture.isShown = true;
+        this.showPicture(picture);
+    });
+}</code></pre>
+</section>
+
+<section>
+    <h3>Arrow functions</h3>
+    <pre><code class="hljs javascript size-XS">function traditionalFunction() {
+    const arrowFunction = () => console.log(arguments);
+
+    arrowFunction('arrow function');
+}
+
+traditionalFunction('traditional function');</code><code
+    class="fragment hljs javascript size-XS"
+>//{ '0': 'traditional function' }</code></pre>
+</section>
+
+<section>
+    <h3>Arrow functions</h3>
+    <pre><code class="hljs javascript size-XS">const Func = () => this.a = 2;
+new Func()</code><code
+    class="fragment hljs javascript size-XS"
+>//TypeError: Func is not a constructor</code></pre>
+</section>
+
+<section>
+    <h3>Default arguments</h3>
+    <pre><code class="fragment hljs javascript size-XS">function pow(base, exponent) {
+    exponent = exponent === undefined ? 2 : exponent;
+
+    return Math.pow(base, exponent);
+}</code></pre>
+</section>
+
+<section>
+    <h3>Default arguments</h3>
+    <pre><code class="hljs javascript size-XS">function pow(base, exponent = 2) {
+    return Math.pow(base, exponent);
+}</code></pre>
+<pre class="fragment"><code class="hljs javascript size-XS">pow(2);     //4
+pow(2, 3);  //8</code></pre>
+</section>
+
+<section>
+    <h3>Spread operator</h3>
+    <pre class="fragment"><code class="hljs javascript size-XS">Math.max.apply(Math, [-1, 5, 11, 3])
+//11</code></pre>
+    <pre class="fragment"><code class="hljs javascript size-XS">Math.max(...[-1, 5, 11, 3])
+//11</code></pre>
+</section>
+
+<section>
+    <h3>Spread operator</h3>
+    <pre><code class="hljs javascript size-XS">const pets = ['cat', 'dog'];
+const animals = ['bird', ...pets];</code><code class="fragment hljs javascript size-XS">//['bird', 'cat', 'dog']</code></pre>
+</section>
+
+<section>
+    <h3>Destructuring</h3>
+    <pre class="fragment"><code class="hljs javascript size-XS">const array = [1, 2];</code><code
+        class="fragment hljs javascript size-XS"
+>const first = array[0];
+const second = array[1];</code></pre>
+<pre class="fragment"><code class="hljs javascript size-XS">const array = [1, 2];
+const [first, second] = array;
+
+console.log(first);  // 1
+console.log(second); // 2</code></pre>
+</section>
+
+<section>
+    <h3>Destructuring</h3>
+<pre><code class="hljs javascript size-XS">const [first, , third] = [1, 2, 3];
+
+console.log(first); // 1
+console.log(third); // 3</code></pre>
+</section>
+
+<section>
+    <h3>Destructuring</h3>
+<pre><code class="hljs javascript size-XS">const [first, second, ...other] = [1, 2, 3, 4, 5];
+
+console.log(first);  // 1
+console.log(second); // 2
+console.log(other);  // [ 3, 4, 5 ]</code></pre>
+</section>
+
+<section>
+    <h3>Rest parameters</h3>
+<pre><code class="hljs javascript size-XS">function func(first, second, ...other) {
+    console.log(first);  // 1
+    console.log(second); // 2
+    console.log(other);  // [ 3, 4, 5 ]
+}
+
+func(1, 2, 3, 4, 5);
+</code></pre>
+</section>
+
+<section>
+    <h3>Destructuring</h3>
+<pre><code class="hljs javascript size-XS">const [first, second = 2 ] = [1];
+
+console.log(first);  // 1
+console.log(second); // 2</code></pre>
+</section>
+
+<section>
+    <h3>Destructuring</h3>
+<pre><code class="hljs javascript size-XS">const person = {
+    name: 'Vasya',
+    age: 22,
+    gender: 'male'
+};
+const { name, age } = person;
+
+console.log(name); // Vasya
+console.log(age);  // 22</code></pre>
+</section>
+
+<section>
+    <h3>Destructuring</h3>
+<pre><code class="hljs javascript size-XS">const person = {
+    name: 'Vasya',
+    age: 22,
+    gender: 'male'
+};
+const { name: login } = person;
+
+console.log(login); // Vasya</code></pre>
+</section>
+
+<section>
+    <h3>Destructuring</h3>
+<pre><code class="hljs javascript size-XS">const person = {
+    age: 22,
+    gender: 'male'
+};
+const { name = 'noname' } = person;
+
+console.log(name); // noname</code></pre>
+</section>
+
+<section>
+    <h3>Destructuring</h3>
+<pre><code class="hljs javascript size-XS">const person = {
+    name: 'Vasya',
+    hair: { color: 'black', length: 'short' }
+};
+const {
+    name,
+    hair: { color: hairColor, length },
+    eyes: { color: eyeColor = 'green' } = {}
+} = person;
+</code></pre>
+</section>
+
+<section>
+    <h3>Destructuring</h3>
+<pre><code class="hljs javascript size-XS">function happyBirthday({ name, age }) {
+    return 'Happy birthday, ' + name + '!\n' +
+        'You are ' + age + ' years old now!';
+}</code></pre>
+<pre><code class="hljs javascript size-XS">happyBirthday({ name: 'Vasya', age: 22 })
+//Happy birthday, Vasya!
+//You are 22 years old now!
+</code></pre>
+</section>
+
+<section>
+    <h3>Template literals</h3>
+<pre><code class="hljs javascript size-XS">function happyBirthday({ name, age }) {
+    return `Happy birthday, ${name}!
+You are ${age} years old now!`;
+}</code></pre>
+<pre class="fragment"><code class="hljs javascript size-XS">happyBirthday({ name: 'Vasya', age: 22 })
+//Happy birthday, Vasya!
+//You are 22 years old now!
+</code></pre>
+</section>
+
+<section>
+    <h3>Template literals</h3>
+<pre><code class="hljs javascript size-XS">function tag(strings, value1, value2) {
+    console.log(strings);
+    // [ 'Happy birthday, ','! You are ', ' years old now!' ]
+    console.log(value1);  // Vasya
+    console.log(value2);  // 22
+    return `${value1} - ${value2}`;
+}
+const { name, age } = { name: 'Vasya', age: 22 };
+tag`Happy birthday, ${name}! You are ${age} years old now!`;</code><code
+    class="fragment hljs javascript size-XS"
+>//Vasya - 22
+</code></pre>
+</section>
+
+<section>
+    <h3>Template literals</h3>
+    <pre><code style="font-size: 24px;" class="hljs javascript size-XS">import gql from 'graphql-tag';
+const query = gql`
+    query Student($id: ID!) {
+        student(id: $id) {
+            name
+            group {
+                name
+            }
+        }
+    }
+`;</code></pre>
+</section>
+
+<section>
+    <h4>Template literals</h4>
+    <pre><code style="font-size: 18px;" class="hljs javascript size-XS">function gql(/* arguments */) {
+  var args = Array.prototype.slice.call(arguments);
+  var literals = args[0];
+  var result = literals[0];
+  for (var i = 1; i < args.length; i++) {
+    if (args[i] && args[i].kind && args[i].kind === 'Document') {
+      result += args[i].loc.source.body;
+    } else {
+      result += args[i];
+    }
+    result += literals[i];
+  }
+  return parseDocument(result);
+}</code></pre>
+</section>
+
+<section>
+    <h3>for-of</h3>
+<pre><code class="fragment hljs javascript size-XS">['cat', 'dog', 'bird'].forEach(animal => {
+    console.log(animal);
+});</code></pre>
+</section>
+
+<section>
+    <h3>for-of</h3>
+<pre><code class="hljs javascript size-XS">const animals = ['cat', 'dog', 'bird'];
+
+for (const animal of animals) {
+    if (animal === 'human') {
+        break;
+    }
+    console.log(animal);
+}</code></pre>
+</section>
+
+<section>
+    <h3>for-of</h3>
+<pre><code class="hljs javascript size-XS">const animals = ['cat', 'dog', 'bird'];
+
+for (const [index, animal] of animals.entries()) {
+    console.log(index, animal);
+}</code><code class="fragment hljs javascript size-XS">//0 cat
+//1 dog
+//2 bird</code></pre>
+</section>
+
+<section>
+    <h3>Array</h3>
+<pre><code class="fragment hljs javascript size-XS">Array.from({ length: 2, 0: 'a', 1: 'b' }) //['a', 'b']</code><code
+    class="fragment hljs javascript size-XS"
+>Array.from([1, 2, 3], x => x * x) //[1, 4, 9]</code><code
+    class="fragment hljs javascript size-XS"
+>Array.of(1, 2, 3) //[1, 2, 3]</code></pre>
+</section>
+
+<section>
+    <h3>Array</h3>
+    <pre><code
+        class="hljs javascript size-XS"
+    >Array.from(['a', 'b'].keys()) //[ 0, 1 ]</code><code
+        class="fragment hljs javascript size-XS"
+    >Array.from(['a', 'b'].values()) //[ 'a', 'b' ]</code><code
+        class="fragment hljs javascript size-XS"
+    >Array.from(['a', 'b'].entries())
+//[
+//    [ 0, 'a' ],
+//    [ 1, 'b' ]
+//]</code></pre>
+</section>
+
+<section>
+    <h3>Array</h3>
+<pre><code class="fragment hljs javascript size-XS">[6, -5, 8].find(x => x < 0) //-5</code><code
+    class="fragment hljs javascript size-XS"
+>[6, -5, 8].findIndex(x => x < 0) //1</code><code
+    class="fragment hljs javascript size-XS"
+>[1, 2, 3].fill(7) //[ 7, 7, 7 ]</code><code
+    class="fragment hljs javascript size-XS"
+>[1, 2, 3].includes(2) //true</code></pre>
+</section>
+
+<section>
+    <h3>Array</h3>
+<pre><code class="hljs javascript size-XS">arr.includes(x)
+arr.indexOf(x) >= 0</code><code class="fragment hljs javascript size-XS">[NaN].includes(NaN) //true
+[NaN].indexOf(NaN) //-1
+</code></pre>
+</section>
+
+<section>
+    <h3>String</h3>
+<pre><code class="fragment hljs javascript size-XS">'hello'.startsWith('hell') //true</code><code
+    class="fragment hljs javascript size-XS"
+>'hello'.endsWith('llo') //true</code><code
+    class="fragment hljs javascript size-XS"
+>'hello'.includes('ell') //true</code><code
+    class="fragment hljs javascript size-XS"
+>'hello '.repeat(3) //hello hello hello</code></pre>
+</section>
+
+<section>
+    <h3>Object</h3>
+    <pre><code class="fragment hljs javascript size-XS">const name = 'Vasya';
+const objectWithName = { name };</code><code
+    class="fragment hljs javascript size-XS"
+>const objectWithAge = { ['ag' + 'e']: 22 };</code><code
+    class="fragment hljs javascript size-XS"
+>const person = {};
+Object.assign(person, objectWithName, objectWithAge);</code><code
+    class="fragment hljs javascript size-XS"
+>//person
+//{
+//    name: 'Vasya',
+//    age: 22
+//}</code></pre>
+</section>
+
+<section>
+    <h3>Object</h3>
+    <pre><code class="hljs javascript size-XS">const object = {
+    name: 'Vasya',
+    hair: { color: 'black' }
+};
+const clone = Object.assign({}, object);</code><code
+    class="fragment hljs javascript size-XS"
+>object.hair.color = 'blonde';</code><code
+    class="fragment hljs javascript size-XS"
+>//clone
+//{
+//    name: 'Vasya',
+//    hair: { color: 'blonde' }
+//}</code></pre>
+</section>
+
+<section>
+    <h3>Object</h3>
+    <pre><code class="hljs javascript size-XS">const object1 = { name: 'Vasya' };
+const object2 = { name: 'Petya' };
+Object.assign({}, object1, object2);</code><code
+    class="fragment hljs javascript size-XS"
+>//{ name: 'Petya' }</code></pre>
+</section>
+
+
+<section>
+    <h3>Object</h3>
+    <pre><code class="hljs javascript size-XS">const name = 'Vasya';
+const person = {
+    name: 'Vasya',
+    getGreeting() {
+        return `Hello, ${this.name}`;
+    }
+ };</code><code
+    class="fragment hljs javascript size-XS"
+>person.getGreeting() // Hello, Vasya</code></pre>
+</section>
+
+<section>
+    <h3>Map</h3>
+    <pre><code class="fragment hljs javascript size-XS">const map = new Map();</code><code
+        class="fragment hljs javascript size-XS"
+>map.set('key', 5)</code><code
+    class="fragment hljs javascript size-XS"
+>map.get('key') // 5</code><code
+    class="fragment hljs javascript size-XS"
+>map.has('key') // true</code><code
+    class="fragment hljs javascript size-XS"
+>map.delete('key')
+map.has('key') // false</code></pre>
+</section>
+
+<section>
+    <h3>Map</h3>
+    <pre><code class="fragment hljs javascript size-XS">const map = new Map();
+const KEY = { id: 1 };</code><code
+        class="fragment hljs javascript size-XS"
+>map.set(KEY, 5)</code><code
+    class="fragment hljs javascript size-XS"
+>map.get(KEY) // 5</code><code
+        class="fragment hljs javascript size-XS"
+>map.get({ id: 1}) // undefined</code><code
+        class="fragment hljs javascript size-XS"
+>map.set(NaN, 10)</code><code
+    class="fragment hljs javascript size-XS"
+>map.get(NaN) // 10</code></pre>
+</section>
+
+<section>
+    <h3>Map</h3>
+    <pre><code class="hljs javascript size-XS">const map = new Map();
+const KEY = { id: 1 };
+map
+    .set(KEY, { value: 10 })
+    .set('key', 5)
+    .set(Math.pow, a => a * a);</code><code
+        class="fragment hljs javascript size-XS"
+>map.size // 3</code><code
+        class="fragment hljs javascript size-XS"
+>map.clear();
+map.size // 0</code></pre>
+</section>
+
+<section>
+    <h3>Map</h3>
+    <pre><code class="hljs javascript size-XS">const map = new Map([
+    [{ id: 1 }, { value: 10 }],
+    ['key', 5]
+]);
+</code><code class="fragment hljs javascript size-XS">map.keys() //MapIterator { { id: 1 }, 'key' }
+map.values() //MapIterator { { value: 10 }, 5 }
+map.entries()
+//MapIterator { [ { id: 1 }, { value: 10 } ], [ 'key', 5 ] }</code></pre>
+</section>
+
+<section>
+    <h3>Set</h3>
+    <pre><code class="fragment hljs javascript size-XS">const set = new Set();</code><code
+        class="fragment hljs javascript size-XS"
+>set.add('key')</code><code
+    class="fragment hljs javascript size-XS"
+>set.has('key') // true</code><code
+    class="fragment hljs javascript size-XS"
+>set.delete('key')
+set.has('key') // false</code></pre>
+</section>
+
+<section>
+    <h3>Set</h3>
+    <pre><code class="fragment hljs javascript size-XS">const set = new Set();
+const KEY = { id: 1 };</code><code
+        class="fragment hljs javascript size-XS"
+>set.add(KEY)</code><code
+    class="fragment hljs javascript size-XS"
+>set.has(KEY) // true</code><code
+        class="fragment hljs javascript size-XS"
+>set.has({ id: 1}) // false</code><code
+        class="fragment hljs javascript size-XS"
+>set.add(NaN)</code><code
+    class="fragment hljs javascript size-XS"
+>set.has(NaN) // true</code></pre>
+</section>
+
+<section>
+    <h3>Set</h3>
+    <pre><code class="hljs javascript size-XS">const set = new Set();
+const KEY = { id: 1 };
+set
+    .add(KEY)
+    .add('key')
+    .add('key')
+    .add(Math.pow);</code><code
+        class="fragment hljs javascript size-XS"
+>set.size // 3</code><code
+        class="fragment hljs javascript size-XS"
+>set.clear();
+set.size // 0</code></pre>
+</section>
+
+<section>
+    <h3>Set</h3>
+    <pre><code class="hljs javascript size-XS">const set = new Set([
+    { id: 1 },
+    'key'
+]);
+</code><code class="fragment hljs javascript size-XS">for (const elem of set) {
+    console.log(elem);
+}</code><code class="fragment hljs javascript size-XS">//{ id: 1 }
+//key</code></pre>
+</section>
+
+<section>
+    <h3>Set</h3>
+    <pre><code class="hljs javascript size-XS">const array = ['a', 1, 'a', 2, '1'];
+const unique = [...new Set(array)];
+</code><code class="fragment hljs javascript size-XS">//['a', 1, 2, '1']</code></pre>
+</section>
+
+<section>
+    <h3>Class</h3>
+    <pre class="fragment"><code class="hljs javascript size-XS">class Point {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+    toString() {
+        return `(${this.x}, ${this.y})`;
+    }
+}</code></pre>
+</section>
+
+<section>
+    <h3>Class</h3>
+    <pre><code class="hljs javascript size-XS">const p = new Point(1, 2);
+p.toString() // (1, 2)
+p instanceof Point // true</code></pre>
+<pre class="fragment"><code class="hljs javascript size-XS">typeof Point // function
+</code></pre>
+</section>
+
+<section>
+    <h3>Class</h3>
+    <pre><code class="hljs javascript size-XS">const p = Point(1, 2);</code><code
+        class="fragment hljs javascript size-XS"
+    >//TypeError: Class constructor Point cannot be invoked
+//without 'new'
+</code></pre>
+</section>
+
+<section>
+    <h3>Class</h3>
+    <pre><code class="hljs javascript size-XS">class Point {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+    static getZero() { return new Point(0, 0); }
+    toString() { return `(${this.x}, ${this.y})`; }
+}</code></pre>
+<pre class="fragment"><code class="hljs javascript size-XS">Point.getZero() //Point { x: 0, y: 0 }
+</code></pre>
+</section>
+
+<section>
+    <h3>Class</h3>
+    <pre><code class="hljs javascript size-XS">class Point {
+    constructor(x) { this._x = x; }
+    get x() { return this._x; }
+    set x(value) { this._x = value; }
+}</code></pre>
+<pre class="fragment"><code class="hljs javascript size-XS">const p = new Point(1);
+p.x // 1
+p.x = 2;
+p.x // 2</code></pre>
+</section>
+
+<section>
+    <h3>Class</h3>
+    <pre><code class="hljs javascript size-XS">class ColorPoint extends Point {
+    constructor(x, y, color) {
+        super(x, y);
+        this.color = color;
+    }
+    toString() {
+        return `${super.toString()} #${this.color}`;
+    }
+}</code></pre>
+</section>
+
+<section>
+    <h3>Class</h3>
+    <pre><code class="hljs javascript size-XS">const p = new ColorPoint(1, 2, 'fff');
+p.toString() //(1, 2) #fff</code></pre>
+</section>
+
+<section>
+    <h3>Async functions</h3>
+    <pre class="fragment"><code class="hljs javascript size-XS">async function foo() {}
+const foo = async function () {};
+let obj = { async foo() {} }
+const foo = async () => {};</code></pre>
+</section>
+
+<section>
+    <h3>Async functions</h3>
+    <pre><code class="hljs javascript size-XS">async function asyncFunc() {
+    return 123;
+}
+/*async function asyncFunc() {
+    return Promise.resolve(123);
+}*/
+asyncFunc().then(x => console.log(x));
+// 123
+</code></pre>
+</section>
+
+<section>
+    <h3>Async functions</h3>
+    <pre><code class="hljs javascript size-XS">async function asyncFunc() {
+    throw new Error('error');
+}
+/*async function asyncFunc() {
+    return Promise.reject(new Error('error'));
+}*/
+asyncFunc().catch(error => console.log(error));
+// Error: error
+</code></pre>
+</section>
+
+<section>
+    <h3>Async functions</h3>
+    <pre><code class="hljs javascript size-XS">async function asyncFunc() {
+    const result = await otherAsyncFunc();
+    console.log(result);
+}
+</code></pre>
+</section>
+
+<section>
+    <h3>Async functions</h3>
+    <pre><code class="hljs javascript size-XS">async function asyncFunc() {
+    try {
+        await otherAsyncFunc();
+    } catch (err) {
+        console.error(err);
+    }
+}
+</code></pre>
+</section>
+
+<section>
+    <h3>Async functions</h3>
+    <pre><code class="hljs javascript size-XS">(async () => {
+    console.log(await asyncFunction());
+})();
+</code></pre>
+</section>
+
+<section>
+    <h3>Async functions</h3>
+    <pre><code class="hljs javascript size-XS">async function func() {
+    const result1 = await asyncFunc1();
+    const result2 = await asyncFunc2();
+}
+</code><code class="fragment hljs javascript size-XS">//выолняется последовательно</code></pre>
+</section>
+
+<section>
+    <h3>Async functions</h3>
+    <pre><code class="hljs javascript size-XS">async function func() {
+    const [result1, result2] = await Promise.all([
+        asyncFunc1(),
+        asyncFunc2()
+    ]);
+}
+</code><code class="fragment hljs javascript size-XS">//выолняется параллельно</code></pre>
+</section>
+
+<section>
+    <h3>Async functions</h3>
+    <pre><code class="hljs javascript size-XS">async function func() {
+    return await asyncFunction();
+}
+</code></pre>
+<div  class="fragment" style="text-align: center;">=</div>
+<pre class="fragment"><code class="hljs javascript size-XS">async function func() {
+    return asyncFunction();
+}
+</code></pre>
+</section>
+
+<section>
+    <h3>Modules</h3>
+    <pre><code class="hljs javascript size-XS">//math.js
+function add(a, b) { return a + b; }
+function mult(a, b) { return a * b; }
+var pi = 3.14;
+module.exports = {
+    add: add,
+    mult: mult,
+    pi: pi
+};</code></pre>
+</section>
+
+<section>
+    <h3>Modules</h3>
+    <pre><code class="hljs javascript size-XS">//math.js
+export function add(a, b) { return a + b; }
+export function mult(a, b) { return a * b; }
+export const pi = 3.14;</code></pre>
+</section>
+
+<section>
+    <h3>Modules</h3>
+    <pre><code class="hljs javascript size-XS">import { pi, add } from './math';
+add(2, pi) // 5.14</code></pre>
+</section>
+
+<section>
+    <h3>Modules</h3>
+    <pre><code class="hljs javascript size-XS">import * as math from './math';
+math.add(2, math.pi) // 5.14
+math.mult(2, 2) // 4</code></pre>
+</section>
+
+<section>
+    <h3>Modules</h3>
+    <pre><code class="hljs javascript size-XS">//math.js
+export default function add(a, b) { return a + b; }
+export function mult(a, b) { return a * b; }
+export const pi = 3.14;</code></pre>
+</section>
+
+<section>
+    <h3>Modules</h3>
+    <pre><code class="hljs javascript size-XS">import add, { pi } from './math';
+add(2, pi) // 5.14</code></pre>
+</section>
+
+<section>
+    <h3>Modules</h3>
+    <pre><code class="hljs javascript size-XS">//supermath.js
+export * from './math';
+export function sub(a, b) { return a - b; }</code></pre>
+</section>
+
+<section>
+    <a target="_blank" href="https://kangax.github.io/compat-table/es6/">Поддержка ES6</a><br>
+    <a target="_blank" href="https://kangax.github.io/compat-table/es2016plus/">Поддержка ES2016+</a>
+</section>
+
+<section>
+    <h3>Babel</h3>
+    <pre><code class="fragment hljs bash size-XS">npm install --save-dev babel-cli babel-preset-es2015
+</code><code class="fragment hljs bash size-XS">./node_modules/.bin/babel index.js --presets es2015
+</code><code class="fragment hljs javascript size-XS">echo '{ "presets": ["es2015"] }' > .babelrc
+./node_modules/.bin/babel index.js
+</code></pre>
+</section>
+
+<section>
+    <h3>Babel</h3>
+    <a target="_blank" href="https://babeljs.io/repl/#?babili=false&evaluate=true&lineWrap=false&presets=es2015%2Ces2016%2Ces2017&targets=&browsers=&builtIns=false&debug=false&code=">Песочница</a>
+</section>
+
+<section>
+    <h3>Ссылки</h3>
+    <a target="_blank" href="http://exploringjs.com">JavaScript books by Dr. Axel Rauschmayer</a><br>
+    <a target="_blank" href="https://github.com/lukehoban/es6features">https://github.com/lukehoban/es6features</a><br>
+    <a target="_blank" href="https://hacks.mozilla.org/category/es6-in-depth/">es6 in depth</a>
+</section>
+
+</div></div>
+
+<script src="../lib/js/head.min.js"></script>
+<script src="../js/reveal.js"></script>
+<script>
+    Reveal.initialize({
+        controls: false,
+        center: true,
+        history: true,
+        hideAddressBar: true,
+        progress: true,
+        slideNumber: 'c',
+        transition: 'slide',
+        width: '100%',
+        height: '100%',
+        margin: 0,
+        minScale: 1,
+        maxScale: 1,
+        dependencies: [
+            { src: '../plugin/notes/notes.js', async: true },
+            {
+                src: '../plugin/highlight/highlight.js',
+                async: true,
+                callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            },
+            {
+                src: '../plugin/menu/menu.js'
+            }
+        ],
+        menu: {
+            side: 'left',
+            numbers: false,
+            titleSelector: 'h1, h2, h3, h4, h5, h6',
+            hideMissingTitles: true,
+            markers: true,
+            custom: false,
+            themes: false,
+            transitions: false,
+            openButton: true,
+            openSlideNumber: false,
+            keyboard: true
+        },
+    });
+</script>
+</body>
+</html>
